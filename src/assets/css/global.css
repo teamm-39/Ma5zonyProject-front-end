@@ -1,0 +1,7 @@
+@font-face {
+  font-family: "cairo";
+  src: url('../fonts/Cairo-Medium.ttf');
+}
+*{
+  font-family: "cairo";
+}
