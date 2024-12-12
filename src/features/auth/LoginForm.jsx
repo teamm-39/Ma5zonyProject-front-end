@@ -35,7 +35,7 @@ function LoginForm() {
         });
         setTimeout(() => {
           navigate('/');
-        }, 500);
+        }, 700);
       } else {
           toast.current.show({severity:'error', summary: 'خطأ', detail:'البريد الالكترونى غير صحيح او كلمة السر غير صحيحه', life: 3000});
       }

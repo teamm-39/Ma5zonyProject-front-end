@@ -1,7 +1,7 @@
 function HomePage() {
   return (
     <>
-      <div></div>
+      <div className="fs-1">asdasdasd</div>
     </>
    );
 }

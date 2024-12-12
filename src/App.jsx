@@ -5,19 +5,24 @@ import "primereact/resources/themes/lara-light-indigo/theme.css"; // الموض�
 import "primereact/resources/primereact.min.css"; // الأسلوب العام للمكونات
 import "primeicons/primeicons.css"; // أيقونات PrimeReact
 import { PrimeReactProvider } from "primereact/api";
-import NavBar from "./features/NavBar.jsx";
 import HomePage from "./pages/home/HomePage.jsx";
+import { Provider } from "react-redux";
+import store from "./stores/reduxStore.js";
+import PrivateRoutes from "./components/PrivateRoutes.jsx";
+import Layout from "./layouts/Layout.jsx";
 
 function App() {
   return (
     <>
       <PrimeReactProvider>
-        <Routes>
-          <Route element={<NavBar />} >
-          <Route path="/" element={<HomePage />} />
-          </Route>
-          <Route path="/Login" element={<LoginPage />} />
-        </Routes>
+        <Provider store={store}>
+          <Routes>
+            <Route path="/Login" element={<LoginPage />} />
+            <Route path="/" element={<PrivateRoutes child={<Layout />} />}>
+              <Route index element={<HomePage />} />
+            </Route>
+          </Routes>
+        </Provider>
       </PrimeReactProvider>
     </>
   );
