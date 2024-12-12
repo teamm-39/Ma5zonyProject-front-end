@@ -5,3 +5,23 @@
 *{
   font-family: "cairo";
 }
+.loading-spiner{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px);
+}
+.p-toast-message-icon{
+  display: none;
+}
+.p-toast-message-content{
+  padding: .5rem;
+}
+.p-toast-message-text{
+  padding-inline-start: .5rem;
+}

@@ -1,23 +1,36 @@
 import { InputText } from "primereact/inputtext";
 import { FloatLabel } from "primereact/floatlabel";
 import { Button } from 'primereact/button';
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Password } from 'primereact/password';
 import { useMutation } from "@tanstack/react-query";
 import { login } from "./services/login";
+import { useNavigate } from "react-router-dom";
+import AppLoadingSpiner from "../../components/AppLoadminSpiner";
+import { Toast } from 'primereact/toast';
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isValid,setIsValid] = useState(true)
+  const navigate = useNavigate();
   useEffect(() => {
     if (email.length > 0) {
       const exp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       setIsValid(exp.test(email));
     }
   }, [email]);
+  const toast = useRef(null);
   const mutation = useMutation({
     mutationFn: async () => {
       return await login(email, password);
+    }
+    , onSuccess: async(data) => {
+      if (data.isSuccess)
+      {
+        navigate('/')
+      } else {
+          toast.current.show({severity:'error', summary: 'خطأ', detail:'البريد الالكترونى غير صحيح او كلمة السر غير صحيحه', life: 3000});
+      }
     }
   });
   const handelSubmit = (e) => {
@@ -31,7 +44,8 @@ function LoginForm() {
   }
   return (
     <>
-      <div className="login-form">
+      <Toast ref={toast}  />
+      <div className="login-form p-relative">
         <p className="form-title">تسجيل الدخول</p>
         <div className="form mt-4 pt-3">
           <form onSubmit={handelSubmit}>
@@ -55,6 +69,7 @@ function LoginForm() {
             </div>
           </form>
         </div>
+        <AppLoadingSpiner isLoading={mutation.isPending} />
       </div>
     </>
   );

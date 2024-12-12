@@ -8,7 +8,7 @@ export const login = async (email, password) => {
     });
     return response.data;
   } catch (e) {
-    console.log(e);
-    
+    console.log(e,"asdasd");
+
   }
 };
