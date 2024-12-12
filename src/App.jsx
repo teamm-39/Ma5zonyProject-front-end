@@ -6,16 +6,18 @@ import "primereact/resources/primereact.min.css"; // الأسلوب العام �
 import "primeicons/primeicons.css"; // أيقونات PrimeReact
 import { PrimeReactProvider } from "primereact/api";
 import NavBar from "./features/NavBar.jsx";
+import HomePage from "./pages/home/HomePage.jsx";
 
 function App() {
   return (
     <>
       <PrimeReactProvider>
         <Routes>
+          <Route element={<NavBar />} >
+          <Route path="/" element={<HomePage />} />
+          </Route>
           <Route path="/Login" element={<LoginPage />} />
-
         </Routes>
-        <NavBar />
       </PrimeReactProvider>
     </>
   );
