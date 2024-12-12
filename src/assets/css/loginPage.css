@@ -34,7 +34,16 @@
 left: unset;
 right: 0.8rem;
 }
+.password-label{
+right: 1.9rem !important;
+}
 .reset-pass{
   font-size: 12px;
-  margin-left: 2px;
+  margin-right: 2px;
+}
+.p-icon-field , .p-component{
+  width: 100%;
+}
+svg{
+  vertical-align: unset !important;
 }
