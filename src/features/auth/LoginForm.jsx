@@ -27,7 +27,15 @@ function LoginForm() {
     , onSuccess: async(data) => {
       if (data.isSuccess)
       {
-        navigate('/')
+        toast.current.show({
+          severity: 'success',
+          summary: 'نجاح',
+          detail: 'تم تسجيل الدخول بنجاح',
+          life: 1000,
+        });
+        setTimeout(() => {
+          navigate('/');
+        }, 500);
       } else {
           toast.current.show({severity:'error', summary: 'خطأ', detail:'البريد الالكترونى غير صحيح او كلمة السر غير صحيحه', life: 3000});
       }
