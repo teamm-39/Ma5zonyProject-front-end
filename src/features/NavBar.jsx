@@ -1,6 +1,6 @@
 function NavBar() {
   return (
-    <div className="card">
+    <div className="nav-container">
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <a className="navbar-brand" href="#">
