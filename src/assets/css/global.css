@@ -1,11 +1,11 @@
 @font-face {
   font-family: "cairo";
-  src: url('../fonts/Cairo-Medium.ttf');
+  src: url("../fonts/Cairo-Medium.ttf");
 }
-*{
+* {
   font-family: "cairo";
 }
-.loading-spiner{
+.loading-spiner {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -16,12 +16,15 @@
   justify-content: center;
   backdrop-filter: blur(6px);
 }
-.p-toast-message-icon{
+.p-toast-message-icon {
   display: none;
 }
-.p-toast-message-content{
-  padding: .5rem;
+.p-toast-message-content {
+  padding: 0.5rem;
 }
-.p-toast-message-text{
-  padding-inline-start: .5rem;
+.p-toast-message-text {
+  padding-inline-start: 0.5rem;
+}
+.side-bar {
+  width: 25%;
 }
