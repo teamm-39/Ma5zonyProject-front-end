@@ -1,0 +1,62 @@
+/* تنسيق الصفحة الرئيسية */
+
+.homepage-container {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f8;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+
+/* العنوان الرئيسي */
+
+.header .title {
+    font-size: 2.5rem;
+    color: #004aad;
+    margin: 0;
+}
+
+.header .subtitle {
+    font-size: 1.2rem;
+    color: #555;
+    margin: 5px 0 20px;
+}
+
+
+/* حاوية البطاقات */
+
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+
+/* تنسيق البطاقة */
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card .icon {
+    font-size: 2.5rem;
+    color: #004aad;
+    margin-bottom: 10px;
+}
+
+.card h3 {
+    font-size: 1.2rem;
+    color: #333;
+    margin: 0;
+}
