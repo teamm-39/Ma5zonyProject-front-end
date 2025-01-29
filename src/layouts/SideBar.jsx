@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function SideBar() {
   return (
     <>
@@ -5,11 +7,11 @@ function SideBar() {
         <ul className="menu m-0">
         <li className="menu-item active">
             <img src="icons/warehouse.svg" alt="إدارة المخازن" />
-            <span> لوحة التحكم</span>
+            <Link to="/"> لوحة التحكم</Link>
           </li>
           <li className="menu-item">
             <img src="icons/warehouse.svg" alt="إدارة المخازن" />
-            <span>إدارة المخازن</span>
+            <Link to="/store">إدارة المخازن</Link>
           </li>
           <li className="menu-item">
             <img src="icons/users.svg" alt="إدارة المستخدمين" />
