@@ -1,7 +1,11 @@
 import "../../assets/css/HomePage.css";
+import { IsLogedin } from "../../features/auth/services/IsLogedin";
 function HomePage() {
+  // const x=async ()=>{
+  //   aswait IsLogedin()
+  // }
   return (
-    <div className="homepage-container">
+    <div className="homepage-container m-0 p-0 pt-5">
       <header className="header">
         <h1 className="title">مخزون</h1>
         <p className="subtitle">إدارة المستودعات والمخازن</p>
