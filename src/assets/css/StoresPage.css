@@ -1,7 +1,7 @@
 h2{
 margin: 0;
 font-family: Arial, sans-serif;
-direction rtl;
+direction: rtl;
 background-color: #f8f9fa;
 }
 .top-bar {
@@ -16,7 +16,7 @@ padding: 10px 20px;
 font-size: 24px;
 margin: 0;
 }
-.logo p { 
+.logo p {
 font-size: 12px;
 margin: 0;
 opacity: 0.8;
@@ -70,5 +70,7 @@ padding: 30px;
 border-radius: 5px;
 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-  font-size: 5rem !important ;
-  /* text-align: center; */
+  h1 {
+    font-size: 5rem !important;
+    /* text-align: center; */
+  }

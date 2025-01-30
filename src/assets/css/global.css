@@ -1,89 +1,89 @@
 @font-face {
-    font-family: "cairo";
-    src: url("../fonts/Cairo-Medium.ttf");
+  font-family: "cairo";
+  src: url("../fonts/Cairo-Medium.ttf");
 }
 
 * {
-    font-family: "cairo";
+  font-family: "cairo";
 }
 
 .loading-spiner {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(6px);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px);
 }
 
 .p-toast-message-icon {
-    display: none;
+  display: none;
 }
 
 .p-toast-message-content {
-    padding: 0.5rem;
+  padding: 0.5rem;
 }
 
 .p-toast-message-text {
-    padding-inline-start: 0.5rem;
+  padding-inline-start: 0.5rem;
 }
 
 .side-bar {
-    width: 22%;
+  width: 22%;
 }
 
 body {
-    /* Reset Styles */
-    body {
-        margin: 0;
-        padding: 0;
-        direction: rtl;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #f4f4f9;
-    }
-    .sidebar {
-        background-color: #e6e6fa;
-        /* لون الخلفية */
-        width: 250px;
-        height: 100vh;
-        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-        padding-top: 20px;
-    }
-    .menu {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-    .menu-item {
-        display: flex;
-        align-items: center;
-        padding: 12px 20px;
-        color: #333;
-        cursor: pointer;
-        font-size: 16px;
-        border-radius: 5px;
-        transition: background-color 0.3s, color 0.3s;
-    }
-    .menu-item img {
-        width: 20px;
-        height: 20px;
-        margin-left: 10px;
-    }
-    .menu-item.active {
-        background-color: #87cefa;
-        /* لون تمييز العنصر النشط */
-        color: #000;
-    }
-    .menu-item:hover {
-        background-color: #dcdcec;
-        /* لون عند تمرير الماوس */
-        color: #000;
-    }
-    .menu-item span {
-        font-weight: bold;
-    }
+  /* Reset Styles */
+  body {
     margin: 0;
+    padding: 0;
+    direction: rtl;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f9;
+  }
+  .sidebar {
+    background-color: #e6e6fa;
+    /* لون الخلفية */
+    width: 250px;
+    height: 100vh;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    padding-top: 20px;
+  }
+  .menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: #333;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  .menu-item img {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+  }
+  .menu-item.active {
+    background-color: #87cefa;
+    /* لون تمييز العنصر النشط */
+    color: #000;
+  }
+  .menu-item:hover {
+    background-color: #dcdcec;
+    /* لون عند تمرير الماوس */
+    color: #000;
+  }
+  .menu-item span {
+    font-weight: bold;
+  }
+  margin: 0;
 }
