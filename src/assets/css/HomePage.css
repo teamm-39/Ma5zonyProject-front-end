@@ -1,9 +1,8 @@
-/* تنسيق الصفحة الرئيسية */
 
 .homepage-container {
     text-align: center;
     font-family: Arial, sans-serif;
-    background-color: #f0f4f8;
+    background-color: var(--main-bg);
     padding: 20px;
     min-height: 100vh;
 }

@@ -36,25 +36,7 @@ border-radius: 50%;
 font-size: 22px;
 cursor: pointer;
 }
-.sidebar {
-background-color: #e9ecef;
-padding: 20px;
-height: 100vh;
-}
-.sidebar .nav-link {
-color: black;
-font-size: 16px;
-padding: 10px;
-display: flex;
-align-items: center;
-gap: 8px;
-}
-.sidebar .nav-link:hover,
-.sidebar .nav-item.active .nav-link {
-background-color: #00bcd4;
-border-radius: 5px;
-color: white;
-}
+
 .content {
 padding: 20px;
 }
