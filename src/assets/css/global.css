@@ -32,3 +32,18 @@
 .p-toast-message-text {
   padding-inline-start: 0.5rem;
 }
+.p-breadcrumb {
+  padding: 1rem 1rem;
+  text-align: center;
+  width: 98%;
+  margin: 0 auto;
+}
+.p-breadcrumb-list{
+  margin: unset;
+}
+.p-breadcrumb-chevron{
+  rotate: 180deg;
+}
+.p-menuitem-link{
+  text-decoration: none;
+}

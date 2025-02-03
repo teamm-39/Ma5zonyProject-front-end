@@ -1,7 +1,12 @@
 import "../../assets/css/HomePage.css";
+import AppBreadCrumb from "../../components/AppBreadCrumb";
 function HomePage() {
+  const items = [
+    { label: "لوحة التحكم"},
+  ];
   return (
-    <div className="homepage-container m-0 p-0 pt-5">
+    <div className="homepage-container m-0 p-0 pt-3">
+      <AppBreadCrumb items={items} />
       <header className="header">
         <h1 className="title">مخزون</h1>
         <p className="subtitle">إدارة المستودعات والمخازن</p>

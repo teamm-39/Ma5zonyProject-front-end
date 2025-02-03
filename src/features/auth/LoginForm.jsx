@@ -6,7 +6,7 @@ import { Password } from "primereact/password";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "./services/login";
 import { useNavigate } from "react-router-dom";
-import AppLoadingSpiner from "../../components/AppLoadminSpiner";
+import AppLoadingSpiner from "../../components/AppLoadingSpiner";
 import { Toast } from "primereact/toast";
 import { useDispatch } from "react-redux";
 import { logedIn } from "../../services/LoginService";
