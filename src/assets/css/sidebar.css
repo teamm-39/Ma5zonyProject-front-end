@@ -1,23 +1,33 @@
-.side-bar {
-  width: 22%;
-  border-left: 1px solid #ccc;
-}
 .sidebar {
-  background-color: #f8f9fa !important;
-  width: 250px;
+  background-color: #ffffff !important;
+  width: 300px;
   height: 100vh;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  padding: 20px 10px;
+  border-left: #E5E5E5 solid 1px;
 }
 .menu {
   list-style: none;
-  padding: 0;
+  padding: 25px 10px;
   margin: 0;
+}
+.brand-name h3{
+  font-size: 25px;
+  background-color: unset;
+  font-family: unset;
+  color: #333333 !important;
+}
+.navbar-brand {
+  border-bottom: #E5E5E5 solid 1px;
+  height: 66px !important;
+  background-color: #FAFAFA;
+}
+.brand-span{
+  font-size: 8px;
+  color: #333333 !important;
 }
 .menu-item {
   display: flex;
   align-items: center;
-  color: #333;
+  color: #333333;
   cursor: pointer;
   font-size: 16px;
   border-radius: 5px;
@@ -34,14 +44,10 @@
 .menu-item:hover {
   background-color: #cccccc5e;
 }
-.menu-item span {
-  font-weight: bold;
-}
 .menu-item .link {
   text-decoration: none;
-  color:black;
+  color:#333333;
   width: 100%;
-  font-weight: bolder;
   align-items: center;
   align-content: center;
   padding: 12px 20px;

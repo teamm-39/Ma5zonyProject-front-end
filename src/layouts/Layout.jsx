@@ -4,17 +4,17 @@ import SideBar from "./SideBar";
 
 const Layout = () => {
   return (
-    <div>
-      <NavBar />
-      <div className="d-flex">
-        <div className="side-bar">
+    <>
+      <div className="w-100">
+        <div className="side-bar d-flex w-100">
           <SideBar />
-        </div>
-        <div className="lay-out-content w-100">
-          <Outlet />
+          <div className="w-100">
+            <NavBar />
+            <Outlet />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
