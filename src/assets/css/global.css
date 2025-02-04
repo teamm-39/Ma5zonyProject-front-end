@@ -11,7 +11,7 @@
   --main-border: #e5e5e5;
   --blue-color: #09589d;
   --darck-blue: #084b85;
-  --blue-500:#4F46E5;
+  --blue-500: #4f46e5;
 }
 .loading-spiner {
   position: absolute;
@@ -67,9 +67,7 @@
   padding: 1rem;
   min-height: 89vh;
 }
-.p-component {
-  width: unset;
-}
+
 .btn-reuse {
   border-radius: 0.6rem;
   padding: 0.5rem 1.5rem;
@@ -77,7 +75,11 @@
   font-weight: normal;
   text-decoration: none;
   outline: unset;
-  box-shadow: unset;
+}
+.btn-reuse:focus {
+  outline: unset;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 .taple-header-info {
   background-color: white;
@@ -98,96 +100,96 @@
   border-radius: 0.2rem;
   font-size: 10px;
 }
-.table-container{
+.table-container {
   background-color: white;
-  padding: .5rem;
+  padding: 0.5rem;
   border: 1px solid var(--main-border);
   position: relative;
 }
-.p-datatable-thead{
-  border:.5px solid rgba(112,144,176,.4);
+.p-datatable-thead {
+  border: 0.5px solid rgba(112, 144, 176, 0.4);
 }
-.p-datatable-thead th{
-  padding: .7rem 1rem;
+.p-datatable-thead th {
+  padding: 0.7rem 1rem;
   font-size: 13px;
   color: #5f5f5fbe;
   font-weight: normal;
 }
-.p-column-header-content{
+.p-column-header-content {
   display: flex;
   justify-content: center;
-
 }
-.p-datatable-tbody td{
+.p-datatable-tbody td {
   text-align: center;
   font-size: 13px;
-  border-bottom:1px solid var(--main-border) ;
-  padding: .7rem 1rem;
+  border-bottom: 1px solid var(--main-border);
+  padding: 0.7rem 1rem;
 }
-.table-actions{
-  padding: .3rem .3rem;
+.table-actions {
+  padding: 0.3rem 0.3rem;
   border: 1px solid var(--main-border);
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #fff;
 }
-.p-paginator{
+.p-paginator {
   width: 100%;
   background-color: unset;
   padding: 8px 8px !important;
 }
-.p-paginator .p-dropdown{
+.p-paginator .p-dropdown {
   margin-left: auto;
   direction: ltr;
   align-items: center;
   height: 32px;
   padding: 8px;
+  width: unset;
 }
-.p-dropdown-label{
+.p-dropdown-label {
   margin-inline-end: 10px;
   padding: 5px;
   font-size: 10px;
 }
-.p-dropdown-trigger{
+.p-dropdown-trigger {
   width: unset;
 }
-.p-dropdown-trigger svg{
-  width: .5rem;
+.p-dropdown-trigger svg {
+  width: 0.5rem;
 }
-.p-paginator-prev
-,.p-paginator-next{
+.p-paginator-prev,
+.p-paginator-next {
   rotate: 180deg;
-  width: .9rem;
+  width: 0.9rem;
 }
 .p-paginator-page,
 .p-paginator-prev,
-.p-paginator-next{
+.p-paginator-next {
   min-width: unset;
   height: unset;
 }
-.p-paginator-page{
+.p-paginator-page {
   font-size: 13px;
-  padding: .1rem .4rem;
-  border-radius: .3rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.3rem;
   align-content: center;
 }
-.p-paginator .p-paginator-pages .p-paginator-page.p-highlight{
-background-color: var(--blue-500);
-color: white;
+.p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  background-color: var(--blue-500);
+  color: white;
 }
-.p-paginator-pages{
+.p-paginator-pages {
   display: flex;
   gap: 5px;
   align-items: center;
 }
-.p-dropdown-items{
-  padding: .5rem .5rem;
+.p-dropdown-items {
+  padding: 0.5rem 0.5rem;
 }
-.p-dropdown-item{
-  padding: .5rem;
+.p-dropdown-item {
+  padding: 0.5rem;
   justify-content: center;
   font-size: 13px;
-  border-radius: .4rem;
+  border-radius: 0.4rem;
 }
