@@ -42,11 +42,20 @@ function StoreAddForm() {
         detail: "تمت اضافة المخزن بنجاح",
         life: 3000,
       });
+
       navigate("/store")
       formData.name = "";
       formData.country = "";
       formData.city = "";
     },
+    onError: () => {
+      toast.current.show({
+        severity: "error",
+        summary: "فشل",
+        detail: "لم يتم اضافة المخزن",
+        life: 3000,
+      });
+    }
   });
   return (
     <>
@@ -124,7 +133,7 @@ function StoreAddForm() {
           }
           className="btn-reuse"
           onClick={() => {
-            mutate(formData);
+            mutate(formData,toast);
           }}
         />
       </div>
