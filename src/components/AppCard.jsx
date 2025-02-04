@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 function AppCard({ children }) {
   return (
     <>
-      <div className="app-card container">
+      <div className="app-card container position-relative">
         {children}
       </div>
     </>

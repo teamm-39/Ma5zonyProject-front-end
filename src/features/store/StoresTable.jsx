@@ -24,9 +24,10 @@ function StoresTable() {
         pageNumber={pageNumber}
         pageSize={pageSize}
         onPageChange={handlePageChange}
-        data={data}
+        data={data?.data}
         total={data?.total}
         isLoading={isFetching}
+        addUrl="/store/new"
       >
         <Column header="#" field="storeId" />
         <Column header="اسم المخزن" field="name" />

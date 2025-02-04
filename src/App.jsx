@@ -11,19 +11,30 @@ import PrivateRoutes from "./components/PrivateRoutes.jsx";
 import Layout from "./layouts/Layout.jsx";
 import StoresPage from "./pages/store/StoresPage.jsx";
 import "./assets/css/global.css";
+import AddStore from "./pages/store/AddStore.jsx";
+import { createContext, useRef } from "react";
+import { Toast } from "primereact/toast";
+export const ToastContext = createContext(null);
 function App() {
+  const toastRef = useRef(null);
   return (
     <>
       <PrimeReactProvider>
+        <ToastContext.Provider value={toastRef}>
+          <Toast ref={toastRef}/>
         <Provider store={store}>
           <Routes>
             <Route path="/Login" element={<LoginPage />} />
             <Route path="/" element={<PrivateRoutes child={<Layout />} />}>
               <Route index element={<HomePage />} />
-              <Route path="/store" element={<StoresPage/>}/>
+              <Route path="/store" >
+                <Route index element={<StoresPage />} />
+                <Route path="new" element={<AddStore />}/>
+                </Route>
             </Route>
           </Routes>
         </Provider>
+        </ToastContext.Provider>
       </PrimeReactProvider>
     </>
   );

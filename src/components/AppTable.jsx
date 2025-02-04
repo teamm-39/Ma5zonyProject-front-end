@@ -12,6 +12,7 @@ function AppTable({
   pageSize,
   pageNumber,
   isLoading,
+  addUrl
 }) {
   return (
     <>
@@ -21,7 +22,7 @@ function AppTable({
           <span className="table-total">{total}</span>
         </div>
         <div className="header-btn">
-          <Link to="">
+          <Link to={addUrl}>
             <Button
               label="اضافة جديد"
               severity="Primary"
@@ -33,7 +34,7 @@ function AppTable({
       </div>
       <div className="table-container">
         <DataTable
-          value={data?.data}
+          value={data}
           paginatorTemplate="RowsPerPageDropdown  PrevPageLink PageLinks NextPageLink "
           rows={pageSize}
           onPage={onPageChange}
@@ -53,13 +54,14 @@ function AppTable({
 }
 AppTable.propTypes = {
   title: PropTypes.string.isRequired,
-  total: PropTypes.number.isRequired,
+  total: PropTypes.number,
   children: PropTypes.node.isRequired,
-  data: PropTypes.array.isRequired,
+  data: PropTypes.array,
   pageSize: PropTypes.number.isRequired,
   pageNumber: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
-  isLoading:PropTypes.bool.isRequired
+  isLoading: PropTypes.bool.isRequired,
+  addUrl:PropTypes.string.isRequired
 };
 
 export default AppTable;

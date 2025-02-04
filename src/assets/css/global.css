@@ -75,6 +75,7 @@
   font-weight: normal;
   text-decoration: none;
   outline: unset;
+  width: auto;
 }
 .btn-reuse:focus {
   outline: unset;
@@ -192,4 +193,38 @@
   justify-content: center;
   font-size: 13px;
   border-radius: 0.4rem;
+}
+.p-dropdown-panel {
+  width: unset;
+}
+.card-title {
+  background-color: white;
+  border-radius: 0.6rem 0.6rem 0 0;
+  padding: 0.7rem 2rem;
+  font-size: 13px;
+  color: var(--blue-color) !important;
+  border: 1px solid var(--main-border);
+  border-bottom: none;
+}
+.card-container {
+  background-color: white;
+  border: 1px solid var(--main-border);
+  border-radius: 0.4rem 0 0.4rem 0.4rem;
+  padding: 1rem 1.5rem;
+}
+
+.input-container label {
+  margin-bottom: 0.5rem;
+  font-size: 13px;
+}
+.input-container .p-inputtext {
+  padding: 0.4rem;
+  font-size: 14px;
+}
+.star{
+  color: red;
+}
+.input-warning{
+  font-size: 13px;
+  color: #e24c4c;
 }
