@@ -2,8 +2,17 @@ import { DataTable } from "primereact/datatable";
 import { Link } from "react-router-dom";
 import { Button } from "primereact/button";
 import PropTypes from "prop-types";
-
-function AppTable({ title, total, children, data }) {
+import AppLoadingSpinner from "./AppLoadingSpinner";
+function AppTable({
+  title,
+  data,
+  total,
+  onPageChange,
+  children,
+  pageSize,
+  pageNumber,
+  isLoading,
+}) {
   return (
     <>
       <div className="taple-header d-flex justify-content-between align-items-center mt-4">
@@ -24,15 +33,20 @@ function AppTable({ title, total, children, data }) {
       </div>
       <div className="table-container">
         <DataTable
-          value={data}
-          paginatorTemplate="RowsPerPageDropdown PrevPageLink   PageLinks NextPageLink "
-          rows={5}
+          value={data?.data}
+          paginatorTemplate="RowsPerPageDropdown  PrevPageLink PageLinks NextPageLink "
+          rows={pageSize}
+          onPage={onPageChange}
+          first={(pageNumber - 1) * pageSize}
           rowsPerPageOptions={[5, 10, 25, 50]}
           paginator
-          className=""
+          totalRecords={total}
+          lazy
+          className="position-relative"
         >
           {children}
         </DataTable>
+          <AppLoadingSpinner isLoading={isLoading} />
       </div>
     </>
   );
@@ -42,6 +56,10 @@ AppTable.propTypes = {
   total: PropTypes.number.isRequired,
   children: PropTypes.node.isRequired,
   data: PropTypes.array.isRequired,
+  pageSize: PropTypes.number.isRequired,
+  pageNumber: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+  isLoading:PropTypes.bool.isRequired
 };
 
 export default AppTable;

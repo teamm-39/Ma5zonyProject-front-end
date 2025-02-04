@@ -6,10 +6,10 @@ import { Password } from "primereact/password";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "./services/login";
 import { useNavigate } from "react-router-dom";
-import AppLoadingSpiner from "../../components/AppLoadingSpiner";
 import { Toast } from "primereact/toast";
 import { useDispatch } from "react-redux";
 import { logedIn } from "../../services/LoginService";
+import AppLoadingSpinner from "../../components/AppLoadingSpinner";
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -108,7 +108,7 @@ function LoginForm() {
             </div>
           </form>
         </div>
-        <AppLoadingSpiner isLoading={mutation.isPending} />
+        <AppLoadingSpinner isLoading={mutation.isPending} />
       </div>
     </>
   );
