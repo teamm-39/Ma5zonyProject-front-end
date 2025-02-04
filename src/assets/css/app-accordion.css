@@ -1,0 +1,29 @@
+.p-accordion-header-link{
+  direction: ltr;
+  display: flex;
+  justify-content: space-between;
+  color: #333333;
+  text-decoration: none;
+  font-weight: normal;
+  background-color: white !important;
+  border: unset;
+}
+.p-accordion-header-text{
+  text-align: end;
+}
+.p-accordion-header.p-highlight .p-icon{
+  rotate: 180deg;
+}
+.p-accordion-header .p-icon{
+  rotate: 90deg;
+}
+.search{
+  border: 1px solid var(--main-border);
+  border-radius: 6px;
+}
+.p-accordion-tab{
+  margin: unset;
+}
+.p-accordion .p-accordion-content{
+  border: unset;
+}

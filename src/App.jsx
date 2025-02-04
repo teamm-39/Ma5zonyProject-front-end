@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/auth/LoginPage.jsx";
-import "./assets/css/global.css";
 import "primereact/resources/themes/lara-light-indigo/theme.css"; // الموضوع
 import "primereact/resources/primereact.min.css"; // الأسلوب العام للمكونات
 import "primeicons/primeicons.css"; // أيقونات PrimeReact
@@ -11,6 +10,7 @@ import store from "./stores/reduxStore.js";
 import PrivateRoutes from "./components/PrivateRoutes.jsx";
 import Layout from "./layouts/Layout.jsx";
 import StoresPage from "./pages/store/StoresPage.jsx";
+import "./assets/css/global.css";
 function App() {
   return (
     <>

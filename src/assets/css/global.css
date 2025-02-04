@@ -6,8 +6,11 @@
 * {
   font-family: "cairo";
 }
-:root{
-  --main-bg:#f0f4f8;
+:root {
+  --main-bg: #f0f4f8;
+  --main-border: #e5e5e5;
+  --blue-color: #09589d;
+  --darck-blue: #084b85;
 }
 .loading-spiner {
   position: fixed;
@@ -33,17 +36,116 @@
   padding-inline-start: 0.5rem;
 }
 .p-breadcrumb {
-  padding: 1rem 1rem;
+  padding: 0.5rem 1rem;
   text-align: center;
-  width: 98%;
+  width: 100%;
   margin: 0 auto;
+  border: 1px solid var(--main-border);
 }
-.p-breadcrumb-list{
+.p-breadcrumb-list {
   margin: unset;
 }
-.p-breadcrumb-chevron{
+.p-breadcrumb-chevron {
   rotate: 180deg;
+  width: 13px;
+  margin-top: 3px;
 }
-.p-menuitem-link{
+.bread-curent {
   text-decoration: none;
+  font-size: 13px;
+  cursor: default;
+  color: black;
+}
+.bread-link {
+  text-decoration: none;
+  color: rgb(102, 102, 102);
+  font-size: 13px;
+}
+.app-card {
+  background-color: var(--main-bg);
+  padding: 1rem;
+  min-height: 89vh;
+}
+.p-component {
+  width: unset;
+}
+.btn-reuse {
+  border-radius: 0.6rem;
+  padding: 0.5rem 1.5rem;
+  font-size: 12px;
+  font-weight: normal;
+  text-decoration: none;
+  outline: unset;
+  box-shadow: unset;
+}
+.taple-header-info {
+  background-color: white;
+  border-radius: 0.6rem 0.6rem 0 0;
+  padding: 0.7rem 2rem;
+  font-size: 13px;
+}
+.table-title {
+  color: var(--blue-color);
+  align-content: center;
+}
+.table-total {
+  background-color: var(--darck-blue);
+  color: white;
+  padding: 0.1rem 0.2rem;
+  line-height: 0.2rem;
+  align-content: center;
+  border-radius: 0.2rem;
+  font-size: 10px;
+}
+.table-container{
+  background-color: white;
+  padding: .5rem;
+  border: 1px solid var(--main-border);
+}
+.p-datatable-thead{
+  border:.5px solid rgba(112,144,176,.4);
+}
+.p-datatable-thead th{
+  padding: .7rem 1rem;
+  font-size: 13px;
+  color: #5f5f5fbe;
+  font-weight: normal;
+}
+.p-column-header-content{
+  display: flex;
+  justify-content: center;
+
+}
+.p-datatable-tbody td{
+  text-align: center;
+  font-size: 13px;
+  border-bottom:1px solid var(--main-border) ;
+  padding: .7rem 1rem;
+}
+.table-actions{
+  padding: .3rem .3rem;
+  border: 1px solid var(--main-border);
+  border-radius: .5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+}
+.p-paginator .p-dropdown{
+  margin-left: auto;
+  direction: ltr;
+  align-items: center;
+  height: 32px;
+  padding: 8px;
+}
+.p-dropdown-label{
+  margin-inline-end: 10px;
+  padding: 5px;
+  font-size: 10px;
+}
+.p-dropdown-trigger{
+  width: unset;
+}
+.p-dropdown-trigger svg{
+  width: .5rem;
 }
