@@ -12,6 +12,7 @@
   --blue-color: #09589d;
   --darck-blue: #084b85;
   --blue-500: #4f46e5;
+  --disabled-bg:#F6F8F9;
 }
 .loading-spiner {
   position: absolute;
@@ -227,4 +228,14 @@
 .input-warning{
   font-size: 13px;
   color: #e24c4c;
+}
+.input-disabled{
+  background-color: var(--main-bg);
+  color: black !important;
+  opacity: 1;
+  padding: 1rem !important;
+  border: none;
+}
+.bg-white{
+  background-color: white !important;
 }

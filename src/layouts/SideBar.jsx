@@ -1,59 +1,52 @@
 import { Link, useLocation } from "react-router-dom";
 import "../assets/css/sidebar.css";
 import logo from "../assets/imgs/baner/logo.svg";
+
 function SideBar() {
   const location = useLocation();
+  const isActive = (path) => {
+    return location.pathname.startsWith(path) ? "active" : "";
+  };
   return (
     <>
       <div className="sidebar">
-      <Link
-        className="navbar-brand"
-        to="/"
-      >
+        <Link className="navbar-brand" to="/">
           <div className="navbar-brand d-flex align-items-center p-0 m-0 gap-2">
-          <img src={logo} alt="logo" className="me-2" width={30} style={{ height: "50px" }} />
-        <div className="brand-name text-center me- d-flex flex-column">
-          <h3 className="fw-bold p-0 m-0 ">مخزون</h3>
-          <span className="brand-span m-0 p-0">
-            ادارة المستودعات والمخازن
-          </span>
-        </div>
-        </div>
-      </Link>
+            <img
+              src={logo}
+              alt="logo"
+              className="me-2"
+              width={30}
+              style={{ height: "50px" }}
+            />
+            <div className="brand-name text-center me- d-flex flex-column">
+              <h3 className="fw-bold p-0 m-0 ">مخزون</h3>
+              <span className="brand-span m-0 p-0">
+                ادارة المستودعات والمخازن
+              </span>
+            </div>
+          </div>
+        </Link>
         <ul className="menu m-0">
-          <li
-            className={`menu-item ${location.pathname == "/" ? "active" : ""}`}
-          >
+          <li className={`menu-item ${location.pathname=="/"?"active":""}`}>
             <Link to="/" className="link">
               <i className="bi bi-house-door ms-2"></i>
               لوحة التحكم
             </Link>
           </li>
-          <li
-            className={`menu-item ${
-              location.pathname == "/store" ? "active" : ""
-            }`}
-          >
+          <li className={`menu-item ${isActive("/store")}`}>
             <Link to="/store" className="link">
               <i className="bi bi-building ms-2"></i>
               إدارة المخازن
             </Link>
           </li>
-          <li
-            className={`menu-item ${
-              location.pathname == "/users" ? "active" : ""
-            }`}
-          >
+          <li className={`menu-item ${isActive("/users")}`}>
             <Link to="/users" className="link">
               <i className="bi bi-people ms-2"></i>
               إدارة المستخدمين
             </Link>
           </li>
-          <li
-            className={`menu-item ${
-              location.pathname == "/customers" ? "active" : ""
-            }`}
-          >
+          <li className={`menu-item ${isActive("/customers")}`}>
             <Link to="/customers" className="link">
               <i className="bi bi-person-lines-fill ms-2"></i>
               إدارة العملاء

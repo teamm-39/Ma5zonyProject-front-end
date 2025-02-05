@@ -2,21 +2,36 @@ import { Column } from "primereact/column";
 import AppTable from "../../components/AppTable";
 import AppTableActions from "../../components/AppTableActions";
 import tableIcon from "../../assets/icons/table-icon.svg";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getStores } from "./services/getStores";
-import { useState } from "react";
-
+import { useContext, useState } from "react";
+import {deleteStore} from "./services/deleteStore"
+import { ToastContext } from "../../App";
 function StoresTable() {
   const [pageNumber, setPageNumber] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const { data, isFetching } = useQuery({
-    queryKey: ["storesData", pageNumber, pageSize],
+    queryKey: ["stores", pageNumber, pageSize],
     queryFn: () => getStores(pageNumber, pageSize),
   });
   const handlePageChange = (event) => {
     setPageNumber(event.page + 1);
     setPageSize(event.rows);
   };
+  const queryClient = useQueryClient();
+  const toast=useContext(ToastContext)
+  const { mutate,isPending} = useMutation({
+    mutationFn: deleteStore,
+    onSuccess: () => {
+      toast.current.show({
+        severity: "success",
+        summary: "نجاح",
+        detail: "تم حذف المخزن بنجاح",
+        life: 3000,
+      });
+      queryClient.invalidateQueries(["stores"])
+    }
+  })
   return (
     <>
       <AppTable
@@ -26,7 +41,7 @@ function StoresTable() {
         onPageChange={handlePageChange}
         data={data?.data}
         total={data?.total}
-        isLoading={isFetching}
+        isLoading={isFetching||isPending}
         addUrl="/store/new"
       >
         <Column header="#" field="storeId" />
@@ -39,9 +54,9 @@ function StoresTable() {
           body={(rowData) => (
             <AppTableActions
               rowData={rowData}
-              details="/store/details"
-              edit="/store/edit"
-              onDelete={(id) => console.log("Delete item with ID:", id)}
+              details={`/store/details/${rowData.storeId}`}
+              edit={`/store/edit/${rowData.storeId}`}
+              onDelete={() => mutate(rowData.storeId,toast) }
             />
           )}
         />
