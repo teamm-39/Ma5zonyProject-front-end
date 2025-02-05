@@ -1,13 +1,20 @@
-import AppPagesCard from "../../components/AppPagesCard";
 import { InputText } from "primereact/inputtext";
+import AppPagesCard from "../../components/AppPagesCard";
 import { Button } from "primereact/button";
-import { useContext, useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import { addStore } from "./services/addStore";
-import AppLoadingSpinner from "../../components/AppLoadingSpinner";
+import { useContext, useEffect, useState } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import getStore from "./services/getStore";
+import { useNavigate, useParams } from "react-router-dom";
 import { ToastContext } from "../../App";
-import { useNavigate } from "react-router-dom";
-function StoreAddForm() {
+import AppLoadingSpinner from "../../components/AppLoadingSpinner";
+import editStore from "./services/editStore";
+function StoreEditForm() {
+  const { id } = useParams();
+  const toast = useContext(ToastContext);
+  const { data, isFetching } = useQuery({
+    queryKey: ["getStore", id],
+    queryFn: () => getStore(id, toast),
+  });
   const [invalidName, setInvalidName] = useState(false);
   const [invalidCountry, setInvalidCountry] = useState(false);
   const [invalidCity, setInvalidCity] = useState(false);
@@ -16,6 +23,15 @@ function StoreAddForm() {
     country: "",
     city: "",
   });
+  useEffect(() => {
+    if (data) {
+      setFormData({
+        name: data.data.name || "",
+        country: data.data.country || "",
+        city: data.data.city || "",
+      });
+    }
+  }, [data]);
   const handleChange = (e, field) => {
     setFormData((prev) => ({
       ...prev,
@@ -32,36 +48,23 @@ function StoreAddForm() {
     }
   };
   const navigate = useNavigate();
-  const toast = useContext(ToastContext);
-  const { mutate, isPending } = useMutation({
-    mutationFn: addStore,
+  const {mutate,isPending} = useMutation({
+    mutationFn: editStore,
     onSuccess: () => {
       toast.current.show({
         severity: "success",
         summary: "نجاح",
-        detail: "تمت اضافة المخزن بنجاح",
+        detail: "تم تعديل المخزن بنجاح",
         life: 3000,
       });
-
-      navigate("/store")
-      formData.name = "";
-      formData.country = "";
-      formData.city = "";
-    },
-    onError: () => {
-      toast.current.show({
-        severity: "error",
-        summary: "فشل",
-        detail: "لم يتم اضافة المخزن",
-        life: 3000,
-      });
+      navigate("/store");
     }
   });
   return (
     <>
-      <AppPagesCard title="اضافة مخزن">
-        <div className="row ">
-          <div className="col-12 col-md-6">
+      <AppPagesCard title="تعديل المخزن">
+        <div className="row">
+          <div className="col-md-6 col-12">
             <div className="input-container">
               <label htmlFor="name">اسم المخزن</label>
               <span className="star">*</span>
@@ -80,7 +83,7 @@ function StoreAddForm() {
               )}
             </div>
           </div>
-          <div className="col-12 col-md-6">
+          <div className="col-md-6 col-12">
             <div className="input-container">
               <label htmlFor="country">الدوله</label>
               <span className="star">*</span>
@@ -88,8 +91,8 @@ function StoreAddForm() {
                 id="country"
                 value={formData.country}
                 onChange={(e) => handleChange(e, "country")}
-                className={invalidCountry ? "p-invalid" : ""}
                 aria-describedby="username-help"
+                className={invalidCountry ? "p-invalid" : ""}
                 placeholder="ادخل الدوله"
               />
               {invalidCountry && (
@@ -99,7 +102,7 @@ function StoreAddForm() {
               )}
             </div>
           </div>
-          <div className="col-12 col-md-6 my-4">
+          <div className="col-md-6 col-12 my-4">
             <div className="input-container">
               <label htmlFor="city">المدينه</label>
               <span className="star">*</span>
@@ -107,8 +110,8 @@ function StoreAddForm() {
                 id="city"
                 value={formData.city}
                 onChange={(e) => handleChange(e, "city")}
-                className={invalidCity ? "p-invalid" : ""}
                 aria-describedby="username-help"
+                className={invalidCity ? "p-invalid" : ""}
                 placeholder="ادخل المدينه"
               />
               {invalidCity && (
@@ -133,13 +136,18 @@ function StoreAddForm() {
           }
           className="btn-reuse"
           onClick={() => {
-            mutate(formData,toast);
+            mutate({
+              storeId: id,
+              name: formData.name,
+              country: formData.country,
+              city:formData.city
+            },toast);
           }}
         />
       </div>
-      <AppLoadingSpinner isLoading={isPending} />
+      <AppLoadingSpinner isLoading={isFetching||isPending} />
     </>
   );
 }
 
-export default StoreAddForm;
+export default StoreEditForm;

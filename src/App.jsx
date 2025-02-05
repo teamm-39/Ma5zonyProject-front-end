@@ -15,6 +15,7 @@ import AddStore from "./pages/store/AddStore.jsx";
 import { createContext, useRef } from "react";
 import { Toast } from "primereact/toast";
 import StoreDetails from "./pages/store/StoreDetails.jsx";
+import StoreEdit from "./pages/store/StoreEdit.jsx";
 export const ToastContext = createContext(null);
 function App() {
   const toastRef = useRef(null);
@@ -32,6 +33,7 @@ function App() {
                 <Route index element={<StoresPage />} />
                 <Route path="new" element={<AddStore />}/>
                 <Route path="details/:id" element={<StoreDetails />}/>
+                <Route path="edit/:id" element={<StoreEdit />}/>
                 </Route>
             </Route>
           </Routes>
