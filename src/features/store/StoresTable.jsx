@@ -1,4 +1,5 @@
 import { Column } from "primereact/column";
+import PropTypes from 'prop-types';
 import AppTable from "../../components/AppTable";
 import AppTableActions from "../../components/AppTableActions";
 import tableIcon from "../../assets/icons/table-icon.svg";
@@ -7,12 +8,12 @@ import { getStores } from "./services/getStores";
 import { useContext, useState } from "react";
 import {deleteStore} from "./services/deleteStore"
 import { ToastContext } from "../../App";
-function StoresTable() {
+function StoresTable({filterValues}) {
   const [pageNumber, setPageNumber] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const { data, isFetching } = useQuery({
-    queryKey: ["stores", pageNumber, pageSize],
-    queryFn: () => getStores(pageNumber, pageSize),
+    queryKey: ["stores", pageNumber, pageSize,filterValues.name,filterValues.country,filterValues.city],
+    queryFn: () => getStores(pageNumber, pageSize,filterValues.name,filterValues.country,filterValues.city),
   });
   const handlePageChange = (event) => {
     setPageNumber(event.page + 1);
@@ -64,5 +65,12 @@ function StoresTable() {
     </>
   );
 }
+StoresTable.propTypes = {
+  filterValues: PropTypes.shape({
+    name: PropTypes.string,
+    country: PropTypes.string,
+    city:PropTypes.string
+  }).isRequired
+};
 
 export default StoresTable;
