@@ -2,29 +2,34 @@
   background-color: #ffffff !important;
   width: 300px;
   height: 100vh;
-  border-left: #E5E5E5 solid 1px;
+  border-left: #e5e5e5 solid 1px;
 }
-.menu {
+
+.sidebar .menu {
   list-style: none;
   padding: 25px 10px;
   margin: 0;
 }
-.brand-name h3{
+
+.sidebar .brand-name h3 {
   font-size: 25px;
   background-color: unset;
   font-family: unset;
   color: #333333 !important;
 }
-.navbar-brand {
-  border-bottom: #E5E5E5 solid 1px;
+
+.sidebar .navbar-brand {
+  border-bottom: #e5e5e5 solid 1px;
   height: 66px !important;
-  background-color: #FAFAFA;
+  background-color: #fafafa;
 }
-.brand-span{
+
+.sidebar .brand-span {
   font-size: 8px;
   color: #333333 !important;
 }
-.menu-item {
+
+.sidebar .menu-item, .sidebar .p-accordion-header {
   display: flex;
   align-items: center;
   color: #333333;
@@ -32,24 +37,66 @@
   font-size: 16px;
   border-radius: 5px;
   margin-bottom: 5px;
+  overflow: hidden;
 }
-.menu-item img {
+
+.sidebar .menu-item img {
   width: 20px;
   height: 20px;
   margin-left: 10px;
 }
-.menu-item.active {
-  background-color: #cccccc5e;
+
+.sidebar .menu-item:hover,
+.sidebar .menu-item.active {
+  background-color: #cccccc5e !important;
 }
-.menu-item:hover {
-  background-color: #cccccc5e;
-}
-.menu-item .link {
+
+.sidebar .menu-item .link,
+.sidebar .p-accordion-header-link {
   text-decoration: none;
-  color:#333333;
+  color: #333333;
   width: 100%;
   align-items: center;
   align-content: center;
-  padding: 12px 20px;
+  padding: 12px 20px !important;
 }
 
+.sidebar .p-accordion-header:hover {
+  background-color: #cccccc5e !important;
+}
+
+.sidebar .p-accordion-header-text {
+  line-height: unset !important;
+}
+
+.sidebar .p-accordion .p-accordion-header .p-accordion-header-link {
+  background-color: transparent !important;
+}
+
+.sidebar .p-accordion .p-accordion-content {
+  padding: 0px 20px;
+}
+
+.sidebar .accordion-menu {
+  list-style: none;
+  border-right: 2px solid #cccccc5e;
+  font-size: 13px;
+  padding: 0 5px !important;
+}
+
+.sidebar .accordion-menu .link-accordion {
+  padding: 8px 10px !important;
+  border-radius: 6px;
+  width: 100%;
+  display: inline-block;
+  text-decoration: none;
+  color: #333333;
+}
+.sidebar .accordion-menu .link-accordion:hover{
+  background-color: #cccccc5e;
+}
+.sidebar .accordion-sidebar .active,
+.p-accordion-header.p-highlight{
+  background-color: #cccccc5e !important;
+  opacity: 1;
+}

@@ -9,13 +9,11 @@ import { Provider } from "react-redux";
 import store from "./stores/reduxStore.js";
 import PrivateRoutes from "./components/PrivateRoutes.jsx";
 import Layout from "./layouts/Layout.jsx";
-import StoresPage from "./pages/store/StoresPage.jsx";
 import "./assets/css/global.css";
-import AddStore from "./pages/store/AddStore.jsx";
 import { createContext, useRef } from "react";
 import { Toast } from "primereact/toast";
-import StoreDetails from "./pages/store/StoreDetails.jsx";
-import StoreEdit from "./pages/store/StoreEdit.jsx";
+import StoreRoutes from "./router/StoreRoutes.jsx";
+import OwnerRoutes from "./router/OwnerRoutes.jsx";
 export const ToastContext = createContext(null);
 function App() {
   const toastRef = useRef(null);
@@ -23,21 +21,17 @@ function App() {
     <>
       <PrimeReactProvider>
         <ToastContext.Provider value={toastRef}>
-          <Toast ref={toastRef}/>
-        <Provider store={store}>
-          <Routes>
-            <Route path="/Login" element={<LoginPage />} />
-            <Route path="/" element={<PrivateRoutes child={<Layout />} />}>
-              <Route index element={<HomePage />} />
-              <Route path="/store" >
-                <Route index element={<StoresPage />} />
-                <Route path="new" element={<AddStore />}/>
-                <Route path="details/:id" element={<StoreDetails />}/>
-                <Route path="edit/:id" element={<StoreEdit />}/>
-                </Route>
-            </Route>
-          </Routes>
-        </Provider>
+          <Toast ref={toastRef} />
+          <Provider store={store}>
+            <Routes>
+              <Route path="/Login" element={<LoginPage />} />
+              <Route path="/" element={<PrivateRoutes child={<Layout />} />}>
+                <Route index element={<HomePage />} />
+                {StoreRoutes()}
+                {OwnerRoutes()}
+              </Route>
+            </Routes>
+          </Provider>
         </ToastContext.Provider>
       </PrimeReactProvider>
     </>

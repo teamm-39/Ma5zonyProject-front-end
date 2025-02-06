@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import "../assets/css/sidebar.css";
 import logo from "../assets/imgs/baner/logo.svg";
+import { Accordion, AccordionTab } from "primereact/accordion";
 
 function SideBar() {
   const location = useLocation();
@@ -28,7 +29,9 @@ function SideBar() {
           </div>
         </Link>
         <ul className="menu m-0">
-          <li className={`menu-item ${location.pathname=="/"?"active":""}`}>
+          <li
+            className={`menu-item ${location.pathname == "/" ? "active" : ""}`}
+          >
             <Link to="/" className="link">
               <i className="bi bi-house-door ms-2"></i>
               لوحة التحكم
@@ -40,11 +43,36 @@ function SideBar() {
               إدارة المخازن
             </Link>
           </li>
-          <li className={`menu-item ${isActive("/users")}`}>
-            <Link to="/users" className="link">
-              <i className="bi bi-people ms-2"></i>
-              إدارة المستخدمين
-            </Link>
+          <li className={`accordion-sidebar`}>
+            <Accordion>
+              <AccordionTab
+                header={
+                  <div>
+                    إدارة المستخدمين
+                    <i className="bi bi-people ms-2"></i>
+                  </div>
+                }
+              >
+                <ul className="accordion-menu p-0">
+                  <li className="mb-1">
+                    <Link
+                      to="/owner"
+                      className={`link-accordion ${isActive("/owner")}`}
+                    >
+                      إدارة الملاك
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/users"
+                      className={`link-accordion ${isActive("/users")}`}
+                    >
+                      إدارة الموظفين
+                    </Link>
+                  </li>
+                </ul>
+              </AccordionTab>
+            </Accordion>
           </li>
           <li className={`menu-item ${isActive("/customers")}`}>
             <Link to="/customers" className="link">
