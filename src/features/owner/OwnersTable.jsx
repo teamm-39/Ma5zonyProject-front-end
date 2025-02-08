@@ -50,7 +50,7 @@ function OwnersTable({ filterValues }) {
           field="imgUrl"
           body={(rowData) =>
             rowData.imgUrl && rowData.imgUrl.trim() !== "" ? (
-              <img src={rowData.imgUrl} alt="صورة المالك" className="table-profile-img" />
+              <img src={`http://makhzon.runasp.net/profilePicture/${rowData.imgUrl}`} alt="صورة المالك" className="table-profile-img" />
             ) : (
               <img src={blankProfile} alt="صورة المالك" className="table-profile-img" />
             )
