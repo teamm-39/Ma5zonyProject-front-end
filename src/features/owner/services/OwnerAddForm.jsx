@@ -5,12 +5,12 @@ import blankUpload from "../../../assets/imgs/blank-upload-img.svg"; // Add blan
 import { Button } from "primereact/button";
 import { InputNumber } from "primereact/inputnumber";
 import { Password } from "primereact/password";
-import  {ToastContext}  from "../../../App";
+import { ToastContext } from "../../../App";
 import { useMutation } from "@tanstack/react-query";
-import {addOwner} from "../services/addOwner";
+import { addOwner } from "../services/addOwner";
 import { useNavigate } from "react-router-dom";
 import AppLoadingSpinner from "../../../components/AppLoadingSpinner";
-
+import closeIcon from "../../../assets/icons/close-icon.svg";
 function OwnerAddForm() {
   const [imagePreview, setImagePreview] = useState(blankUpload);
   const [formData, setFormData] = useState({
@@ -43,6 +43,13 @@ function OwnerAddForm() {
       };
       reader.readAsDataURL(file);
     }
+  };
+  const handleRemoveImage = () => {
+    setFormData((prev) => ({
+      ...prev,
+      img: null, // إزالة الصورة من النموذج
+    }));
+    setImagePreview(blankUpload);
   };
   const [invalidName, setInvalidName] = useState(false);
   const [invalidUserName, setInvalidUserName] = useState(false);
@@ -78,7 +85,10 @@ function OwnerAddForm() {
       isValid = false;
       setInvalidPassword(true);
     }
-    if (formData.password !== formData.confirmPassword || !passwordRegex.test(formData.password)) {
+    if (
+      formData.password !== formData.confirmPassword ||
+      !passwordRegex.test(formData.password)
+    ) {
       isValid = false;
       setPasswordIsNotEqualConfirmPassword(true);
     }
@@ -86,7 +96,7 @@ function OwnerAddForm() {
   };
   const toast = useContext(ToastContext);
   const navigate = useNavigate();
-  const { mutate,isPending } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: addOwner,
     onSuccess: () => {
       toast.current.show({
@@ -106,22 +116,22 @@ function OwnerAddForm() {
         confirmPassword: "",
         age: null,
         img: null,
-      })
+      });
     },
     onError: (e) => {
       toast.current.show({
         severity: "error",
         summary: "فشل",
-        detail: e.message||"حدث خطأ غير متوقع",
+        detail: e.message || "حدث خطأ غير متوقع",
         life: 3000,
       });
-    }
-  })
+    },
+  });
   const handleSubmit = () => {
     if (!isValidData()) {
-      return
+      return;
     }
-    mutate(formData,toast);
+    mutate(formData, toast);
   };
   return (
     <>
@@ -129,7 +139,7 @@ function OwnerAddForm() {
         <div className="row">
           <div className="col-md-6 col-12 align-content-center order-md-1 order-0">
             <div className="input-container">
-              <div className="text-center">
+              <div className="d-flex justify-content-center">
                 {imagePreview == blankUpload ? (
                   <img
                     src={imagePreview}
@@ -143,18 +153,29 @@ function OwnerAddForm() {
                     onClick={() => document.getElementById("image").click()}
                   />
                 ) : (
-                  <img
-                    src={imagePreview}
-                    alt="profile preview"
-                    className="profile-preview"
-                    style={{
-                      width: "160px",
-                      height: "160px",
-                      cursor: "pointer",
-                      borderRadius: "50%",
-                    }}
-                    onClick={() => document.getElementById("image").click()}
-                  />
+                  <>
+                    <div className="position-relative">
+                      <img
+                        src={imagePreview}
+                        alt="profile preview"
+                        className="profile-preview position-relative"
+                        style={{
+                          width: "160px",
+                          height: "160px",
+                          cursor: "pointer",
+                          borderRadius: "50%",
+                          objectFit: "cover",
+                          objectPosition:"top"
+                        }}
+                        onClick={() => document.getElementById("image").click()}
+                      />
+                      <img
+                        src={closeIcon}
+                        className="position-absolute close-profile-img"
+                        onClick={handleRemoveImage}
+                      />
+                    </div>
+                  </>
                 )}
               </div>
               <input
@@ -284,7 +305,10 @@ function OwnerAddForm() {
                     ...prev,
                     password: e.target.value,
                   }));
-                  setInvalidPassword(!e.target.value.trim()||!passwordRegex.test(e.target.value));
+                  setInvalidPassword(
+                    !e.target.value.trim() ||
+                      !passwordRegex.test(e.target.value)
+                  );
                 }}
                 aria-describedby="password-help"
                 invalid={invalidPassword}
@@ -293,8 +317,8 @@ function OwnerAddForm() {
               />
               {invalidPassword && (
                 <small className="input-warning">
-                  يجب ان تحتوى كلمة المرور على حرف صغير وحرف
-                  كبير و ارقام ولا يقل طول كلمة المرور عن 6 احرف
+                  يجب ان تحتوى كلمة المرور على حرف صغير وحرف كبير و ارقام ولا
+                  يقل طول كلمة المرور عن 6 احرف
                 </small>
               )}
             </div>

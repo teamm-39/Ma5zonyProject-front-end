@@ -12,7 +12,7 @@
   --blue-color: #09589d;
   --darck-blue: #084b85;
   --blue-500: #4f46e5;
-  --disabled-bg:#F6F8F9;
+  --disabled-bg: #f6f8f9;
 }
 .loading-spiner {
   position: absolute;
@@ -224,25 +224,34 @@
   padding: 0.4rem;
   font-size: 14px;
 }
-.star{
+.star {
   color: red;
 }
-.input-warning{
+.input-warning {
   font-size: 13px;
   color: #e24c4c;
 }
-.input-disabled{
+.input-disabled {
   background-color: var(--main-bg);
   color: black !important;
   opacity: 1;
   padding: 1rem !important;
   border: none;
 }
-.bg-white{
+.bg-white {
   background-color: white !important;
 }
-.table-profile-img{
+.table-profile-img {
   width: 30px;
   height: 30px;
   border-radius: 50%;
+}
+.close-profile-img {
+  right: 5px;
+  top: 10%;
+  background: #e7e7e7;
+  padding: 2px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  cursor: pointer;
 }

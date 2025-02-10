@@ -44,8 +44,9 @@ function SideBar() {
             </Link>
           </li>
           <li className={`accordion-sidebar`}>
-            <Accordion>
+            <Accordion activeIndex={isActive("/owner")=="active"?0:undefined}>
               <AccordionTab
+
                 header={
                   <div>
                     إدارة المستخدمين
@@ -53,7 +54,7 @@ function SideBar() {
                   </div>
                 }
               >
-                <ul className="accordion-menu p-0">
+                <ul className={`accordion-menu p-0`}>
                   <li className="mb-1">
                     <Link
                       to="/owner"
