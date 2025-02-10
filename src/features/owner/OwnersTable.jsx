@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import AppTable from "../../components/AppTable";
 import PropTypes from "prop-types";
 import { useQuery } from "@tanstack/react-query";
@@ -30,9 +30,6 @@ function OwnersTable({ filterValues }) {
     ],
     queryFn: () => getOwners(pageNumber, pageSize, filterValues, toast),
   });
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
   return (
     <>
       <AppTable
@@ -50,9 +47,9 @@ function OwnersTable({ filterValues }) {
           field="imgUrl"
           body={(rowData) =>
             rowData.imgUrl && rowData.imgUrl.trim() !== "" ? (
-              <img src={`http://makhzon.runasp.net/profilePicture/${rowData.imgUrl}`} alt="صورة المالك" className="table-profile-img" />
+              <img src={`http://makhzon.runasp.net/profilePicture/${rowData.imgUrl}`} alt="صورة المالك" onError={(e) => (e.target.src = blankProfile)} className="table-profile-img" />
             ) : (
-              <img src={blankProfile} alt="صورة المالك" className="table-profile-img" />
+              <img src={blankProfile}  alt="صورة المالك" className="table-profile-img" />
             )
           }
         />
@@ -62,8 +59,8 @@ function OwnersTable({ filterValues }) {
           rowData.age&&rowData.age>0?(rowData.age):("لم يتم ادخال العمر")
         } />
         <Column header="رقم الهاتف" field="phone" body={(rowData) =>
-          rowData.phone && rowData.phone.trim() !==""? (
-            rowData.phone
+          rowData.phoneNumber && rowData.phoneNumber.trim() !==""? (
+            rowData.phoneNumber
           ):("لم يتم ادخال رقم الهاتف")
         } />
         <Column header="مكان الاقامه" field="address" body={(rowData) =>
