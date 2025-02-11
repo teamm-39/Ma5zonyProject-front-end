@@ -47,7 +47,7 @@ function OwnersTable({ filterValues }) {
           field="imgUrl"
           body={(rowData) =>
             rowData.imgUrl && rowData.imgUrl.trim() !== "" ? (
-              <img src={`http://makhzon.runasp.net/profilePicture/${rowData.imgUrl}`} alt="صورة المالك" onError={(e) => (e.target.src = blankProfile)} className="table-profile-img" />
+              <img src={`${import.meta.env.VITE_PROFILE_IMGS}${rowData.imgUrl}`} alt="صورة المالك" onError={(e) => (e.target.src = blankProfile)} className="table-profile-img" />
             ) : (
               <img src={blankProfile}  alt="صورة المالك" className="table-profile-img" />
             )
@@ -75,8 +75,8 @@ function OwnersTable({ filterValues }) {
                   body={(rowData) => (
                     <AppTableActions
                       rowData={rowData}
-                      details={`/store/details/${rowData.id}`}
-                      edit={`/store/edit/${rowData.id}`}
+                      details={`/owner/details/${rowData.id}`}
+                      edit={`/owner/edit/${rowData.id}`}
                       // onDelete={() => mutate(rowData.storeId,toast) }
                     />
                   )}

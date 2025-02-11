@@ -1,7 +1,7 @@
 import { InputText } from "primereact/inputtext";
 import AppPagesCard from "../../components/AppPagesCard";
 import { useContext, useState } from "react";
-import blankUpload from "../../assets/imgs/blank-upload-img.svg"; // Add blank profile image
+import blankUpload from "../../assets/imgs/blank-upload-img.svg"; 
 import { Button } from "primereact/button";
 import { InputNumber } from "primereact/inputnumber";
 import { Password } from "primereact/password";
