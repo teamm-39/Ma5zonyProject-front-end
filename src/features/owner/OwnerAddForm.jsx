@@ -1,16 +1,16 @@
 import { InputText } from "primereact/inputtext";
-import AppPagesCard from "../../../components/AppPagesCard";
+import AppPagesCard from "../../components/AppPagesCard";
 import { useContext, useState } from "react";
-import blankUpload from "../../../assets/imgs/blank-upload-img.svg"; // Add blank profile image
+import blankUpload from "../../assets/imgs/blank-upload-img.svg"; // Add blank profile image
 import { Button } from "primereact/button";
 import { InputNumber } from "primereact/inputnumber";
 import { Password } from "primereact/password";
-import { ToastContext } from "../../../App";
+import { ToastContext } from "../../App";
 import { useMutation } from "@tanstack/react-query";
-import { addOwner } from "../services/addOwner";
+import { addOwner } from "./services/addOwner";
 import { useNavigate } from "react-router-dom";
-import AppLoadingSpinner from "../../../components/AppLoadingSpinner";
-import closeIcon from "../../../assets/icons/close-icon.svg";
+import AppLoadingSpinner from "../../components/AppLoadingSpinner";
+import closeIcon from "../../assets/icons/close-icon.svg";
 function OwnerAddForm() {
   const [imagePreview, setImagePreview] = useState(blankUpload);
   const [formData, setFormData] = useState({
@@ -62,14 +62,14 @@ function OwnerAddForm() {
   ] = useState(false);
 
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
-
+  const userNameRegx = /^[a-zA-Z0-9]+$/;
   const isValidData = () => {
     let isValid = true;
     if (!formData.name.trim()) {
       isValid = false;
       setInvalidName(true);
     }
-    if (!formData.userName.trim()) {
+    if (!formData.userName.trim() || !userNameRegx.test(formData.userName)) {
       isValid = false;
       setInvalidUserName(true);
     }
@@ -214,14 +214,14 @@ function OwnerAddForm() {
                 value={formData.userName}
                 onChange={(e) => {
                   handleChange(e);
-                  setInvalidUserName(!e.target.value.trim());
+                  setInvalidUserName(!e.target.value.trim()||!userNameRegx.test(e.target.value));
                 }}
                 aria-describedby="username-help"
                 className={invalidUserName ? "p-invalid" : ""}
                 placeholder="ادخل اسم المستخدم"
               />
               {invalidUserName && (
-                <small className="input-warning">هذا الحقل مطلوب</small>
+                <small className="input-warning">يجب ان يحتوى اسم المستخدم على احرف او ارقام فقط</small>
               )}
             </div>
           </div>

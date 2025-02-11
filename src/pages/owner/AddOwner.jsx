@@ -1,6 +1,6 @@
 import AppBreadCrumb from "../../components/AppBreadCrumb";
 import AppCard from "../../components/AppCard";
-import OwnerAddForm from "../../features/owner/services/OwnerAddForm";
+import OwnerAddForm from "../../features/owner/OwnerAddForm";
 
 function AddOwner() {
   const items = [
