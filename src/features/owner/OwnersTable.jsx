@@ -1,13 +1,14 @@
 import { useContext, useState } from "react";
 import AppTable from "../../components/AppTable";
 import PropTypes from "prop-types";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getOwners } from "./services/getOwners";
 import { ToastContext } from "../../App";
 import { Column } from "primereact/column";
 import blankProfile from "../../assets/imgs/blank-profile.png";
 import tableIcon from "../../assets/icons/table-icon.svg";
 import AppTableActions from "../../components/AppTableActions";
+import deleteOwner from "./services/deleteOwner";
 
 function OwnersTable({ filterValues }) {
   const [pageNumber, setPageNumber] = useState(1);
@@ -30,6 +31,28 @@ function OwnersTable({ filterValues }) {
     ],
     queryFn: () => getOwners(pageNumber, pageSize, filterValues, toast),
   });
+  const queryClient = useQueryClient();
+
+  const { mutate,isPending} = useMutation({
+    mutationFn: deleteOwner,
+    onSuccess: () => {
+      toast.current.show({
+        severity: "success",
+        summary: "نجاح",
+        detail: "تم حذف المالك بنجاح",
+        life: 3000,
+      });
+      queryClient.invalidateQueries(["owners"])
+    },
+    onError: (e) => {
+      toast.current.show({
+        severity: "error",
+        summary: "فشل",
+        detail: e.message || "حدث خطأ غير متوقع",
+        life: 3000,
+      });
+    },
+  })
   return (
     <>
       <AppTable
@@ -39,7 +62,7 @@ function OwnersTable({ filterValues }) {
         onPageChange={handlePageChange}
         data={data?.data}
         total={data?.total}
-        isLoading={isFetching}
+        isLoading={isFetching||isPending}
         addUrl="/owner/new"
       >
         <Column
@@ -77,7 +100,7 @@ function OwnersTable({ filterValues }) {
                       rowData={rowData}
                       details={`/owner/details/${rowData.id}`}
                       edit={`/owner/edit/${rowData.id}`}
-                      // onDelete={() => mutate(rowData.storeId,toast) }
+                      onDelete={() => mutate(rowData.id) }
                     />
                   )}
                 />

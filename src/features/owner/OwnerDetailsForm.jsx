@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useNavigate, useParams } from "react-router-dom";
 import getOwner from "./services/getOwner";
 import { useContext, useEffect } from "react";
 import { ToastContext } from "../../App";
@@ -7,6 +7,7 @@ import AppLoadingSpinner from "../../components/AppLoadingSpinner";
 import AppPagesCard from "../../components/AppPagesCard";
 import blankProfile from "../../assets/imgs/blank-profile.png";
 import { InputText } from "primereact/inputtext";
+import deleteOwner from "./services/deleteOwner";
 function OwnerDetailsForm() {
   const { id } = useParams();
   const { data, isError, error, isFetching } = useQuery({
@@ -24,15 +25,35 @@ function OwnerDetailsForm() {
       });
     }
   }, [isError, error, toast]);
+
+  const navigate = useNavigate();
+  const { mutate,isPending} = useMutation({
+    mutationFn: deleteOwner,
+    onSuccess: () => {
+      toast.current.show({
+        severity: "success",
+        summary: "نجاح",
+        detail: "تم حذف المالك بنجاح",
+        life: 3000,
+      });
+navigate("/owner")
+    },
+    onError: (e) => {
+      toast.current.show({
+        severity: "error",
+        summary: "فشل",
+        detail: e.message || "حدث خطأ غير متوقع",
+        life: 3000,
+      });
+    },
+  })
   return (
     <>
       <AppPagesCard
         title="تفاصيل المالك"
         type="details"
         editRoute={`/owner/edit/${id}`}
-        deleteFunc={() => {
-          console.log("hi");
-        }}
+        deleteFunc={() => mutate(id)}
       >
         <div className="row">
           <div className="col-md-6 col-12 order-md-1 order-0 align-content-center">
@@ -142,7 +163,7 @@ function OwnerDetailsForm() {
             </div>
           </div>
         </div>
-        <AppLoadingSpinner isLoading={isFetching} />
+        <AppLoadingSpinner isLoading={isFetching || isPending} />
       </AppPagesCard>
     </>
   );
