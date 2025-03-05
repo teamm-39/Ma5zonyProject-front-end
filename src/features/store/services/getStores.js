@@ -10,7 +10,7 @@ export const getStores = async (pageNumber, pageSize, name, country, city) => {
     if (country) params.country = country;
     if (city) params.city = city;
     const res = await axios.get(
-      `http://makhzon.runasp.net/api/Store`,{params}
+      `https://localhost:7213/api/Store`,{params}
     );
     return res.data;
   } catch (e) {
