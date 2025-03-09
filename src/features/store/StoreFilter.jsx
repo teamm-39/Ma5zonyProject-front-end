@@ -32,7 +32,7 @@ function StoreFilter({ onFilter }) {
               />
             </div>
             <div className="form-group col-12 col-md-4">
-              <label htmlFor="country">المديه</label>
+              <label htmlFor="country">الدوله</label>
               <input
                 type="text"
                 id="country"
@@ -42,7 +42,7 @@ function StoreFilter({ onFilter }) {
               />
             </div>
             <div className="form-group col-12 col-md-4">
-              <label htmlFor="city">الدوله</label>
+              <label htmlFor="city">المدينه</label>
               <input
                 type="text"
                 id="city"
