@@ -1,26 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
 import { isLogedIn } from "./services/IsLogedin";
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import AppLoadingSpinner from "../../components/AppLoadingSpinner";
 
-const PrivateRoute = ({ children }) => {
+const PrivateRoute = () => {
   const navigate = useNavigate();
-  const [isChecked, setIsChecked] = useState(false);
-  const { data , isLoading } = useQuery({
+
+  const { data, isLoading , isFetching} = useQuery({
     queryKey: ["isLogedIn"],
     queryFn: isLogedIn,
-  })
+    refetchOnWindowFocus: false,
+  });
   useEffect(() => {
-    if (!isLoading && data !== undefined) {
-      setIsChecked(true);
+    if(!isLoading)
       if (data?.data === false) {
-        navigate("/Login", { replace: true });
+        navigate("/Login");
       }
-    }
-  }, [data, isLoading, navigate]);
-  if (isLoading || !isChecked) return <AppLoadingSpinner isLoading={true} />
-  return data?.data ? children : null;
+    }, [data?.data, isLoading, navigate]);
+    if (isLoading) return <AppLoadingSpinner isLoading={isFetching} />;
+
+
+  return data?.data === true ? <Outlet /> : null;
 };
 
 export default PrivateRoute;

@@ -7,12 +7,10 @@ import StoreEdit from "../pages/store/StoreEdit";
 function StoreRoutes() {
   return (
     <>
-      <Route path="/store">
-        <Route index element={<StoresPage />} />
-        <Route path="new" element={<AddStore />} />
-        <Route path="details/:id" element={<StoreDetails />} />
-        <Route path="edit/:id" element={<StoreEdit />} />
-      </Route>
+      <Route path="/store" element={<StoresPage />} />
+      <Route path="/store/new" element={<AddStore />} />
+      <Route path="/store/details/:id" element={<StoreDetails />} />
+      <Route path="/store/edit/:id" element={<StoreEdit />} />
     </>
   );
 }

@@ -3,7 +3,7 @@ import { FloatLabel } from "primereact/floatlabel";
 import { Button } from "primereact/button";
 import { useContext, useEffect, useState } from "react";
 import { Password } from "primereact/password";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { login } from "./services/login";
 import { useNavigate } from "react-router-dom";
 import AppLoadingSpinner from "../../components/AppLoadingSpinner";
@@ -20,11 +20,15 @@ function LoginForm() {
       setIsValid(exp.test(email));
     }
   }, [email]);
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async () => {
       return await login(email, password);
     },
     onSuccess: async (data) => {
+      if (data.isSuccess) {
+        queryClient.setQueryData(["isLogedIn"], { data: true });
+      }
       if (data.isSuccess) {
         toast.current.show({
           severity: "success",
