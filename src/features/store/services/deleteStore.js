@@ -3,7 +3,7 @@ import axios from "axios";
 export const deleteStore = async (id, toast) => {
   try {
     const res = await axios.delete(
-      `http://makhzon.runasp.net/api/Store/delete/${id}`
+      `https://localhost:7213/api/Store/delete/${id}`
     );
     return res.data;
   } catch {

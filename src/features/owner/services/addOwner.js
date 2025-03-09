@@ -21,7 +21,7 @@ export const addOwner = async (formData) => {
     }
 
     const res = await axios.post(
-      "http://makhzon.runasp.net/api/Admin/create", data,
+      "https://localhost:7213/api/Admin/create", data,
       {
         headers: {
           "Content-Type": "multipart/form-data",

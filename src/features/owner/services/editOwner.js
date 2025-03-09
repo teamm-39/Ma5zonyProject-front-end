@@ -24,7 +24,7 @@ export const editOwner = async (formData) => {
     }
 
     const res = await axios.put(
-      "http://makhzon.runasp.net/api/Admin/edit",
+      "https://localhost:7213/api/Admin/edit",
       data,
       {
         headers: {

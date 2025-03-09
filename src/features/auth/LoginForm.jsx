@@ -1,28 +1,25 @@
 import { InputText } from "primereact/inputtext";
 import { FloatLabel } from "primereact/floatlabel";
 import { Button } from "primereact/button";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Password } from "primereact/password";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "./services/login";
 import { useNavigate } from "react-router-dom";
-import { Toast } from "primereact/toast";
-import { useDispatch } from "react-redux";
-import { logedIn } from "../../services/LoginService";
 import AppLoadingSpinner from "../../components/AppLoadingSpinner";
+import { ToastContext } from "../../App";
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isValid, setIsValid] = useState(true);
   const navigate = useNavigate();
-  const dis = useDispatch();
+    const toast = useContext(ToastContext);
   useEffect(() => {
     if (email.length > 0) {
       const exp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       setIsValid(exp.test(email));
     }
   }, [email]);
-  const toast = useRef(null);
   const mutation = useMutation({
     mutationFn: async () => {
       return await login(email, password);
@@ -35,10 +32,7 @@ function LoginForm() {
           detail: "تم تسجيل الدخول بنجاح",
           life: 1000,
         });
-        setTimeout(() => {
-          dis(logedIn());
           navigate("/");
-        }, 1000);
       } else {
         toast.current.show({
           severity: "error",
@@ -59,7 +53,6 @@ function LoginForm() {
   };
   return (
     <>
-      <Toast ref={toast} />
       <div className="login-form p-relative">
         <p className="form-title">تسجيل الدخول</p>
         <div className="form mt-4 pt-3">
