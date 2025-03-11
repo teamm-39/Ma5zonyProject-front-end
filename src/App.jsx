@@ -11,6 +11,7 @@ import { createContext, useRef } from "react";
 import { Toast } from "primereact/toast";
 import StoreRoutes from "./router/StoreRoutes.jsx";
 import OwnerRoutes from "./router/OwnerRoutes.jsx";
+import EmployeeRoutes from "./router/EmployeeRoutes.jsx";
 import PrivateRoute from "./features/auth/PrivateRoutes.jsx";
 export const ToastContext = createContext(null);
 function App() {
@@ -28,6 +29,7 @@ function App() {
                 <Route index element={<HomePage />} />
                 {StoreRoutes()}
                 {OwnerRoutes()}
+                {EmployeeRoutes()}
               </Route>
             </Route>
           </Routes>
