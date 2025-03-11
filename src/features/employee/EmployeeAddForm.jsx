@@ -74,11 +74,12 @@ function EmployeeAddForm() {
       isValid = false;
       setInvalidUserName(true);
     }
-    if (!formData.age || formData <= 0) {
+    if (!formData.age || formData.age <= 18 || formData.age > 60) {
       isValid = false;
       setInvalidAge(true);
     }
-    if (!formData.email.trim()) {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!formData.email.trim()||!emailRegex.test(formData.email)) {
       isValid = false;
       setInvalidEmail(true);
     }
@@ -255,8 +256,8 @@ function EmployeeAddForm() {
                 id="age"
                 value={formData.age}
                 onChange={(e) => {
+                  setInvalidAge(!e.value || e.value <= 18 || e.value > 60);
                   setFormData((prev) => ({ ...prev, age: e.value }));
-                  setInvalidAge(!e.value || e.value <= 18 || e.value >60);
                 }}
                 aria-describedby="username-help"
                 className={invalidAge ? "p-invalid" : ""}

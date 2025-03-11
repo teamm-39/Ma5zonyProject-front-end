@@ -1,5 +1,6 @@
 import AppBreadCrumb from "../../components/AppBreadCrumb";
 import AppCard from "../../components/AppCard";
+import EmployeeEditForm from "../../features/employee/EmployeeEditForm";
 
 function EmployeeEdit() {
   const items = [
@@ -11,7 +12,8 @@ function EmployeeEdit() {
     <>
       <AppCard>
         <AppBreadCrumb items={items} />
-        {/* <EmployeeAddForm /> */}
+        <EmployeeEditForm/>
+
     </AppCard>
     </>
    );

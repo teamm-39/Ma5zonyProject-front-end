@@ -73,11 +73,12 @@ function OwnerAddForm() {
       isValid = false;
       setInvalidUserName(true);
     }
-    if (!formData.age || formData <= 0) {
+    if (!formData.age || formData.age < 11 || formData.age > 100) {
       isValid = false;
       setInvalidAge(true);
     }
-    if (!formData.email.trim()) {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!formData.email.trim()||!emailRegex.test(formData.email)) {
       isValid = false;
       setInvalidEmail(true);
     }
@@ -255,7 +256,7 @@ function OwnerAddForm() {
                 value={formData.age}
                 onChange={(e) => {
                   setFormData((prev) => ({ ...prev, age: e.value }));
-                  setInvalidAge(!e.value || e.value <= 12 || e.value >100);
+                  setInvalidAge(!e.value || e.value < 11 || e.value > 100);
                 }}
                 aria-describedby="username-help"
                 className={invalidAge ? "p-invalid" : ""}
@@ -263,7 +264,7 @@ function OwnerAddForm() {
               />
               {invalidAge && (
                 <small className="input-warning">
-                  الحقل مطلوب ويجب ان يكون العمر اكبر من 11 واقل من 60 سنه
+                  الحقل مطلوب ويجب ان يكون العمر اكبر من 11 واقل من 100 سنه
                 </small>
               )}
             </div>

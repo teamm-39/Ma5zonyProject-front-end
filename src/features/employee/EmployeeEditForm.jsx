@@ -1,22 +1,21 @@
-import { useNavigate, useParams } from "react-router-dom";
-import AppPagesCard from "../../components/AppPagesCard";
+import { Button } from "primereact/button";
+import AppLoadingSpinner from "../../components/AppLoadingSpinner";
+import { Password } from "primereact/password";
+import { InputText } from "primereact/inputtext";
+import { InputNumber } from "primereact/inputnumber";
+import blankUpload from "../../assets/imgs/blank-upload-img.svg";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useContext, useEffect, useState } from "react";
 import { ToastContext } from "../../App";
-import getOwner from "./services/getOwner";
-import blankUpload from "../../assets/imgs/blank-upload-img.svg";
-import { InputText } from "primereact/inputtext";
-import { Password } from "primereact/password";
-import { InputNumber } from "primereact/inputnumber";
-import { Button } from "primereact/button";
-import { editOwner } from "./services/editOwner";
-import AppLoadingSpinner from "../../components/AppLoadingSpinner";
-
-function OwnerEditForm() {
+import { useNavigate, useParams } from "react-router-dom";
+import { editEmployee } from "./services/editEmployee";
+import getEmployee from "./services/getEmployee";
+import AppPagesCard from "../../components/AppPagesCard";
+function EmployeeEditForm() {
   const { id } = useParams();
   const { data, isError, error, isFetching } = useQuery({
     queryKey: ["getOwner", id],
-    queryFn: () => getOwner(id),
+    queryFn: () => getEmployee(id),
   });
   const toast = useContext(ToastContext);
   useEffect(() => {
@@ -103,7 +102,7 @@ function OwnerEditForm() {
       isValid = false;
       setInvalidUserName(true);
     }
-    if (!formData.age || formData.age < 11 || formData.age > 100) {
+    if (!formData.age || formData.age < 18 || formData.age > 60) {
       isValid = false;
       setInvalidAge(true);
     }
@@ -126,15 +125,15 @@ function OwnerEditForm() {
   };
   const navigate = useNavigate();
   const { mutate,isPending } = useMutation({
-    mutationFn: editOwner,
+    mutationFn: editEmployee,
     onSuccess: () => {
       toast.current.show({
         severity: "success",
         summary: "نجاح",
-        detail: "تم تعديل المالك بنجاح",
+        detail: "تم تعديل الموظف بنجاح",
         life: 3000,
       });
-      navigate("/owner")
+      navigate("/employee")
     },
     onError: (e) => {
       toast.current.show({
@@ -157,7 +156,7 @@ function OwnerEditForm() {
   };
   return (
     <>
-      <AppPagesCard title="تعديل المالك">
+      <AppPagesCard title="تعديل الموظف">
         <div className="row">
           <div className="col-md-6 col-12 oreder-0 order-md-1 align-content-center">
             <div className="input-container">
@@ -212,7 +211,7 @@ function OwnerEditForm() {
           </div>
           <div className="col-md-6 col-12 order-md-0 order-1">
             <div className="input-container mb-4">
-              <label htmlFor="name">اسم المالك</label>
+              <label htmlFor="name">اسم الموظف</label>
               <span className="star">*</span>
               <InputText
                 id="name"
@@ -275,14 +274,15 @@ function OwnerEditForm() {
           </div>
           <div className="col-md-6 col-12  mt-4 order-2">
             <div className="input-container">
-              <label htmlFor="age">عمر المالك</label>
+              <label htmlFor="age">عمر الموظف</label>
               <span className="star">*</span>
               <InputNumber
                 id="age"
                 value={formData.age}
                 onChange={(e) => {
+                  setInvalidAge(!e.value || e.value < 18 || e.value > 60);
                   setFormData((prev) => ({ ...prev, age: e.value }));
-                  setInvalidAge(!e.value || e.value < 11 || e.value > 100);
+
                 }}
                 aria-describedby="username-help"
                 className={invalidAge ? "p-invalid" : ""}
@@ -290,7 +290,7 @@ function OwnerEditForm() {
               />
               {invalidAge && (
                 <small className="input-warning">
-                  الحقل مطلوب ويجب ان يكون العمر اكبر من 11 واقل من 100 سنه
+                  الحقل مطلوب ويجب ان يكون العمر اكبر من 18 واقل من 60 سنه
                 </small>
               )}
             </div>
@@ -387,7 +387,8 @@ function OwnerEditForm() {
       <div className="d-flex justify-content-end mt-2">
         <Button
           label="حفظ"
-          className="btn-reuse"
+          className={`btn-reuse`}
+
           onClick={() => {
             handleSubmit();
           }}
@@ -398,4 +399,4 @@ function OwnerEditForm() {
   );
 }
 
-export default OwnerEditForm;
+export default EmployeeEditForm;
