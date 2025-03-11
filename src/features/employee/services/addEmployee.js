@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const addEmployee = async (formData) => {
+ const addEmployee = async (formData) => {
   try {
     const data = new FormData();
 
@@ -34,3 +34,4 @@ export const addEmployee = async (formData) => {
     throw new Error(errorMessage);
   }
 };
+export default addEmployee;
