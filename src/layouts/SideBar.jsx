@@ -66,7 +66,7 @@ function SideBar() {
                   <li>
                     <Link
                       to="/employee"
-                      className={`link-accordion ${isActive("/employee")}`}
+                      className={`link-accordion ${isActive("/employee")} mb-1`}
                     >
                       إدارة الموظفين
                     </Link>
