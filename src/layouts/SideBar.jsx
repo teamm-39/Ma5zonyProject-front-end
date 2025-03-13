@@ -38,9 +38,10 @@ function SideBar() {
             </Link>
           </li>
           <li className={`accordion-sidebar`}>
-            <Accordion activeIndex={isActive("/owner")=="active"?0:undefined}>
+            <Accordion
+              activeIndex={isActive("/owner") == "active" ? 0 : undefined}
+            >
               <AccordionTab
-
                 header={
                   <div>
                     إدارة المستخدمين
@@ -83,6 +84,13 @@ function SideBar() {
             </Link>
           </li>
 
+          <li className="menu-item">
+            <Link to="/suppliers" className="link w-100">
+              <i className="bi bi-truck ms-2"></i>
+              إدارة الموردين
+            </Link>
+          </li>
+
           <li className={`menu-item ${isActive("/customers")}`}>
             <Link to="/customers" className="link">
               <i className="bi bi-person-lines-fill ms-2"></i>
@@ -95,13 +103,6 @@ function SideBar() {
               عرض تقرير
             </Link>
           </li>
-          <li className="menu-item">
-            <Link to="/suppliers" className="link w-100">
-              <i className="bi bi-truck ms-2"></i>
-              إدارة الموردين
-            </Link>
-          </li>
-
         </ul>
       </div>
     </>
