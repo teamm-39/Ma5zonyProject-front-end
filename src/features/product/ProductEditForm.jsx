@@ -1,14 +1,31 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { ToastContext } from "../../App";
+import { getProduct } from "./services/getProduct";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import AppPagesCard from "../../components/AppPagesCard";
 import { InputText } from "primereact/inputtext";
-import { Button } from "primereact/button";
-import { useMutation } from "@tanstack/react-query";
-import { addProduct } from "./services/addProduct";
-import { ToastContext } from "../../App";
 import AppLoadingSpinner from "../../components/AppLoadingSpinner";
-import { useNavigate } from "react-router-dom";
+import { Button } from "primereact/button";
+import { editProduct } from "./services/editProduct";
 
-function ProductAddForm() {
+function ProductEditForm() {
+  const { id } = useParams();
+  const toast = useContext(ToastContext);
+  const { data, isFetching, error, isError } = useQuery({
+    queryKey: ["getProduct", id],
+    queryFn: () => getProduct(id),
+  });
+  useEffect(() => {
+    if (isError) {
+      toast.current.show({
+        severity: "error",
+        summary: "فشل",
+        detail: error.message || "حدث خطأ غير متوقع",
+        life: 3000,
+      });
+    }
+  }, [error, isError, data, toast]);
   const [formData, setFormData] = useState({
     name: "",
     purchasePrice: "",
@@ -59,7 +76,6 @@ function ProductAddForm() {
         );
       }
     }
-
     if (field === "minLimit") {
       // Only allow positive integers for minLimit
       if (value === "") {
@@ -79,33 +95,43 @@ function ProductAddForm() {
       setInvalidMinLimit(value === "" || isNaN(numValue) || numValue <= 0);
     }
   };
+  useEffect(() => {
+    if (data) {
+      setFormData({
+        productId:id,
+        name: data.data.name || "",
+        purchasePrice: data.data.purchasePrice || "",
+        sellingPrice: data.data.sellingPrice || "",
+        minLimit: data.data.minLimit || "",
+      });
+    }
+  }, [data,id]);
   const navigate = useNavigate();
-  const toast = useContext(ToastContext);
-  const { mutate, isPending } = useMutation({
-    mutationFn: addProduct,
+  const { mutate,isPending } = useMutation({
+    mutationFn: editProduct,
     onSuccess: () => {
       toast.current.show({
         severity: "success",
         summary: "نجاح",
-        detail: "تمت اضافة المنتج بنجاح",
+        detail: "تم تعديل المنتج بنجاح",
         life: 3000,
       });
       navigate("/product");
     },
-    onError: (e) => {
+    onError: (error) => {
       toast.current.show({
         severity: "error",
         summary: "فشل",
-        detail: e.message || "حدث خطأ غير متوقع",
+        detail: error.message || "حدث خطأ غير متوقع",
         life: 3000,
       });
-    },
-  });
+    }
+  })
   return (
     <>
-      <AppPagesCard title="اضافة منتج">
+      <AppPagesCard title="تعديل المنتج">
         <div className="row">
-          <div className="col-12 col-md-6">
+          <div className="col-md-6 col-12">
             <div className="input-container">
               <label htmlFor="name">اسم المنتج</label>
               <span className="star">*</span>
@@ -180,24 +206,24 @@ function ProductAddForm() {
           </div>
         </div>
       </AppPagesCard>
-      <div className="d-flex justify-content-end mt-2">
-        <Button
-          label="حفظ"
-          disabled={
-            invalidMinLimit ||
-            invalidName ||
-            invalidPurchasePrice ||
-            invalidSellingPrice
-          }
-          className="btn-reuse"
-          onClick={() => {
-            mutate(formData);
-          }}
-        />
-      </div>
-      <AppLoadingSpinner isLoading={isPending} />
+            <div className="d-flex justify-content-end mt-2">
+              <Button
+                label="حفظ"
+                disabled={
+                  invalidMinLimit ||
+                  invalidName ||
+                  invalidPurchasePrice ||
+                  invalidSellingPrice
+                }
+                className="btn-reuse"
+                onClick={() => {
+                  mutate(formData);
+                }}
+              />
+            </div>
+      <AppLoadingSpinner isLoading={isFetching||isPending} />
     </>
   );
 }
 
-export default ProductAddForm;
+export default ProductEditForm;

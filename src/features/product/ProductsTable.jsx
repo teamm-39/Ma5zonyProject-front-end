@@ -15,7 +15,7 @@ function ProductsTable({ filterValues }) {
     setPageSize(event.rows);
   };
   const toast = useContext(ToastContext);
-  const { data, isFetching, error } = useQuery({
+  const { data, isFetching, error , isError } = useQuery({
     queryKey: [
       "products",
       pageNumber,
@@ -27,7 +27,7 @@ function ProductsTable({ filterValues }) {
     queryFn: () => getProducts(pageNumber, pageSize, filterValues),
   });
   useEffect(() => {
-    if (error) {
+    if (isError) {
       toast.current.show({
         severity: "error",
         summary: "فشل",
@@ -35,7 +35,7 @@ function ProductsTable({ filterValues }) {
         life: 3000,
       });
     }
-  }, [error, toast]);
+  }, [error, toast, isError]);
   return (
     <>
       <AppTable
