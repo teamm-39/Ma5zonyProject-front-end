@@ -62,7 +62,7 @@ function ProductAddForm() {
 
     if (field === "minLimit") {
       // Only allow positive integers for minLimit
-      if (value !== "" && !/^[1-9]\d*$/.test(value)) return;
+      if (!/^[1-9]\d*$/.test(value)) return;
 
       const numValue = parseInt(value);
       setFormData((prev) => ({
@@ -131,7 +131,7 @@ function ProductAddForm() {
               )}
             </div>
           </div>
-          <div className="col-12 col-md-6">
+          <div className="col-12 col-md-6 my-4">
             <div className="input-container">
               <label htmlFor="sellingPrice">سعر البيع</label>
               <span className="star">*</span>
@@ -147,7 +147,7 @@ function ProductAddForm() {
               )}
             </div>
           </div>
-          <div className="col-12 col-md-6">
+          <div className="col-12 col-md-6 my-4">
             <div className="input-container">
               <label htmlFor="minLimit">الحد الادنى</label>
               <span className="star">*</span>

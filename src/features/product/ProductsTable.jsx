@@ -64,8 +64,8 @@ function ProductsTable({ filterValues }) {
           body={(rowData) => (
             <AppTableActions
               rowData={rowData}
-              details={`/product/details/${rowData.storeId}`}
-              edit={`/product/edit/${rowData.storeId}`}
+              details={`/product/details/${rowData.productId}`}
+              edit={`/product/edit/${rowData.productId}`}
               onDelete={() => console.log("delete")}
             />
           )}
