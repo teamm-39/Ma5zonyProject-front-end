@@ -1,11 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useNavigate, useParams } from "react-router-dom";
 import { getProduct } from "./services/getProduct";
 import { useContext, useEffect } from "react";
 import { ToastContext } from "../../App";
 import AppPagesCard from "../../components/AppPagesCard";
 import AppLoadingSpinner from "../../components/AppLoadingSpinner";
 import { InputText } from "primereact/inputtext";
+import { deleteProduct } from "./services/deleteProduct";
 
 function ProductDetailsForm() {
   const { id } = useParams();
@@ -24,13 +25,36 @@ function ProductDetailsForm() {
       });
     }
   }, [data, error, isError, toast]);
+  const navigate = useNavigate();
+  const queryClient=useQueryClient();
+  const { mutate, isPending } = useMutation({
+    mutationFn: deleteProduct,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["products"]);
+      toast.current.show({
+        severity: "success",
+        summary: "نجاح",
+        detail: "تم حذف المنتج بنجاح",
+        life: 3000,
+      });
+      navigate("/product");
+    },
+    onError: (error) => {
+      toast.current.show({
+        severity: "error",
+        summary: "فشل",
+        detail: error.message || "حدث خطأ غير متوقع",
+        life: 3000,
+      });
+    }
+  });
   return (
     <>
       <AppPagesCard
         title="تفاصيل المنتج"
         type="details"
         editRoute={`/product/edit/${id}`}
-        deleteFunc={() => {}}
+        deleteFunc={() => {mutate(id)}}
       >
         <div className="row">
           <div className="col-md-6 col-12">
@@ -90,7 +114,7 @@ function ProductDetailsForm() {
           </div>
         </div>
       </AppPagesCard>
-      <AppLoadingSpinner isLoading={isFetching} />
+      <AppLoadingSpinner isLoading={isFetching||isPending} />
     </>
   );
 }

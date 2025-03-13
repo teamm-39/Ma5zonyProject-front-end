@@ -1,12 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import { ToastContext } from "../../App";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Column } from "primereact/column";
 import PropTypes from "prop-types";
 import { getProducts } from "./services/getProducts";
 import AppTable from "../../components/AppTable";
 import tableIcon from "../../assets/icons/table-icon.svg";
 import AppTableActions from "../../components/AppTableActions";
+import { deleteProduct } from "./services/deleteProduct";
+
 function ProductsTable({ filterValues }) {
   const [pageNumber, setPageNumber] = useState(1);
   const [pageSize, setPageSize] = useState(5);
@@ -36,6 +38,27 @@ function ProductsTable({ filterValues }) {
       });
     }
   }, [error, toast, isError]);
+  const queryClient = useQueryClient();
+  const { mutate , isPending } = useMutation({
+    mutationFn: deleteProduct,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["products"]);
+      toast.current.show({
+        severity: "success",
+        summary: "نجاح",
+        detail: "تم حذف المنتج بنجاح",
+        life: 3000,
+      });
+    },
+    onError: (error) => {
+      toast.current.show({
+        severity: "error",
+        summary: "فشل",
+        detail: error.message || "حدث خطأ غير متوقع",
+        life: 3000,
+      });
+    }
+  })
   return (
     <>
       <AppTable
@@ -45,7 +68,7 @@ function ProductsTable({ filterValues }) {
         onPageChange={handlePageChange}
         data={data?.data}
         total={data?.total}
-        isLoading={isFetching}
+        isLoading={isFetching || isPending}
         addUrl="/product/new"
       >
         <Column header="#" field="productId" />
@@ -66,7 +89,7 @@ function ProductsTable({ filterValues }) {
               rowData={rowData}
               details={`/product/details/${rowData.productId}`}
               edit={`/product/edit/${rowData.productId}`}
-              onDelete={() => console.log("delete")}
+              onDelete={() => mutate(rowData.productId)}
             />
           )}
         />
