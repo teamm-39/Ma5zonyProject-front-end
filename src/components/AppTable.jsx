@@ -12,7 +12,8 @@ function AppTable({
   pageSize,
   pageNumber,
   isLoading,
-  addUrl
+  addUrl,
+  emptyMessage
 }) {
   return (
     <>
@@ -44,7 +45,7 @@ function AppTable({
           totalRecords={total}
           lazy
           className="position-relative"
-          emptyMessage="لا توجد بيانات"
+          emptyMessage={emptyMessage||"لا يوجد بيانات"}
         >
           {children}
         </DataTable>
@@ -62,7 +63,8 @@ AppTable.propTypes = {
   pageNumber: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  addUrl:PropTypes.string.isRequired
+  addUrl: PropTypes.string.isRequired,
+  emptyMessage: PropTypes.string
 };
 
 export default AppTable;

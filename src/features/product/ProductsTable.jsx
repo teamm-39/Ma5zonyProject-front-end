@@ -8,15 +8,22 @@ import AppTable from "../../components/AppTable";
 import tableIcon from "../../assets/icons/table-icon.svg";
 import AppTableActions from "../../components/AppTableActions";
 function ProductsTable({ filterValues }) {
-    const [pageNumber, setPageNumber] = useState(1);
-    const [pageSize, setPageSize] = useState(5);
-    const handlePageChange = (event) => {
-      setPageNumber(event.page + 1);
-      setPageSize(event.rows);
-    };
+  const [pageNumber, setPageNumber] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
+  const handlePageChange = (event) => {
+    setPageNumber(event.page + 1);
+    setPageSize(event.rows);
+  };
   const toast = useContext(ToastContext);
-  const { data, isFetching , error } = useQuery({
-    queryKey: ["products", pageNumber, pageSize, filterValues.name, filterValues.sellingPrice, filterValues.purchasePrice],
+  const { data, isFetching, error } = useQuery({
+    queryKey: [
+      "products",
+      pageNumber,
+      pageSize,
+      filterValues.name,
+      filterValues.sellingPrice,
+      filterValues.purchasePrice,
+    ],
     queryFn: () => getProducts(pageNumber, pageSize, filterValues),
   });
   useEffect(() => {
@@ -28,7 +35,7 @@ function ProductsTable({ filterValues }) {
         life: 3000,
       });
     }
-  },[error, toast])
+  }, [error, toast]);
   return (
     <>
       <AppTable
@@ -43,31 +50,35 @@ function ProductsTable({ filterValues }) {
       >
         <Column header="#" field="productId" />
         <Column header="اسم المنتج" field="name" />
-        <Column header="السعر" field="sellingPrice" />
         <Column header="سعر الشراء" field="purchasePrice" />
+        <Column header="سعر البيع" field="sellingPrice" />
+        <Column
+          header="الحد الأدنى"
+          field="minLimit"
+          body={(rowData) => `${rowData.minLimit} وحدة`}
+        />
         <Column header="الكمية" field="quantity" />
         <Column
-                  header={<img src={tableIcon} alt="table icon"></img>}
-                  style={{ width: "8rem" }}
-                  body={(rowData) => (
-                    <AppTableActions
-                      rowData={rowData}
-                      details={`/product/details/${rowData.storeId}`}
-                      edit={`/product/edit/${rowData.storeId}`}
-                      onDelete={() => console.log("delete")
-                       }
-                    />
-                  )}
-                />
+          header={<img src={tableIcon} alt="table icon"></img>}
+          style={{ width: "8rem" }}
+          body={(rowData) => (
+            <AppTableActions
+              rowData={rowData}
+              details={`/product/details/${rowData.storeId}`}
+              edit={`/product/edit/${rowData.storeId}`}
+              onDelete={() => console.log("delete")}
+            />
+          )}
+        />
       </AppTable>
     </>
-   )
+  );
 }
 ProductsTable.propTypes = {
   filterValues: PropTypes.shape({
     name: PropTypes.string,
-    sellingPrice:PropTypes.string|| PropTypes.number||null,
-    purchasePrice:PropTypes.string|| PropTypes.number||null,
+    sellingPrice: PropTypes.string || PropTypes.number || null,
+    purchasePrice: PropTypes.string || PropTypes.number || null,
   }).isRequired,
 };
 export default ProductsTable;
