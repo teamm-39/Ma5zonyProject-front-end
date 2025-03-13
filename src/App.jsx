@@ -13,6 +13,7 @@ import StoreRoutes from "./router/StoreRoutes.jsx";
 import OwnerRoutes from "./router/OwnerRoutes.jsx";
 import EmployeeRoutes from "./router/EmployeeRoutes.jsx";
 import PrivateRoute from "./features/auth/PrivateRoutes.jsx";
+import ProductRoutes from "./router/ProductRoutes.jsx";
 export const ToastContext = createContext(null);
 function App() {
   const toastRef = useRef(null);
@@ -30,6 +31,7 @@ function App() {
                 {StoreRoutes()}
                 {OwnerRoutes()}
                 {EmployeeRoutes()}
+                {ProductRoutes()}
               </Route>
             </Route>
           </Routes>

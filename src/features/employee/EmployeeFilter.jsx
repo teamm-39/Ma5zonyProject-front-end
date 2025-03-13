@@ -61,7 +61,10 @@ function EmployeeFilter({onFilter}) {
                     keyfilter="int"
                     id="age"
                     value={filterValues.age}
-                    onChange={(e) => handleInputChange(e, "age")}
+                    onChange={(e) => {
+                      if (e.target.value === "0" || e.target.value === "-" || isNaN(e.target.value)) return;
+                      handleInputChange(e, "age")
+                    }}
                     className="form-control"
                   />
                 </div>

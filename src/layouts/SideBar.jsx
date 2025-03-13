@@ -37,12 +37,6 @@ function SideBar() {
               لوحة التحكم
             </Link>
           </li>
-          <li className={`menu-item ${isActive("/store")}`}>
-            <Link to="/store" className="link">
-              <i className="bi bi-building ms-2"></i>
-              إدارة المخازن
-            </Link>
-          </li>
           <li className={`accordion-sidebar`}>
             <Accordion activeIndex={isActive("/owner")=="active"?0:undefined}>
               <AccordionTab
@@ -75,6 +69,20 @@ function SideBar() {
               </AccordionTab>
             </Accordion>
           </li>
+          <li className={`menu-item ${isActive("/store")}`}>
+            <Link to="/store" className="link">
+              <i className="bi bi-building ms-2"></i>
+              إدارة المخازن
+            </Link>
+          </li>
+
+          <li className={`menu-item ${isActive("/product")}`}>
+            <Link to="/product" className="link w-100">
+              <i className="bi bi-box-seam ms-2"></i>
+              إدارة المنتجات
+            </Link>
+          </li>
+
           <li className={`menu-item ${isActive("/customers")}`}>
             <Link to="/customers" className="link">
               <i className="bi bi-person-lines-fill ms-2"></i>
@@ -93,12 +101,7 @@ function SideBar() {
               إدارة الموردين
             </Link>
           </li>
-          <li className="menu-item">
-            <Link to="/products" className="link w-100">
-              <i className="bi bi-box-seam ms-2"></i>
-              إدارة المنتجات
-            </Link>
-          </li>
+
         </ul>
       </div>
     </>

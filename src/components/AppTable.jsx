@@ -44,6 +44,7 @@ function AppTable({
           totalRecords={total}
           lazy
           className="position-relative"
+          emptyMessage="لا توجد بيانات"
         >
           {children}
         </DataTable>

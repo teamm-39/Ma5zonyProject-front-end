@@ -1,18 +1,15 @@
-import { Button } from "primereact/button";
+import { useEffect, useState } from "react";
 import AppAccordion from "../../components/AppAccordion";
 import { InputText } from "primereact/inputtext";
-import { useEffect, useState } from "react";
+import { Button } from "primereact/button";
 import PropTypes from "prop-types";
 
-function OwnerFilter({ onFilter }) {
+function ProductFilter({onFilter}) {
   const [filterValues, setFilterValues] = useState({
     name: "",
-    userName: "",
-    age: "",
-    phone: "",
-    address: "",
+    sellingPrice: "",
+    purchasePrice: "",
   });
-
   const handleInputChange = (e, field) => {
     setFilterValues((prev) => ({
       ...prev,
@@ -21,22 +18,20 @@ function OwnerFilter({ onFilter }) {
   };
   const validValues =
     filterValues.name != "" ||
-    filterValues.userName != "" ||
-    filterValues.age != "" ||
-    filterValues.phone != "" ||
-    filterValues.address != "";
+    filterValues.sellingPrice != "" ||
+    filterValues.purchasePrice != "";
   useEffect(() => {
     if (!validValues) {
-    onFilter(filterValues)
-  }
-},[filterValues])
+      onFilter(filterValues);
+    }
+  }, [filterValues, validValues, onFilter]);
   return (
     <>
       <div className="mt-4">
         <AppAccordion>
-          <div className="from row">
+          <div className="row">
             <div className="form-group col-12 col-md-4">
-              <label htmlFor="name">اسم المالك</label>
+              <label htmlFor="name">اسم المنتج</label>
               <input
                 type="text"
                 id="name"
@@ -46,45 +41,27 @@ function OwnerFilter({ onFilter }) {
               />
             </div>
             <div className="form-group col-12 col-md-4">
-              <label htmlFor="userName">اسم المستخدم</label>
-              <input
-                type="text"
-                id="userName"
-                value={filterValues.userName}
-                onChange={(e) => handleInputChange(e, "userName")}
-                className="form-control"
-              />
-            </div>
-            <div className="form-group col-12 col-md-4">
-              <label htmlFor="age">عمر المالك</label>
+              <label htmlFor="purchasePrice">سعر الشراء</label>
               <InputText
-                keyfilter="int"
-                id="age"
-                value={filterValues.age}
+                id="purchasePrice"
+                min={1}
+                value={filterValues.purchasePrice}
                 onChange={(e) => {
                   if (e.target.value === "0" || e.target.value === "-" || isNaN(e.target.value)) return;
-                  handleInputChange(e, "age")
+                  handleInputChange(e, "purchasePrice");
                 }}
                 className="form-control"
               />
             </div>
-            <div className="form-group col-12 col-md-4 mt-4">
-              <label htmlFor="phone">رقم هاتف المالك</label>
-              <input
-                type="text"
-                id="phone"
-                value={filterValues.phone}
-                onChange={(e) => handleInputChange(e, "phone")}
-                className="form-control"
-              />
-            </div>
-            <div className="form-group col-12 col-md-4 mt-4">
-              <label htmlFor="address">مكان الاقامه</label>
-              <input
-                type="text"
-                id="address"
-                value={filterValues.address}
-                onChange={(e) => handleInputChange(e, "address")}
+            <div className="form-group col-12 col-md-4">
+              <label htmlFor="sellingPrice">سعر البيع</label>
+              <InputText
+                id="sellingPrice"
+                value={filterValues.sellingPrice}
+                onChange={(e) => {
+                    if (e.target.value === "0" || e.target.value === "-" || isNaN(e.target.value)) return;
+                  handleInputChange(e, "sellingPrice");
+                }}
                 className="form-control"
               />
             </div>
@@ -97,7 +74,11 @@ function OwnerFilter({ onFilter }) {
                 className="btn-reuse"
                 disabled={!validValues}
                 onClick={() => {
-                  setFilterValues({name:"",userName:"",age:"",phone:"",address:"",})
+                  setFilterValues({
+                    name: "",
+                    sellingPrice: "",
+                    purchasePrice: "",
+                  });
                 }}
               />
               <Button
@@ -117,7 +98,7 @@ function OwnerFilter({ onFilter }) {
     </>
   );
 }
-OwnerFilter.propTypes = {
+ProductFilter.propTypes = {
   onFilter: PropTypes.func.isRequired,
 };
-export default OwnerFilter;
+export default ProductFilter;
