@@ -10,7 +10,9 @@ export const getSuppliers = async (pageNumber, pageSize, filterValues) => {
     if (filterValues.age) params.age = filterValues.age;
     if (filterValues.address) params.address = filterValues.address;
     if (filterValues.numOfDeal) params.numOfDeal = filterValues.numOfDeal;
-    if (filterValues.isReliable==false || filterValues.isReliable==true) params.isReliable = filterValues.isReliable;
+    if (filterValues.isReliable !== undefined && filterValues.isReliable !== null && filterValues.isReliable !== "") {
+      params.isReliable = filterValues.isReliable;
+  }
     if (filterValues.phoneNum) params.phoneNum = filterValues.phoneNum;
     if (filterValues.email) params.email = filterValues.email.trim();
     const queryString = new URLSearchParams(params).toString();

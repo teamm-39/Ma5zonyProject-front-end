@@ -1,13 +1,14 @@
 import { Route } from "react-router-dom";
 import SuppliersPage from "../pages/supplier/SuppliersPage";
+import AddSupplier from "../pages/supplier/AddSupplier";
 
 function SupplierRoutes() {
   return (
     <>
           <Route path="/supplier" element={<SuppliersPage />} />
-      {/* <Route path="/product/new" element={<AddProduct />} /> */}
-      {/* <Route path="/product/details/:id" element={<ProductDetails />} /> */}
-      {/* <Route path="/product/edit/:id" element={<ProductEdit />} /> */}
+      <Route path="/supplier/new" element={<AddSupplier />} />
+      {/* <Route path="/supplier/details/:id" element={<ProductDetails />} /> */}
+      {/* <Route path="/supplier/edit/:id" element={<ProductEdit />} /> */}
     </>
    );
 }

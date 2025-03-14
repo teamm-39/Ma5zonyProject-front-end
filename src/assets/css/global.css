@@ -258,7 +258,7 @@
 .is-active-btn{
   border-radius: .6rem;
   align-items: center;
-  padding: .5rem .5rem;
+  padding: .4rem .5rem;
   background-color: var(--green-100);
   color: var(--green-500);
   width: 5rem;
@@ -267,7 +267,7 @@
 .is-not-active-btn{
   border-radius: .6rem;
   align-items: center;
-  padding: .5rem .5rem;
+  padding: .4rem .5rem;
   background-color: #eaeaea;
   color: #898995;
   width: 5rem;

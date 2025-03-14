@@ -187,7 +187,11 @@ function ProductAddForm() {
             invalidMinLimit ||
             invalidName ||
             invalidPurchasePrice ||
-            invalidSellingPrice
+            invalidSellingPrice ||
+            !formData.name ||
+            !formData.purchasePrice ||
+            !formData.sellingPrice ||
+            !formData.minLimit
           }
           className="btn-reuse"
           onClick={() => {
