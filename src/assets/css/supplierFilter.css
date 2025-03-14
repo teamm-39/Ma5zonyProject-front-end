@@ -1,0 +1,21 @@
+.supplier-filter .p-dropdown .p-dropdown-label {
+  font-size: 0.8rem !important;
+  line-height: 1.5 !important; /* تحسين المظهر */
+  padding: 0.375rem 0.75rem !important; /* ضبط التباعد */
+}
+ .p-dropdown-item {
+  justify-content: start !important;
+}
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item .p-dropdown-check-icon{
+  position: relative;
+  margin-left: 0;
+  margin-right: 0;
+  width: 10px;
+  height: 10px;
+  margin-left: 3px;
+}
+.p-dropdown-blank-icon{
+  width: 10px;
+  height: 10px;
+  margin-left: 3px;
+}

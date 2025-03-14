@@ -84,8 +84,8 @@ function SideBar() {
             </Link>
           </li>
 
-          <li className="menu-item">
-            <Link to="/suppliers" className="link w-100">
+          <li className={`menu-item ${isActive("/supplier")}`}>
+            <Link to="/supplier" className="link w-100">
               <i className="bi bi-truck ms-2"></i>
               إدارة الموردين
             </Link>

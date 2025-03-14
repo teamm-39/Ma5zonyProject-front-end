@@ -9,10 +9,10 @@ function ProductRoutes() {
     <>
       <Route path="/product" element={<ProductsPage />} />
       <Route path="/product/new" element={<AddProduct />} />
-       <Route path="/product/details/:id" element={<ProductDetails />} />
+      <Route path="/product/details/:id" element={<ProductDetails />} />
       <Route path="/product/edit/:id" element={<ProductEdit />} />
     </>
-   );
+  );
 }
 
 export default ProductRoutes;
