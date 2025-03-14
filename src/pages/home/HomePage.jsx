@@ -1,11 +1,13 @@
 import "../../assets/css/HomePage.css";
 import AppBreadCrumb from "../../components/AppBreadCrumb";
+import AppCard from "../../components/AppCard"
 function HomePage() {
   const items = [
     { label: "لوحة التحكم"},
   ];
   return (
-    <div className="homepage-container m-0 p-0 pt-3">
+    <AppCard>
+       <div className="homepage-container m-0 p-0 pt-3">
       <AppBreadCrumb items={items} />
       <header className="header">
         <h1 className="title">مخزون</h1>
@@ -39,6 +41,7 @@ function HomePage() {
         </div>
       </div>
     </div>
+   </AppCard>
   );
 }
 
