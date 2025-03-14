@@ -97,7 +97,7 @@ SuppliersTable.propTypes = {
     age: PropTypes.string || PropTypes.number || null,
     numOfDeal: PropTypes.string || PropTypes.number || null,
     address: PropTypes.string,
-    isReliable: PropTypes.string || PropTypes.bool || null,
+    isReliable: PropTypes.bool || null,
     phoneNum: PropTypes.string,
     email: PropTypes.string,
   }).isRequired,

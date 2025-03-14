@@ -105,7 +105,6 @@ function SupplierFilter({ onFilter }) {
                 value={filterValues.numOfDeal}
                 onChange={(e) => {
                   if (
-                    e.target.value === "0" ||
                     e.target.value === "-" ||
                     isNaN(e.target.value)
                   )
