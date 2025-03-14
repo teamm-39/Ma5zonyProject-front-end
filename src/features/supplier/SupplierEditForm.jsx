@@ -1,23 +1,55 @@
-import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { ToastContext } from "../../App";
-import AppPagesCard from "../../components/AppPagesCard";
-import { InputText } from "primereact/inputtext";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { getSupplier } from "./services/getSupplier";
 import { Button } from "primereact/button";
 import { InputSwitch } from "primereact/inputswitch";
-import { useMutation } from "@tanstack/react-query";
-import { addSupplier } from "./services/addSupplier";
+import { InputText } from "primereact/inputtext";
+import AppPagesCard from "../../components/AppPagesCard";
 import AppLoadingSpinner from "../../components/AppLoadingSpinner";
+import { editSupplier } from "./services/editSupplier";
 
-function SupplierAddForm() {
+function SupplierEditForm() {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const toast = useContext(ToastContext);
+  const { data, isFetching, error, isError } = useQuery({
+    queryKey: ["getSupplier", id],
+    queryFn: () => getSupplier(id)
+  });
+  useEffect(() => {
+    if (isError) {
+      toast.current.show({
+        severity: "error",
+        summary: "فشل",
+        detail: error.message || "حدث خطأ غير متوقع",
+        life: 3000,
+      });
+    }
+  }, [error, isError, data, toast]);
   const [formData, setFormData] = useState({
+    supplierId:id,
     name: "",
-    age: "",
     email: "",
+    age: "",
     address: "",
     phoneNumber: "",
-    isReliable: true,
+    isReliable: false
   });
+useEffect(() => {
+  if (data) {
+    setFormData({
+      supplierId: id,
+      name: data?.data.name || "",
+      email: data?.data.email || "",
+      age: data?.data.age || "",
+      address: data?.data.address || "",
+      phoneNumber: data?.data.phoneNumber || "",
+      isReliable: data?.data.isReliable || false,
+    });
+  }
+}, [data, id]);
   const [invalidName, setInvalidName] = useState(false);
   const [invalidAge, setInvalidAge] = useState(false);
   const [invalidEmail, setInvalidEmail] = useState(false);
@@ -58,17 +90,14 @@ function SupplierAddForm() {
         break;
     }
   };
-
-  const navigate = useNavigate();
-  const toast = useContext(ToastContext);
   const isFormEmpty = Object.values(formData).some((value) => value === "");
   const { mutate , isPending } = useMutation({
-    mutationFn: addSupplier,
+    mutationFn: editSupplier,
     onSuccess: () => {
       toast.current.show({
         severity: "success",
         summary: "نجاح",
-        detail: "تم إضافة المورد بنجاح",
+        detail: "تم تعديل المورد بنجاح",
       });
       navigate("/supplier");
     },
@@ -83,7 +112,7 @@ function SupplierAddForm() {
   });
   return (
     <>
-      <AppPagesCard title="اضافة مورد">
+<AppPagesCard title="تعديل مورد">
         <div className="row">
           <div className="col-12 col-md-6">
             <div className="input-container">
@@ -239,9 +268,9 @@ function SupplierAddForm() {
           }}
         />
       </div>
-      <AppLoadingSpinner isLoading={isPending} />
+      <AppLoadingSpinner isLoading={isFetching || isPending}/>
     </>
-  );
+   );
 }
 
-export default SupplierAddForm;
+export default SupplierEditForm;
