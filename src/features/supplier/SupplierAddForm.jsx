@@ -26,7 +26,7 @@ function SupplierAddForm() {
   const [invalidIsReliable, setInvalidIsReliable] = useState(false);
 
   const handleChange = (e, field) => {
-    let value = field === "isReliable" ? e.target.value: e.target.value.trim();
+    let value = field === "isReliable" ? e.target.value : e.target.value.trim();
 
     setFormData((prev) => ({
       ...prev,
@@ -62,7 +62,7 @@ function SupplierAddForm() {
   const navigate = useNavigate();
   const toast = useContext(ToastContext);
   const isFormEmpty = Object.values(formData).some((value) => value === "");
-  const { mutate , isPending } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: addSupplier,
     onSuccess: () => {
       toast.current.show({
@@ -186,9 +186,12 @@ function SupplierAddForm() {
           </div>
           <div className="col-12 col-md-6 my-4">
             <div className="input-container">
-              <label htmlFor="isReliable">هل هو موثوق؟</label>
+              <label htmlFor="isReliable">هل المورد موثوق؟</label>
               <span className="star">*</span>
-              <div className="input-disabled rounded-3 py-1 px-1 d-flex align-content-center gap-2" style={{backgroundColor:"#cacaca82"}}>
+              <div
+                className="input-disabled rounded-3 py-1 px-1 d-flex align-content-center gap-2"
+                style={{ backgroundColor: "#cacaca82" }}
+              >
                 <InputSwitch
                   id="isReliable"
                   checked={Boolean(formData.isReliable)}

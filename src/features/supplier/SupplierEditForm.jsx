@@ -16,7 +16,7 @@ function SupplierEditForm() {
   const toast = useContext(ToastContext);
   const { data, isFetching, error, isError } = useQuery({
     queryKey: ["getSupplier", id],
-    queryFn: () => getSupplier(id)
+    queryFn: () => getSupplier(id),
   });
   useEffect(() => {
     if (isError) {
@@ -29,27 +29,27 @@ function SupplierEditForm() {
     }
   }, [error, isError, data, toast]);
   const [formData, setFormData] = useState({
-    supplierId:id,
+    supplierId: id,
     name: "",
     email: "",
     age: "",
     address: "",
     phoneNumber: "",
-    isReliable: false
+    isReliable: false,
   });
-useEffect(() => {
-  if (data) {
-    setFormData({
-      supplierId: id,
-      name: data?.data.name || "",
-      email: data?.data.email || "",
-      age: data?.data.age || "",
-      address: data?.data.address || "",
-      phoneNumber: data?.data.phoneNumber || "",
-      isReliable: data?.data.isReliable || false,
-    });
-  }
-}, [data, id]);
+  useEffect(() => {
+    if (data) {
+      setFormData({
+        supplierId: id,
+        name: data?.data.name || "",
+        email: data?.data.email || "",
+        age: data?.data.age || "",
+        address: data?.data.address || "",
+        phoneNumber: data?.data.phoneNumber || "",
+        isReliable: data?.data.isReliable || false,
+      });
+    }
+  }, [data, id]);
   const [invalidName, setInvalidName] = useState(false);
   const [invalidAge, setInvalidAge] = useState(false);
   const [invalidEmail, setInvalidEmail] = useState(false);
@@ -58,7 +58,7 @@ useEffect(() => {
   const [invalidIsReliable, setInvalidIsReliable] = useState(false);
 
   const handleChange = (e, field) => {
-    let value = field === "isReliable" ? e.target.value: e.target.value.trim();
+    let value = field === "isReliable" ? e.target.value : e.target.value.trim();
 
     setFormData((prev) => ({
       ...prev,
@@ -91,15 +91,15 @@ useEffect(() => {
     }
   };
   const isFormEmpty = Object.values(formData).some((value) => value === "");
-  const { mutate , isPending } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: editSupplier,
     onSuccess: () => {
+      navigate("/supplier");
       toast.current.show({
         severity: "success",
         summary: "نجاح",
         detail: "تم تعديل المورد بنجاح",
       });
-      navigate("/supplier");
     },
     onError: (e) => {
       toast.current.show({
@@ -112,7 +112,7 @@ useEffect(() => {
   });
   return (
     <>
-<AppPagesCard title="تعديل مورد">
+      <AppPagesCard title="تعديل مورد">
         <div className="row">
           <div className="col-12 col-md-6">
             <div className="input-container">
@@ -215,9 +215,12 @@ useEffect(() => {
           </div>
           <div className="col-12 col-md-6 my-4">
             <div className="input-container">
-              <label htmlFor="isReliable">هل هو موثوق؟</label>
+              <label htmlFor="isReliable">هل المورد موثوق؟</label>
               <span className="star">*</span>
-              <div className="input-disabled rounded-3 py-1 px-1 d-flex align-content-center gap-2" style={{backgroundColor:"#cacaca82"}}>
+              <div
+                className="input-disabled rounded-3 py-1 px-1 d-flex align-content-center gap-2"
+                style={{ backgroundColor: "#cacaca82" }}
+              >
                 <InputSwitch
                   id="isReliable"
                   checked={Boolean(formData.isReliable)}
@@ -268,9 +271,9 @@ useEffect(() => {
           }}
         />
       </div>
-      <AppLoadingSpinner isLoading={isFetching || isPending}/>
+      <AppLoadingSpinner isLoading={isFetching || isPending} />
     </>
-   );
+  );
 }
 
 export default SupplierEditForm;
