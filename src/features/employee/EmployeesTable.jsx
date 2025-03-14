@@ -83,10 +83,10 @@ function EmployeesTable({ filterValues }) {
             )
           }
         />
-        <Column header="اسم المالك" field="name" />
+        <Column header="اسم الموظف" field="name" />
         <Column header="اسم المستخدم" field="userName" />
         <Column
-          header="عمر المالك"
+          header="عمر الموظف"
           field="age"
           body={(rowData) =>
             rowData.age && rowData.age > 0 ? rowData.age : "لم يتم ادخال العمر"

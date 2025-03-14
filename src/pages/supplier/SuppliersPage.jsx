@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AppBreadCrumb from "../../components/AppBreadCrumb";
 import AppCard from "../../components/AppCard";
 import SupplierFilter from "../../features/supplier/SupplierFilter";
+import SuppliersTable from "../../features/supplier/SuppliersTable";
 
 function SuppliersPage() {
   const items = [
@@ -17,15 +18,13 @@ function SuppliersPage() {
       phoneNum: "",
       email: "",
     });
-  useEffect(() => {
-    console.log(filterValues);
-  }
-  , [filterValues]);
+
   return (
     <>
       <AppCard>
         <AppBreadCrumb items={items} />
         <SupplierFilter onFilter={setFilterValues} />
+        <SuppliersTable filterValues={filterValues}/>
       </AppCard>
     </>
   );

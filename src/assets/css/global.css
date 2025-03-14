@@ -255,3 +255,21 @@
   border: 3px solid #fff;
   cursor: pointer;
 }
+.is-active-btn{
+  border-radius: .6rem;
+  align-items: center;
+  padding: .5rem .5rem;
+  background-color: var(--green-100);
+  color: var(--green-500);
+  width: 5rem;
+  gap:2px;
+}
+.is-not-active-btn{
+  border-radius: .6rem;
+  align-items: center;
+  padding: .5rem .5rem;
+  background-color: #eaeaea;
+  color: #898995;
+  width: 5rem;
+  gap:2px;
+}

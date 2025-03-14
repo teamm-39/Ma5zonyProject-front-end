@@ -98,7 +98,7 @@ function SupplierFilter({ onFilter }) {
               />
             </div>
             <div className="form-group col-12 col-md-4 mt-4">
-              <label htmlFor="numOfDeal">عدد مرات التعامل</label>
+              <label htmlFor="numOfDeal">عدد الصفقات</label>
               <InputText
                 keyfilter="int"
                 id="numOfDeal"
