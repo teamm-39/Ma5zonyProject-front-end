@@ -26,7 +26,7 @@ function SupplierAddForm() {
   const [invalidIsReliable, setInvalidIsReliable] = useState(false);
 
   const handleChange = (e, field) => {
-    let value = field === "isReliable" ? e.target.value : e.target.value.trim();
+    let value = field === "isReliable" ? e.target.value : e.target.value;
 
     setFormData((prev) => ({
       ...prev,

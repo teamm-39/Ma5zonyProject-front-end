@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useContext, useEffect, useState } from "react";
 import { ToastContext } from "../../App";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getSuppliers } from "./services/getSuppliers";
 import AppTable from "../../components/AppTable";
 import { Column } from "primereact/column";
@@ -9,6 +9,7 @@ import AppIsActiveBtn from "../../components/AppIsActiveBtn";
 import AppIsNotActiveBtn from "../../components/AppIsNotActiveBtn";
 import AppTableActions from "../../components/AppTableActions";
 import tableIcon from "../../assets/icons/table-icon.svg";
+import { deleteSupplier } from "./services/deleteSupplier";
 
 function SuppliersTable({ filterValues }) {
   const [pageNumber, setPageNumber] = useState(1);
@@ -43,13 +44,34 @@ function SuppliersTable({ filterValues }) {
       });
     }
   }, [error, toast, isError]);
+  const queryClient =useQueryClient();
+  const { mutate, isPending } = useMutation({
+    mutationFn: deleteSupplier,
+    onSuccess: () => {
+      toast.current.show({
+        severity: "success",
+        summary: "نجاح",
+        detail: "تم حذف المورد بنجاح",
+        life: 3000,
+      });
+      queryClient.invalidateQueries(["suppliers"]);
+    },
+    onError: (error) => {
+      toast.current.show({
+        severity: "error",
+        summary: "فشل",
+        detail: error.message || "حدث خطأ غير متوقع",
+        life: 3000,
+      });
+    }
+  });
   return (
     <>
       <AppTable
         title="الموردين"
         data={data?.data}
         total={data?.total}
-        isLoading={isFetching}
+        isLoading={isFetching || isPending}
         onPageChange={handlePageChange}
         pageNumber={pageNumber}
         pageSize={pageSize}
@@ -82,7 +104,7 @@ function SuppliersTable({ filterValues }) {
                       rowData={rowData}
                       details={`/supplier/details/${rowData.supplierId}`}
                       edit={`/supplier/edit/${rowData.supplierId}`}
-                      onDelete={() => console.log("delete")
+                      onDelete={() => mutate(rowData.supplierId)
                       }
                     />
                   )}
@@ -94,10 +116,10 @@ function SuppliersTable({ filterValues }) {
 SuppliersTable.propTypes = {
   filterValues: PropTypes.shape({
     name: PropTypes.string,
-    age: PropTypes.string || PropTypes.number || null,
-    numOfDeal: PropTypes.string || PropTypes.number || null,
+    age: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.oneOf([null])]),
+    numOfDeal: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.oneOf([null])]),
     address: PropTypes.string,
-    isReliable: PropTypes.bool || null,
+    isReliable: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     phoneNum: PropTypes.string,
     email: PropTypes.string,
   }).isRequired,

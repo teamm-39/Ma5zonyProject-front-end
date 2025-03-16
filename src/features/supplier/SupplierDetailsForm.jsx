@@ -1,18 +1,17 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
-import { getProduct } from "./services/getProduct";
-import { useContext, useEffect } from "react";
+import { getSupplier } from "./services/getSupplier";
 import { ToastContext } from "../../App";
+import { useContext, useEffect } from "react";
 import AppPagesCard from "../../components/AppPagesCard";
 import AppLoadingSpinner from "../../components/AppLoadingSpinner";
 import { InputText } from "primereact/inputtext";
-import { deleteProduct } from "./services/deleteProduct";
-
-function ProductDetailsForm() {
+import { deleteSupplier } from "./services/deleteSupplier";
+function SupplierDetailsForm() {
   const { id } = useParams();
-  const { data, isFetching, error, isError } = useQuery({
-    queryKey: ["getProduct", id],
-    queryFn: () => getProduct(id),
+  const { data, isFetching, isError, error } = useQuery({
+    queryKey: ["getSupplier", id],
+    queryFn: () => getSupplier(id),
   });
   const toast = useContext(ToastContext);
   useEffect(() => {
@@ -27,15 +26,15 @@ function ProductDetailsForm() {
   }, [data, error, isError, toast]);
   const navigate = useNavigate();
   const { mutate, isPending } = useMutation({
-    mutationFn: deleteProduct,
+    mutationFn: deleteSupplier,
     onSuccess: () => {
       toast.current.show({
         severity: "success",
         summary: "نجاح",
-        detail: "تم حذف المنتج بنجاح",
+        detail: "تم حذف المورد بنجاح",
         life: 3000,
       });
-      navigate("/product");
+      navigate("/supplier");
     },
     onError: (error) => {
       toast.current.show({
@@ -49,15 +48,17 @@ function ProductDetailsForm() {
   return (
     <>
       <AppPagesCard
-        title="تفاصيل المنتج"
+        title="تفاصيل المورد"
         type="details"
-        editRoute={`/product/edit/${id}`}
-        deleteFunc={() => {mutate(id)}}
+        editRoute={`/supplier/edit/${id}`}
+        deleteFunc={() => {
+          mutate(id)
+        }}
       >
         <div className="row">
           <div className="col-md-6 col-12">
             <div className="input-container">
-              <label htmlFor="name">اسم المنتج</label>
+              <label htmlFor="name">اسم المورد</label>
               <InputText
                 id="name"
                 disabled
@@ -68,53 +69,75 @@ function ProductDetailsForm() {
           </div>
           <div className="col-md-6 col-12">
             <div className="input-container">
-              <label htmlFor="quantity">الكميه</label>
+              <label htmlFor="age">العمر</label>
               <InputText
-                id="quantity"
+                id="age"
                 disabled
                 className="input-disabled"
-                value={data?.data?.quantity || "0"}
+                value={data?.data?.age || ""}
               />
             </div>
           </div>
           <div className="col-md-6 col-12 mt-4">
             <div className="input-container">
-              <label htmlFor="purchasePrice">سعر الشراء</label>
+              <label htmlFor="email">البريد الإلكتروني</label>
               <InputText
-                id="purchasePrice"
+                id="email"
                 disabled
                 className="input-disabled"
-                value={data?.data?.purchasePrice || ""}
+                value={data?.data?.email || ""}
               />
             </div>
           </div>
           <div className="col-md-6 col-12 mt-4">
             <div className="input-container">
-              <label htmlFor="sellingPrice">سعر البيع</label>
+              <label htmlFor="address">العنوان</label>
               <InputText
-                id="sellingPrice"
+                id="address"
                 disabled
                 className="input-disabled"
-                value={data?.data?.sellingPrice || ""}
+                value={data?.data?.address || ""}
+              />
+            </div>
+          </div>
+          <div className="col-md-6 col-12 mt-4">
+            <div className="input-container">
+              <label htmlFor="phoneNumber">رقم الهاتف</label>
+              <InputText
+                id="phoneNumber"
+                disabled
+                className="input-disabled"
+                value={data?.data?.phoneNumber || ""}
+              />
+            </div>
+          </div>
+          <div className="col-md-6 col-12 mt-4">
+            <div className="input-container">
+              <label htmlFor="numOfDeal">عدد الصفقات</label>
+              <InputText
+                id="numOfDeal"
+                disabled
+                className="input-disabled"
+                value={data?.data?.numOfDeal !== undefined && data?.data?.numOfDeal !== null ? String(data?.data?.numOfDeal) : ""}
               />
             </div>
           </div>
           <div className="col-md-6 col-12 my-4">
             <div className="input-container">
-              <label htmlFor="minLimit">الحد الادنى</label>
+              <label htmlFor="isReliable">هل المورد موثوق؟</label>
               <InputText
-                id="minLimit"
+                id="isReliable"
                 disabled
                 className="input-disabled"
-                value={data?.data?.minLimit || ""}
+                value={data?.data?.isReliable? "نعم" : "لا"}
               />
             </div>
           </div>
         </div>
       </AppPagesCard>
-      <AppLoadingSpinner isLoading={isFetching||isPending} />
+      <AppLoadingSpinner isLoading={isFetching || isPending} />
     </>
   );
 }
 
-export default ProductDetailsForm;
+export default SupplierDetailsForm;
