@@ -39,7 +39,7 @@ function SideBar() {
           </li>
           <li className={`accordion-sidebar`}>
             <Accordion
-              activeIndex={isActive("/owner") == "active" ? 0 : undefined}
+              activeIndex={isActive("/owner") == "active" || isActive("/employee") ? 0 : undefined}
             >
               <AccordionTab
                 header={
@@ -64,6 +64,39 @@ function SideBar() {
                       className={`link-accordion ${isActive("/employee")} mb-1`}
                     >
                       إدارة الموظفين
+                    </Link>
+                  </li>
+                </ul>
+              </AccordionTab>
+            </Accordion>
+          </li>
+          <li className={`accordion-sidebar`}>
+            <Accordion
+              activeIndex={isActive("/import") == "active" || isActive("/export") ? 0 : undefined}
+            >
+              <AccordionTab
+                header={
+                  <div>
+                    إدارة العمليات
+                    <i className="bi bi-gear ms-2"></i>
+                  </div>
+                }
+              >
+                <ul className={`accordion-menu p-0`}>
+                  <li className="mb-1">
+                    <Link
+                      to="/import"
+                      className={`link-accordion ${isActive("/import")}`}
+                    >
+                      عمليات الاستيراد
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/employee"
+                      className={`link-accordion ${isActive("/employee")} mb-1`}
+                    >
+                      عمليات التصدير
                     </Link>
                   </li>
                 </ul>
