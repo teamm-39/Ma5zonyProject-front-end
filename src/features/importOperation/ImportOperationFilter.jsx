@@ -1,20 +1,68 @@
 import { Button } from "primereact/button";
 import AppAccordion from "../../components/AppAccordion";
+import { Calendar } from "primereact/calendar";
+import { useEffect, useState } from "react";
+import PropTypes from 'prop-types';
 
-function ImportOperationFilter() {
+function ImportOperationFilter({onFilter}) {
+  const [filterValues, setFilterValues] = useState({
+    userName: "",
+    supplierName: "",
+    date: null,
+  });
+  const handleInputChange = (e, field) => {
+    let value = e.target.value;
+    setFilterValues((prevValues) => ({
+      ...prevValues,
+      [field]: value,
+    }));
+  };
+  const validValues =
+    filterValues.userName != "" ||
+    filterValues.date != null ||
+    filterValues.supplierName != "";
+    useEffect(() => {
+      if (!validValues) {
+        onFilter(filterValues);
+      }
+    }, [filterValues, validValues, onFilter]);
   return (
     <>
       <div className="mt-4 supplier-filter">
         <AppAccordion>
           <div className="row">
             <div className="form-group col-12 col-md-4">
-              <label htmlFor="name">اسم المورد</label>
+              <label htmlFor="userName">اسم المستخدم</label>
               <input
                 type="text"
-                id="name"
-                // value={filterValues.name}
-                // onChange={(e) => handleInputChange(e, "name")}
+                id="userName"
+                value={filterValues.userName}
+                onChange={(e) => handleInputChange(e, "userName")}
                 className="form-control"
+              />
+            </div>
+            <div className="form-group col-12 col-md-4">
+              <label htmlFor="supplierName">اسم المورد</label>
+              <input
+                type="text"
+                id="supplierName"
+                value={filterValues.supplierName}
+                onChange={(e) => handleInputChange(e, "supplierName")}
+                className="form-control"
+              />
+            </div>
+            <div className="form-group col-12 col-md-4">
+              <label htmlFor="date">من يوم</label>
+              <Calendar
+                id="date"
+                maxDate={new Date()}
+                value={filterValues.date}
+                onChange={(e) => handleInputChange(e, "date")}
+                className="form-control "
+                inputClassName="calneder-input-style"
+                panelClassName="calender-style"
+                dateFormat="yy/mm/dd"
+                showButtonBar
               />
             </div>
             <div className="accordion-footer d-flex justify-content-end gap-3 mt-4">
@@ -24,28 +72,24 @@ function ImportOperationFilter() {
                 text
                 raised
                 className="btn-reuse"
-                // disabled={!validValues}
-                // onClick={() => {
-                //     setFilterValues({
-                //     name: "",
-                //     age: "",
-                //     address: "",
-                //     numOfDeal: "",
-                //     isReliable: "",
-                //     phoneNum: "",
-                //     email: "",
-                //     });
-                // }}
+                disabled={!validValues}
+                onClick={() => {
+                  setFilterValues({
+                    userName: "",
+                    supplierName: "",
+                    date: null,
+                  });
+                }}
               />
               <Button
                 label="بحث"
                 severity="Primary"
                 raised
+                disabled={!validValues}
                 className="btn-reuse"
-                // disabled={!validValues}
-                // onClick={() => {
-                //   onFilter(filterValues);
-                // }}
+                onClick={() => {
+                  onFilter(filterValues);
+                }}
               />
             </div>
           </div>
@@ -54,5 +98,8 @@ function ImportOperationFilter() {
     </>
   );
 }
+ImportOperationFilter.propTypes = {
+  onFilter: PropTypes.func.isRequired,
+};
 
 export default ImportOperationFilter;

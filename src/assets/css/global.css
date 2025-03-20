@@ -255,21 +255,35 @@
   border: 3px solid #fff;
   cursor: pointer;
 }
-.is-active-btn{
-  border-radius: .6rem;
+.is-active-btn {
+  border-radius: 0.6rem;
   align-items: center;
-  padding: .4rem .5rem;
+  padding: 0.4rem 0.5rem;
   background-color: var(--green-100);
   color: var(--green-500);
   width: 5rem;
-  gap:2px;
+  gap: 2px;
 }
-.is-not-active-btn{
-  border-radius: .6rem;
+.is-not-active-btn {
+  border-radius: 0.6rem;
   align-items: center;
-  padding: .4rem .5rem;
+  padding: 0.4rem 0.5rem;
   background-color: #eaeaea;
   color: #898995;
   width: 5rem;
-  gap:2px;
+  gap: 2px;
+}
+.calender-style {
+  right: 30% !important;
+  top: 5% !important;
+  width: 40% !important;
+}
+.calender-style th{
+  text-align: center;
+}
+.calneder-input-style{
+  outline: unset;
+  box-shadow: unset;
+  padding: 0;
+  border: none;
 }
