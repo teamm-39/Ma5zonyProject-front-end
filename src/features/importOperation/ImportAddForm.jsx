@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import AppPagesCard from "../../components/AppPagesCard";
 import { Dropdown } from "primereact/dropdown";
 import { getSuppliersForOperation } from "./services/getSuppliersForOperation";
@@ -9,6 +9,9 @@ import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { getProductsForOperation } from "./services/getProductsForOperation";
 import { getStoresForOperation } from "./services/getStoresForOperation";
+import { addImportOperation } from "./services/addImportOperation";
+import { useNavigate } from "react-router-dom";
+import AppLoadingSpinner from "../../components/AppLoadingSpinner";
 
 function ImportAddForm() {
   const toast = useContext(ToastContext);
@@ -89,7 +92,9 @@ function ImportAddForm() {
   ]);
 
   const [invalidSupplierId, setInvalidSupplier] = useState(false);
-
+  const [invalidProductId, setInvalidProductId] = useState(false);
+  const [invalidStoreId, setInvalidStoreId] = useState(false);
+  const [invalidQuentity, setInvalidQuentity] = useState(false);
   const [invalidItems, setInvalidItems] = useState(false);
   useEffect(() => {
     const isValid =
@@ -101,12 +106,35 @@ function ImportAddForm() {
 
     setInvalidItems(!isValid);
   }, [product, store, quantity]);
+
   const handleDelete = (index) => {
     setFormData((prev) => ({
       ...prev,
       sp: prev.sp.filter((_, i) => i !== index),
     }));
   };
+  const navigate = useNavigate();
+  const { mutate, isPending } = useMutation({
+    mutationKey: ["addImportOperation"],
+    mutationFn: addImportOperation,
+    onSuccess: () => {
+      toast.current.show({
+        severity: "success",
+        summary: "نجاح",
+        detail: "تمت اضافة العمليه بنجاح",
+        life: 3000,
+      });
+      navigate("/import");
+    },
+    onError: (e) => {
+      toast.current.show({
+        severity: "error",
+        summary: "فشل",
+        detail: e.message || "حدث خطأ غير متوقع",
+        life: 3000,
+      });
+    },
+  });
   return (
     <>
       <AppPagesCard title="اضافة عملية استيراد">
@@ -124,7 +152,8 @@ function ImportAddForm() {
                 value={formData.supplierId}
                 className={invalidSupplierId ? "p-invalid" : ""}
                 onChange={(e) =>
-                  setFormData((prev) => ({ ...prev, supplierId: e.value }))
+                {setFormData((prev) => ({ ...prev, supplierId: e.value }))
+                setInvalidSupplier(false)}
                 }
                 style={{ paddingInlineEnd: "5px" }}
                 panelClassName="custom-dropdown-panel"
@@ -153,9 +182,10 @@ function ImportAddForm() {
                     options={products?.data || []}
                     optionLabel="productName"
                     value={product}
-                    className={invalidSupplierId ? "p-invalid" : ""}
+                    className={invalidProductId ? "p-invalid" : ""}
                     onChange={(e) => {
                       setProduct(e.value);
+                      setInvalidProductId(false)
                     }}
                     style={{ paddingInlineEnd: "5px" }}
                     panelClassName="custom-dropdown-panel"
@@ -172,8 +202,12 @@ function ImportAddForm() {
                     placeholder="اختر اسم المخزن"
                     options={stores?.data || []}
                     optionLabel="storeName"
+                    className={invalidStoreId ? "p-invalid" : ""}
                     value={store}
-                    onChange={(e) => setStore(e.value)}
+                    onChange={(e) => {
+                      setStore(e.value)
+                      setInvalidStoreId(false)
+                    }}
                     style={{ paddingInlineEnd: "5px" }}
                     panelClassName="custom-dropdown-panel"
                     loading={storesIsLoading}
@@ -186,12 +220,14 @@ function ImportAddForm() {
                   <span className="star">*</span>
                   <InputText
                     id="quantity"
+                    className={invalidQuentity ? "p-invalid" : ""}
                     keyfilter="int"
                     value={quantity}
                     onChange={(e) => {
                       const value = e.target.value;
                       if (/^\d*$/.test(value)) {
                         setQuantity(value);
+                        setInvalidQuentity(false)
                       }
                     }}
                     placeholder="ادخل الكميه"
@@ -237,6 +273,24 @@ function ImportAddForm() {
           </ImportAddFormStoreProduct>
         </div>
       </AppPagesCard>
+      <div className="d-flex justify-content-end mt-2">
+        <Button
+          label="حفظ"
+          className="btn-reuse"
+          onClick={() => {
+            if (!formData.supplierId) {
+              setInvalidSupplier(true);
+            } else if (formData.sp.length < 1) {
+              setInvalidProductId(true)
+              setInvalidQuentity(true)
+              setInvalidStoreId(true)
+            } else {
+              mutate(formData);
+            }
+          }}
+        />
+      </div>
+      <AppLoadingSpinner isLoading={isPending} />
     </>
   );
 }
