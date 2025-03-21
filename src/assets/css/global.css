@@ -287,3 +287,9 @@
   padding: 0;
   border: none;
 }
+.custom-dropdown-panel ul{
+  margin-bottom: 0;
+}
+.custom-dropdown-panel li{
+  margin: 5px 0;
+}
