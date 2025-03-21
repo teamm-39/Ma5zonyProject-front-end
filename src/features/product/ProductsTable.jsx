@@ -82,6 +82,14 @@ function ProductsTable({ filterValues }) {
         />
         <Column header="الكمية" field="quantity" />
         <Column
+          header="اجمالى سعر الشراء"
+          body={(rowData) =>rowData.quantity * rowData.purchasePrice}
+        />
+        <Column
+          header="اجمالى سعر البيع"
+          body={(rowData) =>rowData.quantity * rowData.sellingPrice}
+        />
+        <Column
           header={<img src={tableIcon} alt="table icon"></img>}
           style={{ width: "8rem" }}
           body={(rowData) => (

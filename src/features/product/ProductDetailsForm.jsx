@@ -44,7 +44,7 @@ function ProductDetailsForm() {
         detail: error.message || "حدث خطأ غير متوقع",
         life: 3000,
       });
-    }
+    },
   });
   return (
     <>
@@ -52,7 +52,9 @@ function ProductDetailsForm() {
         title="تفاصيل المنتج"
         type="details"
         editRoute={`/product/edit/${id}`}
-        deleteFunc={() => {mutate(id)}}
+        deleteFunc={() => {
+          mutate(id);
+        }}
       >
         <div className="row">
           <div className="col-md-6 col-12">
@@ -112,7 +114,7 @@ function ProductDetailsForm() {
           </div>
         </div>
       </AppPagesCard>
-      <AppLoadingSpinner isLoading={isFetching||isPending} />
+      <AppLoadingSpinner isLoading={isFetching || isPending} />
     </>
   );
 }

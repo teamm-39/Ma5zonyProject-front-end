@@ -49,7 +49,7 @@ function SideBar() {
                   </div>
                 }
               >
-                <ul className={`accordion-menu p-0`}>
+                <ul className={`accordion-menu p-0 mb-2`}>
                   <li className="mb-1">
                     <Link
                       to="/owner"
@@ -82,7 +82,7 @@ function SideBar() {
                   </div>
                 }
               >
-                <ul className={`accordion-menu p-0`}>
+                <ul className={`accordion-menu p-0 mb-2`}>
                   <li className="mb-1">
                     <Link
                       to="/import"

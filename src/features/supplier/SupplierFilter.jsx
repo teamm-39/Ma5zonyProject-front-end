@@ -122,6 +122,7 @@ function SupplierFilter({ onFilter }) {
                   { label: "نعم", value: true },
                   { label: "لا", value: false },
                 ]}
+                panelClassName="dropdown-supplier"
                 optionLabel="label"
                 optionValue="value"
                 id="isReliable"
