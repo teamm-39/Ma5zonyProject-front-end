@@ -1,13 +1,14 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import AppPagesCard from "../../components/AppPagesCard";
 import { InputText } from "primereact/inputtext";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { getImportOperation } from "./services/getImportOperation";
 import { getProductsAndStoresForOperationDetails } from "./services/getProductsAndStoresForOperationDetails";
 import { useContext, useEffect, useState } from "react";
 import { ToastContext } from "../../App";
 import ImportOperationDetailsTable from "./ImportOperationDetailsTable";
 import AppLoadingSpinner from "../../components/AppLoadingSpinner";
+import { deleteImportOperation } from "./services/deleteImportOperation";
 
 function ImportOperationDetailsForm() {
   const { id } = useParams();
@@ -61,13 +62,35 @@ function ImportOperationDetailsForm() {
     productsStoresError,
     productsStoresIsError,
   ]);
+  const navigate=useNavigate()
+  const { mutate,isPending } = useMutation({
+    mutationKey: ["deleteImportOperation"],
+    mutationFn: deleteImportOperation,
+    onSuccess: () => {
+      toast.current.show({
+        severity: "success",
+        summary: "نجاح",
+        detail: "تم حذف العمليه بنجاح",
+        life: 3000,
+      });
+      navigate("/import")
+    },
+    onError: (e) => {
+      toast.current.show({
+        severity: "error",
+        summary: "فشل",
+        detail: e.meesage || "حدث خطأ غير متوقع",
+        life: 3000,
+      });
+    },
+  });
   return (
     <>
       <AppPagesCard
         title="تفاصيل العمليه"
         editRoute={`/import/edit/${id}`}
         deleteFunc={() => {
-          console.log("");
+          mutate(id)
         }}
         type="details"
       >
@@ -150,7 +173,7 @@ function ImportOperationDetailsForm() {
           pageSize={pageSize}
         />
       </AppPagesCard>
-      <AppLoadingSpinner isLoading={operationIsLoading}/>
+      <AppLoadingSpinner isLoading={operationIsLoading||isPending}/>
     </>
   );
 }

@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { ToastContext } from "../../App";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getImportOperations } from "./services/getImportOperations";
 import AppTable from "../../components/AppTable";
 import { Column } from "primereact/column";
 import AppTableActions from "../../components/AppTableActions";
 import tableIcon from "../../assets/icons/table-icon.svg";
 import PropTypes from "prop-types";
+import { deleteImportOperation } from "./services/deleteImportOperation";
 
 function ImportOperationsTable({ filterValues }) {
   const [pageNumber, setPageNumber] = useState(1);
@@ -38,11 +39,33 @@ function ImportOperationsTable({ filterValues }) {
       });
     }
   }, [error, toast, isError]);
+  const queryClient = useQueryClient();
+  const { mutate,isPending } = useMutation({
+    mutationKey: ["deleteImportOperation"],
+    mutationFn: deleteImportOperation,
+    onSuccess: () => {
+      toast.current.show({
+        severity: "success",
+        summary: "نجاح",
+        detail: "تم حذف العمليه بنجاح",
+        life: 3000,
+      });
+      queryClient.invalidateQueries(["getImportOperations"]);
+    },
+    onError: (e) => {
+      toast.current.show({
+        severity: "error",
+        summary: "فشل",
+        detail: e.meesage || "حدث خطأ غير متوقع",
+        life: 3000,
+      });
+    },
+  });
   return (
     <>
       <AppTable
         title="عمليات الاستيراد"
-        isLoading={isFetching}
+        isLoading={isFetching||isPending}
         onPageChange={handlePageChange}
         pageNumber={pageNumber}
         pageSize={pageSize}
@@ -79,7 +102,7 @@ function ImportOperationsTable({ filterValues }) {
               rowData={rowData}
               details={`/import/details/${rowData.operationId}`}
               edit={`/import/edit/${rowData.operationId}`}
-              onDelete={() => console.log(data)}
+              onDelete={() => mutate(rowData.operationId)}
             />
           )}
         />

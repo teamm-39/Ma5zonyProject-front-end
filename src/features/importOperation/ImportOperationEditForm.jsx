@@ -168,7 +168,7 @@ function ImportOperationEditForm() {
     setInvalidItems(!isValid);
   }, [product, store, quantity]);
   const navigate = useNavigate();
-  const { mutate } = useMutation({
+  const { mutate,isPending } = useMutation({
     mutationKey: ["importOperationEdit"],
     mutationFn: ImportOperationEdit,
     onSuccess: () => {
@@ -181,8 +181,6 @@ function ImportOperationEditForm() {
       navigate("/import");
     },
     onError: (e) => {
-      console.log(e);
-
       toast.current.show({
         severity: "error",
         summary: "فشل",
@@ -329,7 +327,7 @@ function ImportOperationEditForm() {
             </div>
           </ImportAddFormStoreProduct>
         </div>
-        <AppLoadingSpinner isLoading={isFetching||spIsLoading}/>
+        <AppLoadingSpinner isLoading={isFetching||spIsLoading||isPending}/>
       </AppPagesCard>
       <div className="d-flex justify-content-end mt-2">
         <Button
