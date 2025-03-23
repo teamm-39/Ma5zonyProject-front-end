@@ -30,8 +30,8 @@ function AppAditionalTable({
             emptyMessage={"لا يوجد بيانات"}
           >
             {children}
-          </DataTable>
           <AppLoadingSpinner isLoading={isLoading} />
+          </DataTable>
         </div>
       ) : (
         <div className="table-container mt-4">

@@ -5,19 +5,20 @@ import AppAditionalTable from "../../components/AppAdditionalTable";
 import tableIcon from "../../assets/icons/table-icon.svg";
 import deleteIcon from "../../assets/icons/delete-icon.svg";
 
-function ImportAddFormStoreProduct({ title, children, items, onDelete }) {
+function ImportAddFormStoreProduct({ title, children, items, onDelete,isLoading }) {
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     const total = items.reduce((acc, element) => acc + (element.price * element.quantity), 0);
     setTotalPrice(total);
   }, [items]);
+
   return (
     <>
       <div className="border rounded-2 py-4 px-2">
         <h6>{title}</h6>
         {children}
-        <AppAditionalTable data={items}>
+        <AppAditionalTable data={items} isLoading={isLoading}>
           <Column
             header="#"
             body={(rowData, options) => options.rowIndex + 1}
@@ -54,5 +55,6 @@ ImportAddFormStoreProduct.propTypes = {
   children: PropTypes.node.isRequired,
   items: PropTypes.array.isRequired,
   onDelete: PropTypes.func.isRequired,
+  isLoading:PropTypes.bool
 };
 export default ImportAddFormStoreProduct;
