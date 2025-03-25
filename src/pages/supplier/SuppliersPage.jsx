@@ -9,22 +9,22 @@ function SuppliersPage() {
     { label: "لوحة التحكم", url: "/" },
     { label: "ادارة الموردين" },
   ];
-    const [filterValues, setFilterValues] = useState({
-      name: "",
-      age: "",
-      address: "",
-      numOfDeal: "",
-      isReliable: "",
-      phoneNum: "",
-      email: "",
-    });
+  const [filterValues, setFilterValues] = useState({
+    name: "",
+    age: "",
+    address: "",
+    numOfDeal: "",
+    isReliable: "",
+    phoneNum: "",
+    email: "",
+  });
 
   return (
     <>
       <AppCard>
         <AppBreadCrumb items={items} />
         <SupplierFilter onFilter={setFilterValues} />
-        <SuppliersTable filterValues={filterValues}/>
+        <SuppliersTable filterValues={filterValues} />
       </AppCard>
     </>
   );

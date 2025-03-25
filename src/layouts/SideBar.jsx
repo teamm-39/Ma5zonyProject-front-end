@@ -124,8 +124,8 @@ function SideBar() {
             </Link>
           </li>
 
-          <li className={`menu-item ${isActive("/customers")}`}>
-            <Link to="/customers" className="link">
+          <li className={`menu-item ${isActive("/customer")}`}>
+            <Link to="/customer" className="link">
               <i className="bi bi-person-lines-fill ms-2"></i>
               إدارة العملاء
             </Link>

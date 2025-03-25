@@ -1,27 +1,28 @@
-import PropTypes from "prop-types";
-import { useContext, useEffect, useState } from "react";
-import { ToastContext } from "../../App";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getSuppliers } from "./services/getSuppliers";
-import AppTable from "../../components/AppTable";
 import { Column } from "primereact/column";
+import AppTable from "../../components/AppTable";
 import AppIsActiveBtn from "../../components/AppIsActiveBtn";
 import AppIsNotActiveBtn from "../../components/AppIsNotActiveBtn";
 import AppTableActions from "../../components/AppTableActions";
 import tableIcon from "../../assets/icons/table-icon.svg";
-import { deleteSupplier } from "./services/deleteSupplier";
+import { useContext, useEffect, useState } from "react";
+import { ToastContext } from "../../App";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getCustomers } from "./services/getCustomers";
+import PropTypes from "prop-types";
+import { deleteCustomer } from "./services/deleteCustomer";
 
-function SuppliersTable({ filterValues }) {
+function CustomersTable({ filterValues }) {
   const [pageNumber, setPageNumber] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const handlePageChange = (event) => {
     setPageNumber(event.page + 1);
     setPageSize(event.rows);
   };
+
   const toast = useContext(ToastContext);
   const { data, isFetching, error, isError } = useQuery({
     queryKey: [
-      "suppliers",
+      "customers",
       pageNumber,
       pageSize,
       filterValues.name,
@@ -32,7 +33,7 @@ function SuppliersTable({ filterValues }) {
       filterValues.phoneNum,
       filterValues.email,
     ],
-    queryFn: () => getSuppliers(pageNumber, pageSize, filterValues),
+    queryFn: () => getCustomers(pageNumber, pageSize, filterValues),
   });
   useEffect(() => {
     if (isError) {
@@ -46,15 +47,15 @@ function SuppliersTable({ filterValues }) {
   }, [error, toast, isError]);
   const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
-    mutationFn: deleteSupplier,
+    mutationFn: deleteCustomer,
     onSuccess: () => {
       toast.current.show({
         severity: "success",
         summary: "نجاح",
-        detail: "تم حذف المورد بنجاح",
+        detail: "تم حذف العميل بنجاح",
         life: 3000,
       });
-      queryClient.invalidateQueries(["suppliers"]);
+      queryClient.invalidateQueries(["customers"]);
     },
     onError: (error) => {
       toast.current.show({
@@ -78,9 +79,9 @@ function SuppliersTable({ filterValues }) {
         addUrl="/supplier/new"
       >
         <Column header="#" field="customerSupplierId" />
-        <Column header="اسم المورد" field="name" />
-        <Column header="عمر المورد" field="age" />
-        <Column header="مكان المورد" field="address" />
+        <Column header="اسم العميل" field="name" />
+        <Column header="عمر العميل" field="age" />
+        <Column header="مكان العميل" field="address" />
         <Column header="رقم الهاتف" field="phoneNumber" />
         <Column header="البريد الالكتروني" field="email" />
         <Column header="عدد الصفقات" field="numOfDeal" />
@@ -112,7 +113,7 @@ function SuppliersTable({ filterValues }) {
     </>
   );
 }
-SuppliersTable.propTypes = {
+CustomersTable.propTypes = {
   filterValues: PropTypes.shape({
     name: PropTypes.string,
     age: PropTypes.oneOfType([
@@ -131,4 +132,4 @@ SuppliersTable.propTypes = {
     email: PropTypes.string,
   }).isRequired,
 };
-export default SuppliersTable;
+export default CustomersTable;

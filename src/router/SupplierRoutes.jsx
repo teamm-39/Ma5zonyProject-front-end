@@ -7,12 +7,12 @@ import SupplierDetails from "../pages/supplier/SupplierDetails";
 function SupplierRoutes() {
   return (
     <>
-          <Route path="/supplier" element={<SuppliersPage />} />
+      <Route path="/supplier" element={<SuppliersPage />} />
       <Route path="/supplier/new" element={<AddSupplier />} />
       <Route path="/supplier/details/:id" element={<SupplierDetails />} />
       <Route path="/supplier/edit/:id" element={<StoreEdit />} />
     </>
-   );
+  );
 }
 
 export default SupplierRoutes;
