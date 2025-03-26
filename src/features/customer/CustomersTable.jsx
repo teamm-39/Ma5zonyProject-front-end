@@ -69,14 +69,14 @@ function CustomersTable({ filterValues }) {
   return (
     <>
       <AppTable
-        title="الموردين"
+        title="العملاء"
         data={data?.data}
         total={data?.total}
         isLoading={isFetching || isPending}
         onPageChange={handlePageChange}
         pageNumber={pageNumber}
         pageSize={pageSize}
-        addUrl="/supplier/new"
+        addUrl="/customer/new"
       >
         <Column header="#" field="customerSupplierId" />
         <Column header="اسم العميل" field="name" />
@@ -103,8 +103,8 @@ function CustomersTable({ filterValues }) {
           body={(rowData) => (
             <AppTableActions
               rowData={rowData}
-              details={`/supplier/details/${rowData.customerSupplierId}`}
-              edit={`/supplier/edit/${rowData.customerSupplierId}`}
+              details={`/customer/details/${rowData.customerSupplierId}`}
+              edit={`/customer/edit/${rowData.customerSupplierId}`}
               onDelete={() => mutate(rowData.customerSupplierId)}
             />
           )}

@@ -1,16 +1,15 @@
 import { Route } from "react-router-dom";
-import AddSupplier from "../pages/supplier/AddSupplier";
-import StoreEdit from "../pages/supplier/StoreEdit";
-import SupplierDetails from "../pages/supplier/SupplierDetails";
+import AddCustomer from "../pages/customer/AddCustomer";
 import CustomersPage from "../pages/customer/CustomersPage";
-
+import CustomerDetails from "../pages/customer/CustomerDetails";
+import CustomerEdit from "../pages/customer/CustomerEdit";
 function CustomerRoutes() {
   return (
     <>
       <Route path="/customer" element={<CustomersPage />} />
-      <Route path="/customer/new" element={<AddSupplier />} />
-      <Route path="/customer/details/:id" element={<SupplierDetails />} />
-      <Route path="/customer/edit/:id" element={<StoreEdit />} />
+      <Route path="/customer/new" element={<AddCustomer />} />
+      <Route path="/customer/details/:id" element={<CustomerDetails />} />
+      <Route path="/customer/edit/:id" element={<CustomerEdit />} />
     </>
   );
 }

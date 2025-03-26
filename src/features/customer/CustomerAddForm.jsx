@@ -1,70 +1,35 @@
-import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ToastContext } from "../../App";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { getSupplier } from "./services/getSupplier";
+import { useMutation } from "@tanstack/react-query";
+import { addCustomer } from "./services/addCustomer";
 import { Button } from "primereact/button";
+import AppLoadingSpinner from "../../components/AppLoadingSpinner";
 import { InputSwitch } from "primereact/inputswitch";
 import { InputText } from "primereact/inputtext";
 import AppPagesCard from "../../components/AppPagesCard";
-import AppLoadingSpinner from "../../components/AppLoadingSpinner";
-import { editSupplier } from "./services/editSupplier";
 
-function SupplierEditForm() {
-  const navigate = useNavigate();
-  const { id } = useParams();
-  const toast = useContext(ToastContext);
-  const { data, isFetching, error, isError } = useQuery({
-    queryKey: ["getSupplier", id],
-    queryFn: () => getSupplier(id),
-  });
-  useEffect(() => {
-    if (isError) {
-      toast.current.show({
-        severity: "error",
-        summary: "فشل",
-        detail: error.message || "حدث خطأ غير متوقع",
-        life: 3000,
-      });
-    }
-  }, [error, isError, data, toast]);
+function CustomerAddForm() {
   const [formData, setFormData] = useState({
-    customerSupplierId: id,
     name: "",
-    email: "",
     age: "",
+    email: "",
     address: "",
     phoneNumber: "",
-    isReliable: false,
+    isReliable: true,
   });
-  useEffect(() => {
-    if (data) {
-      setFormData({
-        customerSupplierId: id,
-        name: data?.data.name || "",
-        email: data?.data.email || "",
-        age: data?.data.age || "",
-        address: data?.data.address || "",
-        phoneNumber: data?.data.phoneNumber || "",
-        isReliable: data?.data.isReliable || false,
-      });
-    }
-  }, [data, id]);
   const [invalidName, setInvalidName] = useState(false);
   const [invalidAge, setInvalidAge] = useState(false);
   const [invalidEmail, setInvalidEmail] = useState(false);
   const [invalidAddress, setInvalidAddress] = useState(false);
   const [invalidPhoneNumber, setInvalidPhoneNumber] = useState(false);
   const [invalidIsReliable, setInvalidIsReliable] = useState(false);
-
   const handleChange = (e, field) => {
     let value = field === "isReliable" ? e.target.value : e.target.value;
-
     setFormData((prev) => ({
       ...prev,
       [field]: value,
     }));
-
     switch (field) {
       case "name":
         setInvalidName(value.length < 1);
@@ -90,16 +55,18 @@ function SupplierEditForm() {
         break;
     }
   };
+  const navigate = useNavigate();
+  const toast = useContext(ToastContext);
   const isFormEmpty = Object.values(formData).some((value) => value === "");
   const { mutate, isPending } = useMutation({
-    mutationFn: editSupplier,
+    mutationFn: addCustomer,
     onSuccess: () => {
-      navigate("/supplier");
       toast.current.show({
         severity: "success",
         summary: "نجاح",
-        detail: "تم تعديل المورد بنجاح",
+        detail: "تم إضافة العميل بنجاح",
       });
+      navigate("/customer");
     },
     onError: (e) => {
       toast.current.show({
@@ -112,11 +79,11 @@ function SupplierEditForm() {
   });
   return (
     <>
-      <AppPagesCard title="تعديل مورد">
+      <AppPagesCard title="اضافة العميل">
         <div className="row">
           <div className="col-12 col-md-6">
             <div className="input-container">
-              <label htmlFor="name">اسم المورد</label>
+              <label htmlFor="name">اسم العميل</label>
               <span className="star">*</span>
               <InputText
                 id="name"
@@ -124,7 +91,7 @@ function SupplierEditForm() {
                 value={formData.name}
                 className={invalidName ? "p-invalid" : ""}
                 onChange={(e) => handleChange(e, "name")}
-                placeholder="ادخل اسم المورد"
+                placeholder="ادخل اسم العميل"
               />
               {invalidName && (
                 <small className="input-warning">هذا الحقل مطلوب</small>
@@ -153,7 +120,7 @@ function SupplierEditForm() {
               />
               {invalidAge && (
                 <small className="input-warning">
-                  هذا الحقل مطلوب ويجب أن يكون عمر المورد اكبر من 17 عام
+                  هذا الحقل مطلوب ويجب أن يكون عمر العميل اكبر من 17 عام
                 </small>
               )}
             </div>
@@ -215,7 +182,7 @@ function SupplierEditForm() {
           </div>
           <div className="col-12 col-md-6 my-4">
             <div className="input-container">
-              <label htmlFor="isReliable">هل المورد موثوق؟</label>
+              <label htmlFor="isReliable">هل العميل موثوق؟</label>
               <span className="star">*</span>
               <div
                 className="input-disabled rounded-3 py-1 px-1 d-flex align-content-center gap-2"
@@ -271,9 +238,9 @@ function SupplierEditForm() {
           }}
         />
       </div>
-      <AppLoadingSpinner isLoading={isFetching || isPending} />
+      <AppLoadingSpinner isLoading={isPending} />
     </>
   );
 }
 
-export default SupplierEditForm;
+export default CustomerAddForm;

@@ -27,12 +27,10 @@ function SupplierAddForm() {
 
   const handleChange = (e, field) => {
     let value = field === "isReliable" ? e.target.value : e.target.value;
-
     setFormData((prev) => ({
       ...prev,
       [field]: value,
     }));
-
     switch (field) {
       case "name":
         setInvalidName(value.length < 1);

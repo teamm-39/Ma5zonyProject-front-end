@@ -1,21 +1,20 @@
 import AppBreadCrumb from "../../components/AppBreadCrumb";
 import AppCard from "../../components/AppCard";
-import SupplierEditForm from "../../features/supplier/SupplierEditForm";
-
-function StoreEdit() {
+import CustomerAddForm from "../../features/customer/CustomerAddForm";
+function AddCustomer() {
   const items = [
     { label: "لوحة التحكم", url: "/" },
-    { label: "ادارة الموردين", url: "/supplier" },
-    { label: "تعديل مورد" },
+    { label: "ادارة العملاء", url: "/customer" },
+    { label: "اضافة عميل" },
   ];
   return (
     <>
       <AppCard>
         <AppBreadCrumb items={items} />
-        <SupplierEditForm />
+        <CustomerAddForm />
       </AppCard>
     </>
   );
 }
 
-export default StoreEdit;
+export default AddCustomer;
