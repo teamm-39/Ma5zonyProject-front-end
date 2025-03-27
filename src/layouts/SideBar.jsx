@@ -93,8 +93,8 @@ function SideBar() {
                   </li>
                   <li>
                     <Link
-                      to="/employee"
-                      className={`link-accordion ${isActive("/employee")} mb-1`}
+                      to="/export"
+                      className={`link-accordion ${isActive("/export")} mb-1`}
                     >
                       عمليات التصدير
                     </Link>

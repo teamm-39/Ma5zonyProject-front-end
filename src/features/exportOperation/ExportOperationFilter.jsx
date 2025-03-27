@@ -1,13 +1,13 @@
 import { Button } from "primereact/button";
-import AppAccordion from "../../components/AppAccordion";
 import { Calendar } from "primereact/calendar";
-import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
+import AppAccordion from "../../components/AppAccordion";
 
-function ImportOperationFilter({ onFilter }) {
+function ExportOperationFilter({ onFilter }) {
   const [filterValues, setFilterValues] = useState({
     userName: "",
-    supplierName: "",
+    customerName: "",
     date: null,
   });
   const handleInputChange = (e, field) => {
@@ -20,7 +20,7 @@ function ImportOperationFilter({ onFilter }) {
   const validValues =
     filterValues.userName != "" ||
     filterValues.date != null ||
-    filterValues.supplierName != "";
+    filterValues.customerName != "";
   useEffect(() => {
     if (!validValues) {
       onFilter(filterValues);
@@ -42,12 +42,12 @@ function ImportOperationFilter({ onFilter }) {
               />
             </div>
             <div className="form-group col-12 col-md-4">
-              <label htmlFor="supplierName">اسم المورد</label>
+              <label htmlFor="supplierName">اسم العميل</label>
               <input
                 type="text"
                 id="supplierName"
-                value={filterValues.supplierName}
-                onChange={(e) => handleInputChange(e, "supplierName")}
+                value={filterValues.customerName}
+                onChange={(e) => handleInputChange(e, "customerName")}
                 className="form-control"
               />
             </div>
@@ -76,7 +76,7 @@ function ImportOperationFilter({ onFilter }) {
                 onClick={() => {
                   setFilterValues({
                     userName: "",
-                    supplierName: "",
+                    customerName: "",
                     date: null,
                   });
                 }}
@@ -98,8 +98,7 @@ function ImportOperationFilter({ onFilter }) {
     </>
   );
 }
-ImportOperationFilter.propTypes = {
+ExportOperationFilter.propTypes = {
   onFilter: PropTypes.func.isRequired,
 };
-
-export default ImportOperationFilter;
+export default ExportOperationFilter;

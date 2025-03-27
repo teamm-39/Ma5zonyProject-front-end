@@ -9,14 +9,11 @@ function ImportOperationsPage() {
     { label: "لوحة التحكم", url: "/" },
     { label: "عمليات الاستيراد" },
   ];
-    const [filterValues, setFilterValues] = useState({
-      userName: "",
-      supplierName: "",
-      date: null,
-    });
-  // if (field === "date" && value) {
-    //   value = new Date(value).toLocaleDateString("en-GB");
-    // }
+  const [filterValues, setFilterValues] = useState({
+    userName: "",
+    supplierName: "",
+    date: null,
+  });
   return (
     <>
       <AppCard>
