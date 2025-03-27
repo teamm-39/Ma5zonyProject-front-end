@@ -1,8 +1,8 @@
 import axios from "axios"
 
-export const getProductsForOperation = async () => {
+export const getStoresForOperation = async () => {
   try {
-    const res = await axios.get("https://localhost:7213/api/Product/get-products-for-import-operation");
+    const res = await axios.get("https://localhost:7213/api/Store/get-stores-for-operation");
     return res?.data
   } catch (e) {
     const eMessage = e.response?.data?.meesage || "حدث خطأ غير متوقع";

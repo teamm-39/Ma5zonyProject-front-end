@@ -1,39 +1,43 @@
-import { useNavigate, useParams } from "react-router-dom";
-import AppPagesCard from "../../components/AppPagesCard";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { getImportOperation } from "./services/getImportOperation";
 import { useContext, useEffect, useState } from "react";
 import { ToastContext } from "../../App";
-import { Dropdown } from "primereact/dropdown";
-import { getSuppliersForOperation } from "./services/getSuppliersForOperation";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { getCustomersForOperation } from "./services/getCustomersForOperation";
 import { getProductsForOperation } from "./services/getProductsForOperation";
 import { getStoresForOperation } from "./services/getStoresForOperation";
-import { getProductsAndStoresForOperationForEdit } from "./services/getProductsAndStoresForOperationForEdit";
-import ImportAddFormStoreProduct from "./ImportAddFormStoreProduct";
-import { InputText } from "primereact/inputtext";
+import { addExportOperation } from "./services/addExportOperation";
 import { Button } from "primereact/button";
+import { InputText } from "primereact/inputtext";
+import { Dropdown } from "primereact/dropdown";
+import ExportAddTable from "./ExportAddTable";
 import AppLoadingSpinner from "../../components/AppLoadingSpinner";
-import { ImportOperationEdit } from "./services/ImportOperationEdit";
+import AppPagesCard from "../../components/AppPagesCard";
+import { useNavigate } from "react-router-dom";
 
-function ImportOperationEditForm() {
-  const { id } = useParams();
+function ExportAddForm() {
   const toast = useContext(ToastContext);
-
-  const { data, error, isError, isFetching } = useQuery({
-    queryKey: ["getimportOperation"],
-    queryFn: () => getImportOperation(id),
+  const [product, setProduct] = useState({
+    productId: null,
+    productName: null,
+    price: null,
   });
-
+  const [store, setStore] = useState({
+    storeId: null,
+    storeName: null,
+  });
+  const [quantity, setQuantity] = useState("");
+  const [formData, setFormData] = useState({
+    customerId: null,
+    sp: [],
+  });
   const {
-    data: suppliers,
-    isFetching: suppliersIsLoading,
-    error: suppliersError,
-    isError: suppliersIsError,
+    data: customers,
+    isFetching: customersIsLoading,
+    error: customersError,
+    isError: customersIsError,
   } = useQuery({
-    queryKey: ["getSuppliersForOperation"],
-    queryFn: getSuppliersForOperation,
+    queryKey: ["getCustomersForOperation"],
+    queryFn: getCustomersForOperation,
   });
-
   const {
     data: products,
     isFetching: productsIsLoading,
@@ -43,7 +47,6 @@ function ImportOperationEditForm() {
     queryKey: ["getProductsForOperation"],
     queryFn: getProductsForOperation,
   });
-
   const {
     data: stores,
     isFetching: storesIsLoading,
@@ -54,30 +57,12 @@ function ImportOperationEditForm() {
     queryFn: getStoresForOperation,
   });
 
-  const {
-    data: sp,
-    isFetching: spIsLoading,
-    isError: spIsError,
-    error: spError,
-  } = useQuery({
-    queryKey: ["getStoreProducts"],
-    queryFn: () => getProductsAndStoresForOperationForEdit(id),
-  });
-
   useEffect(() => {
-    if (isError) {
+    if (customersIsError) {
       toast.current.show({
         severity: "error",
         summary: "فشل",
-        detail: error.message || "حدث خطأ غير متوقع",
-        life: 3000,
-      });
-    }
-    if (suppliersIsError) {
-      toast.current.show({
-        severity: "error",
-        summary: "فشل",
-        detail: suppliersError?.message || "حدث خطأ غير متوقع",
+        detail: customersError?.message || "حدث خطأ غير متوقع",
         life: 3000,
       });
     }
@@ -97,66 +82,21 @@ function ImportOperationEditForm() {
         life: 3000,
       });
     }
-    if (spIsError) {
-      toast.current.show({
-        severity: "error",
-        summary: "فشل",
-        detail: spError?.message || "حدث خطأ غير متوقع",
-        life: 3000,
-      });
-    }
   }, [
-    error,
-    isError,
-    data,
     toast,
-    suppliersError?.message,
-    suppliersIsError,
-    productsError?.message,
+    customersError,
+    customersIsError,
     productsIsError,
-    storesError?.message,
+    productsError,
     storesIsError,
-    spError?.message,
-    spIsError,
+    storesError,
   ]);
-
-  const [product, setProduct] = useState({
-    productId: null,
-    productName: null,
-    price: null,
-  });
-  const [store, setStore] = useState({
-    storeId: null,
-    storeName: null,
-  });
-  const [quantity, setQuantity] = useState("");
-  const [formData, setFormData] = useState({
-    supplierId: null,
-    sp: [],
-  });
-
-  useEffect(() => {
-    if (data && sp) {
-      setFormData((prev) => ({
-        ...prev,
-        supplierId: data?.data.supplierId,
-        sp: sp?.data || [],
-      }));
-    }
-  }, [data, sp]);
-
-  const handleDelete = (index) => {
-    setFormData((prev) => ({
-      ...prev,
-      sp: prev.sp.filter((_, i) => i !== index),
-    }));
-  };
-
-  const [invalidSupplierId, setInvalidSupplier] = useState(false);
+  const [invalidCustomerId, setInvalidCustomerId] = useState(false);
   const [invalidProductId, setInvalidProductId] = useState(false);
   const [invalidStoreId, setInvalidStoreId] = useState(false);
   const [invalidQuentity, setInvalidQuentity] = useState(false);
   const [invalidItems, setInvalidItems] = useState(false);
+
   useEffect(() => {
     const isValid =
       product &&
@@ -167,18 +107,25 @@ function ImportOperationEditForm() {
 
     setInvalidItems(!isValid);
   }, [product, store, quantity]);
+
+  const handleDelete = (index) => {
+    setFormData((prev) => ({
+      ...prev,
+      sp: prev.sp.filter((_, i) => i !== index),
+    }));
+  };
   const navigate = useNavigate();
-  const { mutate,isPending } = useMutation({
-    mutationKey: ["importOperationEdit"],
-    mutationFn: ImportOperationEdit,
+  const { mutate, isPending } = useMutation({
+    mutationKey: ["addImportOperation"],
+    mutationFn: addExportOperation,
     onSuccess: () => {
       toast.current.show({
         severity: "success",
         summary: "نجاح",
-        detail: "تم تعديل العمليه بنجاح",
+        detail: "تمت اضافة العمليه بنجاح",
         life: 3000,
       });
-      navigate("/import");
+      navigate("/export");
     },
     onError: (e) => {
       toast.current.show({
@@ -191,40 +138,39 @@ function ImportOperationEditForm() {
   });
   return (
     <>
-      <AppPagesCard title="تعديل عملية الاستيراد">
+      <AppPagesCard title="اضافة عملية تصدير">
         <div className="row">
           <div className="col-12 col-md-4">
             <div className="input-container">
-              <label htmlFor="supplierId">اسم المورد</label>
+              <label htmlFor="customerId">اسم العميل</label>
               <span className="star">*</span>
               <Dropdown
-                id="supplierId"
-                placeholder="اختر اسم المورد"
-                options={suppliers?.data || []}
+                id="customerId"
+                placeholder="اختر اسم العميل"
+                options={customers?.data || []}
                 optionLabel="name"
                 optionValue="id"
-                value={formData.supplierId}
-                className={invalidSupplierId ? "p-invalid" : ""}
+                value={formData.customerId}
+                className={invalidCustomerId ? "p-invalid" : ""}
                 onChange={(e) => {
-                  setFormData((prev) => ({ ...prev, supplierId: e.value }));
-                  setInvalidSupplier(false);
+                  setFormData((prev) => ({ ...prev, customerId: e.value }));
+                  setInvalidCustomerId(false);
                 }}
                 style={{ paddingInlineEnd: "5px" }}
                 panelClassName="custom-dropdown-panel"
-                loading={suppliersIsLoading}
+                loading={customersIsLoading}
               />
-              {invalidSupplierId && (
+              {invalidCustomerId && (
                 <small className="input-warning">هذا الحقل مطلوب</small>
               )}
             </div>
           </div>
         </div>
         <div className="mt-4">
-          <ImportAddFormStoreProduct
+          <ExportAddTable
+            title="اضافة المنتجات"
             items={formData.sp}
             onDelete={handleDelete}
-            title="المنتجات"
-            isLoading={spIsLoading}
           >
             <div className="row mt-4">
               <div className="col-12 col-md-4">
@@ -304,7 +250,7 @@ function ImportOperationEditForm() {
                             productId: product.productId,
                             productName: product.productName,
                             price: product.price,
-                            toStoreId: store.storeId,
+                            storeId: store.storeId,
                             storeName: store.storeName,
                             quantity: quantity,
                           },
@@ -325,30 +271,29 @@ function ImportOperationEditForm() {
                 />
               </div>
             </div>
-          </ImportAddFormStoreProduct>
+          </ExportAddTable>
         </div>
-        <AppLoadingSpinner isLoading={isFetching||spIsLoading||isPending}/>
       </AppPagesCard>
       <div className="d-flex justify-content-end mt-2">
         <Button
           label="حفظ"
           className="btn-reuse"
           onClick={() => {
-            if (!formData.supplierId) {
-              setInvalidSupplier(true);
+            if (!formData.customerId) {
+              setInvalidCustomerId(true);
             } else if (formData.sp.length < 1) {
-              setInvalidProductId(true)
-              setInvalidQuentity(true)
-              setInvalidStoreId(true)
+              setInvalidProductId(true);
+              setInvalidQuentity(true);
+              setInvalidStoreId(true);
             } else {
-              mutate({id,formData});
-              console.log("Before calling mutate...");
+              mutate(formData);
             }
           }}
         />
       </div>
+      <AppLoadingSpinner isLoading={isPending} />
     </>
   );
 }
 
-export default ImportOperationEditForm;
+export default ExportAddForm;

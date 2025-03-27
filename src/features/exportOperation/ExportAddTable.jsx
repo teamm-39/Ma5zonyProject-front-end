@@ -1,17 +1,10 @@
 import PropTypes from "prop-types";
-import { Column } from "primereact/column";
 import { useEffect, useState } from "react";
-import AppAditionalTable from "../../components/AppAdditionalTable";
 import tableIcon from "../../assets/icons/table-icon.svg";
 import deleteIcon from "../../assets/icons/delete-icon.svg";
-
-function ImportAddFormStoreProduct({
-  title,
-  children,
-  items,
-  onDelete,
-  isLoading,
-}) {
+import AppAditionalTable from "../../components/AppAdditionalTable";
+import { Column } from "primereact/column";
+function ExportAddTable({ title, children, items, onDelete, isLoading }) {
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
@@ -21,7 +14,6 @@ function ImportAddFormStoreProduct({
     );
     setTotalPrice(total);
   }, [items]);
-
   return (
     <>
       <div className="border rounded-2 py-4 px-2">
@@ -35,7 +27,7 @@ function ImportAddFormStoreProduct({
           <Column header="اسم المنتج" field="productName" />
           <Column header="سعر المنتج الواحد" field="price" />
           <Column header="الكميه" field="quantity" />
-          <Column header="الى مخزن" field="storeName" />
+          <Column header="من مخزن" field="storeName" />
           <Column
             header="اجمالى السعر"
             body={(rowData) => {
@@ -62,11 +54,11 @@ function ImportAddFormStoreProduct({
     </>
   );
 }
-ImportAddFormStoreProduct.propTypes = {
+ExportAddTable.propTypes = {
   title: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
   items: PropTypes.array.isRequired,
   onDelete: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
 };
-export default ImportAddFormStoreProduct;
+export default ExportAddTable;

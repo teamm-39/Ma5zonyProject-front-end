@@ -147,8 +147,8 @@ function ImportAddForm() {
                 id="supplierId"
                 placeholder="اختر اسم المورد"
                 options={suppliers?.data || []}
-                optionLabel="supplierName"
-                optionValue="supplierId"
+                optionLabel="name"
+                optionValue="id"
                 value={formData.supplierId}
                 className={invalidSupplierId ? "p-invalid" : ""}
                 onChange={(e) =>
