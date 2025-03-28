@@ -86,7 +86,7 @@ function ExportOperationDetailsForm() {
   return (<>
   <AppPagesCard
           title="تفاصيل العمليه"
-          editRoute={`/import/edit/${id}`}
+          editRoute={`/export/edit/${id}`}
           deleteFunc={() => {
             mutate(id)
           }}
