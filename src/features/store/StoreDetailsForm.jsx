@@ -3,18 +3,30 @@ import AppPagesCard from "../../components/AppPagesCard";
 import { InputText } from "primereact/inputtext";
 import getStore from "./services/getStore";
 import { useNavigate, useParams } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ToastContext } from "../../App";
 import AppLoadingSpinner from "../../components/AppLoadingSpinner";
 import { deleteStore } from "./services/deleteStore";
+import StoreDetailsTable from "./StoreDetailsTable";
+import { getProductsForeStore } from "./services/getProductsForStore";
 
 function StoreAddForm() {
   const { id } = useParams();
   const toast = useContext(ToastContext);
   const navigate = useNavigate();
-  const { data, isFetching } = useQuery({
+  const { data, isFetching, error, isError } = useQuery({
     queryKey: ["getStore", id],
-    queryFn: () => getStore(id, toast),
+    queryFn: () => getStore(id),
+  });
+  const [pageNumber, setPageNumber] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
+  const handlePageChange = (event) => {
+    setPageNumber(event.page + 1);
+    setPageSize(event.rows);
+  };
+  const { data: products, isFetching: productsIsLoading, error: productsError, isError: productsIsError } = useQuery({
+    queryKey: ["getProductsForStore", id,pageNumber, pageSize],
+    queryFn: () => getProductsForeStore(id, pageNumber, pageSize),
   });
   const { mutate, isPending } = useMutation({
     mutationFn: deleteStore,
@@ -28,6 +40,24 @@ function StoreAddForm() {
       navigate("/store");
     },
   });
+  useEffect(() => {
+    if (isError) {
+      toast.current.show({
+        severity: "error",
+        summary: "فشل",
+        detail: error?.message || "حدث خطأ غير متوقع",
+        life: 3000,
+      });
+    }
+    if (productsIsError) {
+      toast.current.show({
+        severity: "error",
+        summary: "فشل",
+        detail: productsError?.message || "حدث خطأ غير متوقع",
+        life: 3000,
+      });
+    }
+  }, [isError, productsIsError, error, productsError, toast]);
   return (
     <>
       <AppPagesCard
@@ -71,6 +101,15 @@ function StoreAddForm() {
             </div>
           </div>
         </div>
+        <StoreDetailsTable
+          data={products?.data || []}
+          isLoading={productsIsLoading}
+          pageNumber={pageNumber - 1}
+          pageSize={pageSize}
+          onPageChange={handlePageChange}
+          total={products?.total || 0}
+          title="المنتجات فى هذا المخزن"
+        />
         <AppLoadingSpinner isLoading={isFetching || isPending} />
       </AppPagesCard>
     </>

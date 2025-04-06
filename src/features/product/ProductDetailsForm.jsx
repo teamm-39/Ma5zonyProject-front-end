@@ -1,19 +1,30 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { getProduct } from "./services/getProduct";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ToastContext } from "../../App";
 import AppPagesCard from "../../components/AppPagesCard";
 import AppLoadingSpinner from "../../components/AppLoadingSpinner";
 import { InputText } from "primereact/inputtext";
 import { deleteProduct } from "./services/deleteProduct";
-
+import { getStoresForProduct } from "./services/getStoresForProduct";
+import ProductDetailsTable from "./productDetailsTable";
 function ProductDetailsForm() {
   const { id } = useParams();
   const { data, isFetching, error, isError } = useQuery({
     queryKey: ["getProduct", id],
     queryFn: () => getProduct(id),
   });
+    const [pageNumber, setPageNumber] = useState(1);
+    const [pageSize, setPageSize] = useState(5);
+    const handlePageChange = (event) => {
+      setPageNumber(event.page + 1);
+      setPageSize(event.rows);
+  };
+    const { data: stores, isFetching: storesIsLoading, error: storesError, isError: storesIsError } = useQuery({
+      queryKey: ["getProductsForStore", id,pageNumber, pageSize],
+      queryFn: () => getStoresForProduct(id, pageNumber, pageSize),
+    });
   const toast = useContext(ToastContext);
   useEffect(() => {
     if (isError) {
@@ -24,7 +35,15 @@ function ProductDetailsForm() {
         life: 3000,
       });
     }
-  }, [data, error, isError, toast]);
+    if (storesIsError) {
+      toast.current.show({
+        severity: "error",
+        summary: "فشل",
+        detail: storesError.message || "حدث خطأ غير متوقع",
+        life: 3000,
+      });
+    }
+  }, [data, error, isError, storesIsError, storesError, toast]);
   const navigate = useNavigate();
   const { mutate, isPending } = useMutation({
     mutationFn: deleteProduct,
@@ -113,6 +132,15 @@ function ProductDetailsForm() {
             </div>
           </div>
         </div>
+        <ProductDetailsTable
+          data={stores?.data || []}
+          isLoading={storesIsLoading}
+          pageNumber={pageNumber}
+          pageSize={pageSize}
+          onPageChange={handlePageChange}
+          total={stores?.total || 0}
+          title="المخازن المتوفر بها المنتج"
+        />
       </AppPagesCard>
       <AppLoadingSpinner isLoading={isFetching || isPending} />
     </>
