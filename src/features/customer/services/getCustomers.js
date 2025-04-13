@@ -18,7 +18,7 @@ export const getCustomers = async (pageNumber, pageSize, filterValues) => {
     const queryString = new URLSearchParams(params).toString();
     const url = `https://localhost:7213/api/Customer?${decodeURIComponent(queryString)}`;
     const res = await axios.get(
-      url
+      url,{withCredentials:true}
     );
     return res.data;
   } catch (e) {
