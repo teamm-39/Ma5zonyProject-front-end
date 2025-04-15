@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const getEmployee = async (id) => {
   try {
-    const response = await axios.get(`https://localhost:7213/api/User/details/${id}`);
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}User/details/${id}`);
     return response.data;
   } catch (error) {
     const errorMessage = error.response?.data?.meesage || "حدث خطأ غير متوقع";

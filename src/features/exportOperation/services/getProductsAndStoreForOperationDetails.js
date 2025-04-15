@@ -11,7 +11,7 @@ export const getProductsAndStoresForOperationDetails = async (
       pageNumber,
     };
     const res = await axios.get(
-      `https://localhost:7213/api/ExportOperation/details/get-products-from-stores/${id}`,
+      `${import.meta.env.VITE_API_URL}ExportOperation/details/get-products-from-stores/${id}`,
       { params }
     );
     return res?.data;

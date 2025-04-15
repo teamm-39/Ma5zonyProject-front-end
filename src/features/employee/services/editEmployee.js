@@ -24,7 +24,7 @@ export const editEmployee = async (formData) => {
     }
 
     const res = await axios.put(
-      "https://localhost:7213/api/User/edit",
+      `${import.meta.env.VITE_API_URL}/User/edit`,
       data,
       {
         headers: {

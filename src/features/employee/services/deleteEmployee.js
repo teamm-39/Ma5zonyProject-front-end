@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const deleteEmployee = async (id) => {
   try {
-    const response = await axios.delete(`https://localhost:7213/api/User/delete/${id}`);
+    const response = await axios.delete(`${import.meta.env.VITE_API_URL}User/delete/${id}`);
     return response.data;
   } catch (error) {
     const errorMessage = error.response?.data?.meesage || "حدث خطأ غير متوقع";

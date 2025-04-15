@@ -6,7 +6,7 @@ export const getProductsAndStoresForOperationDetails = async (id,pageSize,pageNu
       pageSize,
       pageNumber
     }
-    const res = await axios.get(`https://localhost:7213/api/ImortOperation/details/get-products-to-stores/${id}`, {params});
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}ImortOperation/details/get-products-to-stores/${id}`, {params});
     return res?.data
   } catch (e) {
     const eMessage = e.response?.data?.meesage || "حدث خطأ غير متوقع";

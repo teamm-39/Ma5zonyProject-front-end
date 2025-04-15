@@ -2,7 +2,7 @@ import axios from "axios"
 
 export const getCustomersForOperation = async () => {
   try {
-    const res = await axios.get("https://localhost:7213/api/Customer/get-customers-for-operation");
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}Customer/get-customers-for-operation`);
     return res?.data
   } catch (e) {
     const eMessage = e.response?.data?.meesage || "حدث خطأ غير متوقع";

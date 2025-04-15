@@ -21,7 +21,7 @@ export const addOwner = async (formData) => {
     }
 
     const res = await axios.post(
-      "https://localhost:7213/api/Admin/create", data,
+      `${import.meta.env.VITE_API_URL}Admin/create`, data,
       {
         headers: {
           "Content-Type": "multipart/form-data",

@@ -21,7 +21,7 @@ import axios from "axios";
     }
 
     const res = await axios.post(
-      "https://localhost:7213/api/User/create", data,
+      `${import.meta.env.VITE_API_URL}User/create`, data,
       {
         headers: {
           "Content-Type": "multipart/form-data",

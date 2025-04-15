@@ -12,7 +12,7 @@ export const getOwners = async (pageNumber, pageSize,filterValues) => {
     if (filterValues.phone) params.phone = filterValues.phone;
     if (filterValues.address) params.address = filterValues.address;
     const res = await axios.get(
-      `https://localhost:7213/api/Admin`,{params,withCredentials: true},
+      `${import.meta.env.VITE_API_URL}Admin`,{params,withCredentials: true},
     );
     return res.data;
   } catch (error) {

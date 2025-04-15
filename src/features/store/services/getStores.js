@@ -10,7 +10,7 @@ export const getStores = async (pageNumber, pageSize, name, country, city) => {
     if (country) params.country = country;
     if (city) params.city = city;
     const res = await axios.get(
-      `https://localhost:7213/api/Store`,{params}
+      `${import.meta.env.VITE_API_URL}Store`,{params}
     );
     return res.data;
   } catch (e) {

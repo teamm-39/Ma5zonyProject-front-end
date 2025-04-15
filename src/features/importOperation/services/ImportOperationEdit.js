@@ -12,7 +12,7 @@ export const ImportOperationEdit = async (data) => {
         toStoreId:item.toStoreId
       }))
     }
-    const res = await axios.put(`https://localhost:7213/api/ImortOperation/edit/${data.id}`, params
+    const res = await axios.put(`${import.meta.env.VITE_API_URL}ImortOperation/edit/${data.id}`, params
      );
     return res?.data
   } catch (e) {

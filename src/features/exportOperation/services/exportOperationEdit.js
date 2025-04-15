@@ -12,7 +12,7 @@ export const exportOperationEdit = async (data) => {
         fromStoreId:item.fromStoreId
       }))
     }
-    const res = await axios.put(`https://localhost:7213/api/ExportOperation/edit/${data.id}`, params
+    const res = await axios.put(`${import.meta.env.VITE_API_URL}ExportOperation/edit/${data.id}`, params
      );
     return res?.data
   } catch (e) {

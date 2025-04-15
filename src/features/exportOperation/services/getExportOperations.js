@@ -14,7 +14,7 @@ export const getExportOperations = async (pageSize , pageNumber,filterValues) =>
       params.dateTime = localDate.toISOString().split("T")[0];
     }
 
-    const res = await axios.get("https://localhost:7213/api/ExportOperation", {params});
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}ExportOperation`, {params});
     return res?.data
   } catch (error) {
     const errorMessage = error.response?.data?.meesage || "حدث خطأ غير متوقع";

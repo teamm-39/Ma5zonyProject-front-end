@@ -10,7 +10,7 @@ export const addImportOperation = async (data) => {
         toStoreId:item.storeId
       }))
     }
-    const res = await axios.post("https://localhost:7213/api/ImortOperation/create", params,
+    const res = await axios.post(`${import.meta.env.VITE_API_URL}ImortOperation/create`, params,
       {
         withCredentials: true
       }

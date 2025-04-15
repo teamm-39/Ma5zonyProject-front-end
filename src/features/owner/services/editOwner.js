@@ -24,7 +24,7 @@ export const editOwner = async (formData) => {
     }
 
     const res = await axios.put(
-      "https://localhost:7213/api/Admin/edit",
+      `${import.meta.env.VITE_API_URL}Admin/edit`,
       data,
       {
         headers: {

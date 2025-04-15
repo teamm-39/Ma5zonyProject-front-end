@@ -16,7 +16,7 @@ export const getSuppliers = async (pageNumber, pageSize, filterValues) => {
     if (filterValues.phoneNum) params.phoneNum = filterValues.phoneNum;
     if (filterValues.email) params.email = filterValues.email.trim();
     const queryString = new URLSearchParams(params).toString();
-    const url = `https://localhost:7213/api/Supplier?${decodeURIComponent(queryString)}`;
+    const url = `${import.meta.env.VITE_API_URL}Supplier?${decodeURIComponent(queryString)}`;
     const res = await axios.get(
       url,{withCredentials:true}
     );
