@@ -3,7 +3,7 @@ import axios from "axios";
 export const getProductsAndStoresForEditOperatiom = async (id) => {
   try {
     const res = await axios.get(
-      `${import.meta.env.VITE_API_URL}ExportOperation/details/get-products-from-stores-for-edit/${id}`
+      `${import.meta.env.VITE_API_URL}ExportOperation/details/get-products-from-stores-for-edit/${id}`,{withCredentials: true}
     );
     return res?.data;
   } catch (e) {

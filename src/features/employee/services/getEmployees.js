@@ -12,7 +12,7 @@ export const getEmployees = async (pageNumber, pageSize, filterValues) => {
     if (filterValues.phone) params.phone = filterValues.phone;
     if (filterValues.address) params.address = filterValues.address;
     const res = await axios.get(
-      `${import.meta.env.VITE_API_URL}User`, { params }
+      `${import.meta.env.VITE_API_URL}User`, { params,withCredentials: true }
     );
     return res.data;
   } catch (error) {

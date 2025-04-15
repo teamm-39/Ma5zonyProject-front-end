@@ -10,7 +10,7 @@ export const getProducts = async (pageNumber, pageSize,filterValues) => {
     if (filterValues.sellingPrice) params.sellingPrice = filterValues.sellingPrice;
     if (filterValues.purchasePrice) params.purchasePrice = filterValues.purchasePrice;
     const res = await axios.get(
-      `${import.meta.env.VITE_API_URL}Product`,{params}
+      `${import.meta.env.VITE_API_URL}Product`,{params,withCredentials: true},
     );
     return res.data;
   } catch (error) {

@@ -12,7 +12,7 @@ export const getProductsAndStoresForOperationDetails = async (
     };
     const res = await axios.get(
       `${import.meta.env.VITE_API_URL}ExportOperation/details/get-products-from-stores/${id}`,
-      { params }
+      { params, withCredentials: true }
     );
     return res?.data;
   } catch (e) {
