@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AppTable from "../../components/AppTable";
 import PropTypes from "prop-types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -18,7 +18,7 @@ function OwnersTable({ filterValues }) {
     setPageSize(event.rows);
   };
   const toast = useContext(ToastContext);
-  const { data, isFetching } = useQuery({
+  const { data, isFetching,error,isError } = useQuery({
     queryKey: [
       "owners",
       pageNumber,
@@ -29,10 +29,19 @@ function OwnersTable({ filterValues }) {
       filterValues.phone,
       filterValues.address,
     ],
-    queryFn: () => getOwners(pageNumber, pageSize, filterValues, toast),
+    queryFn: () => getOwners(pageNumber, pageSize, filterValues),
   });
   const queryClient = useQueryClient();
-
+  useEffect(() => {
+    if (isError) {
+      toast.current.show({
+        severity: "error",
+        summary: "فشل",
+        detail: error.message || "حدث خطأ غير متوقع",
+        life: 3000,
+      });
+    }
+  }, [isError, error, toast]);
   const { mutate,isPending} = useMutation({
     mutationFn: deleteOwner,
     onSuccess: () => {

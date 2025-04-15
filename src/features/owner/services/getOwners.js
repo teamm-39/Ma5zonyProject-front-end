@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const getOwners = async (pageNumber, pageSize,filterValues,toast) => {
+export const getOwners = async (pageNumber, pageSize,filterValues) => {
   try {
     const params = {
       pageSize,
@@ -12,15 +12,11 @@ export const getOwners = async (pageNumber, pageSize,filterValues,toast) => {
     if (filterValues.phone) params.phone = filterValues.phone;
     if (filterValues.address) params.address = filterValues.address;
     const res = await axios.get(
-      `https://localhost:7213/api/Admin`,{params}
+      `https://localhost:7213/api/Admin`,{params,withCredentials: true},
     );
     return res.data;
-  } catch {
-    toast.current.show({
-      severity: "error",
-      summary: "فشل",
-      detail: "حدث خطأ ما",
-      life: 3000,
-    });
+  } catch (error) {
+    const errorMessage = error.response?.data?.meesage || "حدث خطأ غير متوقع";
+    throw new Error(errorMessage);
   }
 };

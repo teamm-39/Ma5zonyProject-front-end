@@ -128,13 +128,13 @@ function OwnerEditForm() {
   const { mutate,isPending } = useMutation({
     mutationFn: editOwner,
     onSuccess: () => {
+      navigate("/owner")
       toast.current.show({
         severity: "success",
         summary: "نجاح",
         detail: "تم تعديل المالك بنجاح",
         life: 3000,
       });
-      navigate("/owner")
     },
     onError: (e) => {
       toast.current.show({

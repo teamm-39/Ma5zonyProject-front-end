@@ -26,6 +26,7 @@ export const addOwner = async (formData) => {
         headers: {
           "Content-Type": "multipart/form-data",
         },
+        withCredentials: true,
       }
     );
     return res.data;
