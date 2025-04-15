@@ -8,7 +8,7 @@ import AppLoadingSpinner from "../../components/AppLoadingSpinner";
 import { InputText } from "primereact/inputtext";
 import { deleteProduct } from "./services/deleteProduct";
 import { getStoresForProduct } from "./services/getStoresForProduct";
-import ProductDetailsTable from "./productDetailsTable";
+import ProductDetailsTable from "./ProductDetailsTable";
 function ProductDetailsForm() {
   const { id } = useParams();
   const { data, isFetching, error, isError } = useQuery({
