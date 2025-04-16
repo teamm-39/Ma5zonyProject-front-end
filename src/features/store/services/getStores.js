@@ -10,7 +10,7 @@ export const getStores = async (pageNumber, pageSize, name, country, city) => {
     if (country) params.country = country;
     if (city) params.city = city;
     const res = await axios.get(
-      `${import.meta.env.VITE_API_URL}Store`,{params,withCredentials: true}
+      `${import.meta.env.VITE_API_URL}Store`,{withCredentials: true}
     );
     return res.data;
   } catch (e) {
