@@ -6,6 +6,7 @@
 * {
   font-family: "cairo";
 }
+
 :root {
   --main-bg: #f0f4f8;
   --main-border: #e5e5e5;
@@ -67,6 +68,11 @@
   background-color: var(--main-bg);
   padding: 1rem;
   min-height: 89vh;
+  width: 81% !important;
+  position: absolute;
+  left: 0 !important;
+  margin-top: 66px;
+
 }
 
 .btn-reuse {

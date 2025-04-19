@@ -2,8 +2,11 @@
   background-color: #FAFAFA !important;
   border-bottom: #E5E5E5 solid 1px;
   color:#333333 !important;
-  width: 100%;
-  height: 66px;
+  width: 81%;
+  height: 66px !important;
+  position: fixed;
+  left: 0;
+  z-index: 5000;
 }
 
 

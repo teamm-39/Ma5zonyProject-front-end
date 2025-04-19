@@ -1,8 +1,14 @@
 .sidebar {
   background-color: #ffffff !important;
-  width: 300px;
+  width: 260px;
   height: 100vh;
   border-left: #e5e5e5 solid 1px;
+  overflow-y: auto;
+  direction: ltr;
+  text-align: end;
+  position: fixed;
+  right: 0;
+  z-index: 5000;
 }
 
 .sidebar .menu {
@@ -22,6 +28,7 @@
   border-bottom: #e5e5e5 solid 1px;
   height: 66px !important;
   background-color: #fafafa;
+  justify-content: end;
 }
 
 .sidebar .brand-span {

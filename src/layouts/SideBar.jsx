@@ -12,7 +12,7 @@ function SideBar() {
     <>
       <div className="sidebar">
         <Link className="navbar-brand" to="/">
-          <div className="navbar-brand d-flex align-items-center p-0 m-0 gap-2">
+          <div className="navbar-brand d-flex align-items-center p-0 m-0 pe-4 gap-2">
             <img
               src={logo}
               alt="logo"
@@ -20,7 +20,7 @@ function SideBar() {
               width={30}
               style={{ height: "50px" }}
             />
-            <div className="brand-name text-center me- d-flex flex-column">
+            <div className="brand-name text-center  d-flex flex-column">
               <h3 className="fw-bold p-0 m-0 ">مخزون</h3>
               <span className="brand-span m-0 p-0">
                 ادارة المستودعات والمخازن
@@ -103,6 +103,39 @@ function SideBar() {
               </AccordionTab>
             </Accordion>
           </li>
+          <li className={`accordion-sidebar`}>
+            <Accordion
+              activeIndex={isActive("/logs") == "active" ? 0 : undefined}
+            >
+              <AccordionTab
+                header={
+                  <div>
+                    عرض التقارير
+                    <i className="bi bi-gear ms-2"></i>
+                  </div>
+                }
+              >
+                <ul className={`accordion-menu p-0 mb-2`}>
+                  <li className="mb-1">
+                    <Link
+                      to="/logs/store"
+                      className={`link-accordion ${isActive("/logs/store")}`}
+                    >
+                      تقارير المخازن
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/export"
+                      className={`link-accordion ${isActive("/export")} mb-1`}
+                    >
+                      عمليات التصدير
+                    </Link>
+                  </li>
+                </ul>
+              </AccordionTab>
+            </Accordion>
+          </li>
           <li className={`menu-item ${isActive("/store")}`}>
             <Link to="/store" className="link">
               <i className="bi bi-building ms-2"></i>
@@ -130,12 +163,7 @@ function SideBar() {
               إدارة العملاء
             </Link>
           </li>
-          <li className="menu-item">
-            <Link to="/reports" className="link">
-              <i className="bi bi-file-earmark-text ms-2"></i>
-              عرض تقرير
-            </Link>
-          </li>
+
         </ul>
       </div>
     </>
