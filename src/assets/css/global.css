@@ -304,3 +304,24 @@
 .p-paginator-rpp-options{
   width: 300px;
 }
+.logs-table th{
+  text-align: center;
+}
+.logs-table .operation{
+  border-radius: 0.6rem;
+  align-items: center;
+  padding: 0.2rem 0.5rem;
+  width: 5rem;
+}
+.logs-table .add-operation{
+  background-color: var(--green-100);
+  color: var(--green-500);
+}
+.logs-table .update-operation{
+  background-color: var(--yellow-100);
+  color: var(--yellow-500);
+}
+.logs-table .delete-operation{
+  background-color: var(--red-100);
+  color: var(--red-500);
+}

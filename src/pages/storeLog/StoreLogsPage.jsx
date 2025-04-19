@@ -2,6 +2,7 @@ import { useState } from "react";
 import AppBreadCrumb from "../../components/AppBreadCrumb";
 import AppCard from "../../components/AppCard";
 import StoreLogFilter from "../../features/storeLog/StoreLogFilter";
+import StoreLogsTable from "../../features/storeLog/StoreLogsTable";
 function StoreLogsPage() {
   const items= [
     { label: "لوحة التحكم", url: "/" },
@@ -18,6 +19,7 @@ function StoreLogsPage() {
       <AppCard>
         <AppBreadCrumb items={items} />
         <StoreLogFilter onFilter={setFilterValues} />
+        <StoreLogsTable filterValues={filterValues} />
     </AppCard>
     </>
    );
