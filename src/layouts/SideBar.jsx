@@ -111,7 +111,7 @@ function SideBar() {
                 header={
                   <div>
                     عرض التقارير
-                    <i className="bi bi-gear ms-2"></i>
+                    <i className="fa-regular fa-file-lines ms-2"></i>
                   </div>
                 }
               >
@@ -138,29 +138,29 @@ function SideBar() {
           </li>
           <li className={`menu-item ${isActive("/store")}`}>
             <Link to="/store" className="link">
-              <i className="bi bi-building ms-2"></i>
               إدارة المخازن
+              <i className="bi bi-building ms-2"></i>
             </Link>
           </li>
 
           <li className={`menu-item ${isActive("/product")}`}>
             <Link to="/product" className="link w-100">
-              <i className="bi bi-box-seam ms-2"></i>
               إدارة المنتجات
+              <i className="bi bi-box-seam ms-2"></i>
             </Link>
           </li>
 
           <li className={`menu-item ${isActive("/supplier")}`}>
             <Link to="/supplier" className="link w-100">
-              <i className="bi bi-truck ms-2"></i>
               إدارة الموردين
+              <i className="bi bi-truck ms-2"></i>
             </Link>
           </li>
 
           <li className={`menu-item ${isActive("/customer")}`}>
             <Link to="/customer" className="link">
-              <i className="bi bi-person-lines-fill ms-2"></i>
               إدارة العملاء
+              <i className="bi bi-person-lines-fill ms-2"></i>
             </Link>
           </li>
 

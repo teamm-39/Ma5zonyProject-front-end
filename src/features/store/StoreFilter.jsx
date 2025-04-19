@@ -15,7 +15,7 @@ function StoreFilter({ onFilter }) {
     if (!validValues) {
       onFilter({ name, country, city });
     }
-  }, [name, country, city]);
+  }, [name, country, city, onFilter, validValues]);
   return (
     <>
       <div className="mt-4">

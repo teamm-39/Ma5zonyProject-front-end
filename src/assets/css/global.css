@@ -281,8 +281,9 @@
 }
 .calender-style {
   right: 30% !important;
-  top: 5% !important;
+  top: 10% !important;
   width: 40% !important;
+  z-index: 9999 !important;
 }
 .calender-style th{
   text-align: center;
