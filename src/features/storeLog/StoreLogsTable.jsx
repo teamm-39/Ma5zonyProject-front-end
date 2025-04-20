@@ -5,8 +5,9 @@ import { ToastContext } from "../../App";
 import { useQuery } from "@tanstack/react-query";
 import { getStoreLogs } from "./services/getStoreLogs";
 import { Column } from "primereact/column";
-import { Link } from "react-router-dom";
-import { Button } from "primereact/button";
+import UseCreatePdf from "../../hooks/useCreatePdf";
+import { storeLogTableToPdf } from "./StoreLogTableToPdf";
+import { getStoreLogsWithoutPagination } from "./services/getStoreLogsWithoutPagination";
 
 function StoreLogsTable({ filterValues }) {
   const [pageNumber, setPageNumber] = useState(1);
@@ -28,6 +29,11 @@ function StoreLogsTable({ filterValues }) {
     ],
     queryFn: () => getStoreLogs(pageNumber, pageSize, filterValues),
   });
+  const [pdfTable, setPdfTable] = useState([]);
+  const { data:dataWithoutPagination,error:dataError,isError:dataIsError } = useQuery({
+    queryKey: ["storeLogsWithoutPagination", filterValues],
+    queryFn: () => getStoreLogsWithoutPagination(filterValues),
+  })
   useEffect(() => {
     if (isError) {
       toast.current.show({
@@ -37,26 +43,33 @@ function StoreLogsTable({ filterValues }) {
         life: 3000,
       });
     }
-  }, [error, toast, isError]);
+    if (dataIsError) {
+      toast.current.show({
+        severity: "error",
+        summary: "فشل",
+        detail: dataError.message || "حدث خطأ غير متوقع",
+        life: 3000,
+      });
+    }
+  }, [error, toast, isError, dataError?.message, dataIsError]);
+
+  useEffect(() => {
+    if (dataWithoutPagination) {
+      setPdfTable(storeLogTableToPdf(dataWithoutPagination, filterValues));
+    }
+  }, [dataWithoutPagination, filterValues]);
   return (
     <>
       <div className="logs-table mt-4">
-      <div className="taple-header d-flex justify-content-between align-items-center mt-4">
-        <div className="taple-header-info d-flex gap-1">
-          <span className="table-title">تقارير المخازن</span>
-          <span className="table-total">{data?.total}</span>
+        <div className="taple-header d-flex justify-content-between align-items-center mt-4">
+          <div className="taple-header-info d-flex gap-1">
+            <span className="table-title">تقارير المخازن</span>
+            <span className="table-total">{data?.total}</span>
+          </div>
+          <div className="header-btn">
+            <UseCreatePdf pdfName={"storeLogs"} table={pdfTable} />
+          </div>
         </div>
-        <div className="header-btn">
-          <Link >
-            <Button
-              label="استخراج كملف pdf"
-              severity="primary"
-              raised
-              className="btn-reuse rounded-3"
-            />
-          </Link>
-        </div>
-      </div>
         <AppAditionalTable
           data={data?.data || []}
           isLoading={isFetching}
@@ -76,7 +89,9 @@ function StoreLogsTable({ filterValues }) {
               } else if (rowData.lookupOperationTypeId == 5) {
                 return <span className="delete-operation operation">حذف</span>;
               } else if (rowData.lookupOperationTypeId == 4) {
-                return <span className="update-operation operation">تعديل</span>;
+                return (
+                  <span className="update-operation operation">تعديل</span>
+                );
               }
             }}
           />
@@ -86,8 +101,24 @@ function StoreLogsTable({ filterValues }) {
           <Column header="اسم المخزن بعد التعديل" field="newName" />
           <Column header="الدوله بعد التعديل" field="newCountry" />
           <Column header="المدينه بعد التعديل" field="newCity" />
-                  <Column field="message" header="رساله" />
-
+          <Column
+            header="وقت العملية"
+            body={(rowData) => {
+              const date = new Date(rowData.dateTime);
+              return date.toLocaleTimeString("ar-EG", {
+                hour: "2-digit",
+                minute: "2-digit",
+              });
+            }}
+          />
+          <Column
+            header="تاريخ العملية"
+            body={(rowData) => {
+              const date = new Date(rowData.dateTime);
+              return date.toLocaleDateString("ar-EG");
+            }}
+          />
+          <Column field="message" header="رساله" />
         </AppAditionalTable>
       </div>
     </>
