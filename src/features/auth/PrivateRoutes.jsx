@@ -1,24 +1,34 @@
 import { useQuery } from "@tanstack/react-query";
 import { isLogedIn } from "./services/IsLogedin";
 import { Outlet, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import AppLoadingSpinner from "../../components/AppLoadingSpinner";
+import { ToastContext } from "../../App";
 
 const PrivateRoute = () => {
   const navigate = useNavigate();
+  const toast = useContext(ToastContext);
 
-  const { data, isLoading , isFetching} = useQuery({
+  const { data , isFetching,error,isError} = useQuery({
     queryKey: ["isLogedIn"],
     queryFn: isLogedIn,
     refetchOnWindowFocus: false,
   });
   useEffect(() => {
-    if(!isLoading)
-      if (data?.data === false) {
+    if (!isFetching && isError) {
+      if (error.status === 401) {
         navigate("/Login");
+        toast.current.show({
+          severity: "error",
+          summary: "فشل",
+          detail: error.data.meesage || "حدث خطأ غير متوقع",
+          life: 3000,
+        });
       }
-    }, [data?.data, isLoading, navigate]);
-    if (isLoading) return <AppLoadingSpinner isLoading={isFetching} />;
+    }
+  }, [navigate, error, isError, isFetching, toast]);
+  
+    if (isFetching) return <AppLoadingSpinner isLoading={isFetching} />;
 
 
   return data?.data === true ? <Outlet /> : null;
