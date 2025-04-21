@@ -5,7 +5,7 @@ import { ToastContext } from "../../App";
 import { useQuery } from "@tanstack/react-query";
 import { getStoreLogs } from "./services/getStoreLogs";
 import { Column } from "primereact/column";
-import UseCreatePdf from "../../hooks/useCreatePdf";
+import UseCreatePdf from "../../hooks/UseCreatePdf";
 import { storeLogTableToPdf } from "./StoreLogTableToPdf";
 import { getStoreLogsWithoutPagination } from "./services/getStoreLogsWithoutPagination";
 
