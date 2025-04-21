@@ -7,7 +7,7 @@ export const getStoresForProduct = async (id,pageNumber, pageSize) => {
       pageSize,
     };
     const res = await axios.get(
-      `${import.meta.env.VITE_API_URL}get-Stores-for-product/${id}`,{params,withCredentials: true},
+      `${import.meta.env.VITE_API_URL}StoreProduct/get-Stores-for-product/${id}`,{params,withCredentials: true},
     );
     return res.data;
   } catch (e) {
