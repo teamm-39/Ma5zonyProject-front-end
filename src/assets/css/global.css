@@ -68,13 +68,13 @@
 }
 .app-card {
   background-color: var(--main-bg);
+  border-right: #e5e5e5 solid 1px;
   padding: 1rem;
   min-height: 89vh;
   width: 81% !important;
   position: absolute;
   left: 0 !important;
-  margin-top: 66px;
-
+  /* height: 100vh !important; */
 }
 
 .btn-reuse {
