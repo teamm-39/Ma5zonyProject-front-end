@@ -108,7 +108,7 @@ function StoreAddForm() {
           pageSize={pageSize}
           onPageChange={handlePageChange}
           total={products?.total || 0}
-          title="المنتجات فى هذا المخزن"
+          title="المنتجات المتوفره فى المخزن"
         />
         <AppLoadingSpinner isLoading={isFetching || isPending} />
       </AppPagesCard>
