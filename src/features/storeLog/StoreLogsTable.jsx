@@ -5,8 +5,8 @@ import { ToastContext } from "../../App";
 import { useQuery } from "@tanstack/react-query";
 import { getStoreLogs } from "./services/getStoreLogs";
 import { Column } from "primereact/column";
-import UseCreatePdf from "../../hooks/UseCreatePdf";
-import { storeLogTableToPdf } from "./StoreLogTableToPdf";
+import UseCreatePdf from "../../components/UseCreatePdf";
+import { storeLogTableToPdf } from "./services/StoreLogTableToPdf";
 import { getStoreLogsWithoutPagination } from "./services/getStoreLogsWithoutPagination";
 
 function StoreLogsTable({ filterValues }) {
@@ -25,12 +25,13 @@ function StoreLogsTable({ filterValues }) {
       filterValues.userName,
       filterValues.operationType,
       filterValues.dateTime,
-      filterValues.storeName,
+      filterValues.oldStoreName,
+      filterValues.newStoreName,
     ],
     queryFn: () => getStoreLogs(pageNumber, pageSize, filterValues),
   });
   const [pdfTable, setPdfTable] = useState([]);
-  const { data:dataWithoutPagination,error:dataError,isError:dataIsError } = useQuery({
+  const { data:dataWithoutPagination,isFetching:dataIsFetshing,error:dataError,isError:dataIsError } = useQuery({
     queryKey: ["storeLogsWithoutPagination", filterValues],
     queryFn: () => getStoreLogsWithoutPagination(filterValues),
   })
@@ -67,7 +68,7 @@ function StoreLogsTable({ filterValues }) {
             <span className="table-total">{data?.total}</span>
           </div>
           <div className="header-btn">
-            <UseCreatePdf pdfName={"storeLogs"} table={pdfTable} />
+            <UseCreatePdf pdfName={"storeLogs"} table={pdfTable} isLoading={dataIsFetshing} />
           </div>
         </div>
         <AppAditionalTable
@@ -129,7 +130,8 @@ StoreLogsTable.propTypes = {
     userName: PropTypes.string,
     operationType: PropTypes.string,
     dateTime: PropTypes.string,
-    storeName: PropTypes.string,
+    newStoreName: PropTypes.string,
+    oldStoreName: PropTypes.string,
   }).isRequired,
 };
 export default StoreLogsTable;

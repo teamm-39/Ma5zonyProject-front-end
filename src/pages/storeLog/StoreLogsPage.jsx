@@ -12,7 +12,8 @@ function StoreLogsPage() {
       userName: "",
       operationType: null,
       dateTime: null,
-      storeName: "",
+      newStoreName: "",
+      oldStoreName: "",
     });
   return (
     <>

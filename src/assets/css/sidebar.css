@@ -1,14 +1,13 @@
 .sidebar {
-  width: 317px;
+  width: 21.8%;
   direction: ltr;
   text-align: end;
-  height: 100vh;
-  background-color: #FAFAFA !important;
+  min-height: 100vh;
 }
 
 .sidebar .menu {
   list-style: none;
-  padding: 12px 10px;
+  padding: 30px 10px;
   margin: 0;
 }
 
@@ -59,6 +58,7 @@
   color: #333333;
   width: 100%;
   align-items: center;
+  font-size: 13px;
   align-content: center;
   padding: 12px 20px !important;
 }
@@ -77,7 +77,6 @@
 
 .sidebar .p-accordion .p-accordion-content {
   padding: 0px 20px;
-  background-color: #fafafa !important;
 }
 
 .sidebar .accordion-menu {

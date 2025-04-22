@@ -70,8 +70,8 @@
   background-color: var(--main-bg);
   border-right: #e5e5e5 solid 1px;
   padding: 1rem;
-  min-height: 89vh;
-  width: 81% !important;
+  min-height: auto;
+  width: 82% !important;
   position: absolute;
   left: 0 !important;
   /* height: 100vh !important; */

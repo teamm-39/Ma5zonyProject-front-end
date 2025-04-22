@@ -33,8 +33,8 @@ function SideBar() {
             className={`menu-item ${location.pathname == "/" ? "active" : ""}`}
           >
             <Link to="/" className="link">
-              <i className="bi bi-house-door ms-2"></i>
               لوحة التحكم
+              <i className="bi bi-house-door ms-2"></i>
             </Link>
           </li>
           <li className={`accordion-sidebar`}>

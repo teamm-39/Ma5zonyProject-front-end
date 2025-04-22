@@ -2,9 +2,9 @@ export const storeLogTableToPdf = (data, filters) => {
   const rows =
     data?.data
       .map(
-        (item, index) => `
+        (item,i) => `
       <tr>
-        <td class="p-1 border" style="font-size:10px;">${item.storeLogId}</td>
+        <td class="p-1 border" style="font-size:10px;">${i+1}</td>
         <td class="p-1 border" style="font-size:10px;">${item.userName}</td>
         <td class="p-1 border" style="font-size:10px;">${
           item.lookupOperationTypeId === 3

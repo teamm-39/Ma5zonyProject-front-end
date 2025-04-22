@@ -10,7 +10,8 @@ function StoreLogFilter({ onFilter }) {
     userName: "",
     operationType: null,
     dateTime: null,
-    storeName: "",
+    newStoreName: "",
+    oldStoreName: "",
   });
   const handleInputChange = (e, field) => {
     setFilterValues((prev) => ({
@@ -20,7 +21,8 @@ function StoreLogFilter({ onFilter }) {
   };
   const validValues =
     filterValues.userName != "" ||
-    filterValues.storeName != "" ||
+    filterValues.newStoreName != "" ||
+    filterValues.oldStoreName != "" ||
     filterValues.dateTime != null ||
     filterValues.operationType != null;
   useEffect(() => {
@@ -43,16 +45,26 @@ function StoreLogFilter({ onFilter }) {
               />
             </div>
             <div className="form-group col-12 col-md-4">
-              <label htmlFor="storeName">اسم المخزن</label>
+              <label htmlFor="oldStoreName">اسم المخزن القديم</label>
               <input
                 type="text"
-                id="storeName"
-                value={filterValues.storeName}
-                onChange={(e) => handleInputChange(e, "storeName")}
+                id="oldStoreName"
+                value={filterValues.oldStoreName}
+                onChange={(e) => handleInputChange(e, "oldStoreName")}
                 className="form-control"
               />
             </div>
             <div className="form-group col-12 col-md-4">
+              <label htmlFor="newStoreName">اسم المخزن الجديد</label>
+              <input
+                type="text"
+                id="newStoreName"
+                value={filterValues.newStoreName}
+                onChange={(e) => handleInputChange(e, "newStoreName")}
+                className="form-control"
+              />
+            </div>
+            <div className="form-group col-12 col-md-4 mt-4">
               <label htmlFor="dateTime">من يوم</label>
               <Calendar
                 id="dateTime"
@@ -100,7 +112,8 @@ function StoreLogFilter({ onFilter }) {
                     userName: "",
                     dateTime: null,
                     operationType: null,
-                    storeName: "",
+                    newStoreName: "",
+                    oldStoreName: "",
                   });
                 }}
               />

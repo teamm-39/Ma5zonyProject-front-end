@@ -1,8 +1,9 @@
 import { Button } from "primereact/button";
 import { Link } from "react-router-dom";
 import html2pdf from "html2pdf.js";
+import PropTypes from "prop-types";
 
-function UseCreatePdf({ table, pdfName }) {
+function UseCreatePdf({ table, pdfName,isLoading }) {
   const generatePdf = () => {
     const elements = `
       <div
@@ -48,11 +49,17 @@ function UseCreatePdf({ table, pdfName }) {
           label="استخراج كملف pdf"
           severity="primary"
           raised
+          loading={isLoading}
           className="btn-reuse rounded-3"
         />
       </Link>
     </div>
   );
 }
+UseCreatePdf.propTypes = {
+  table: PropTypes.node.isRequired,
+  pdfName: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+};
 
 export default UseCreatePdf;

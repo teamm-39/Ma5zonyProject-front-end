@@ -8,7 +8,8 @@ export const getStoreLogs = async (pageNumber, pageSize,filterValues) => {
     };
     if (filterValues.name) params.name = filterValues.name;
     if (filterValues.operationType) params.operationType = filterValues.operationType;
-    if (filterValues.storeName) params.storeName = filterValues.storeName;
+    if (filterValues.newStoreName) params.newStoreName = filterValues.newStoreName;
+    if (filterValues.oldStoreName) params.oldStoreName = filterValues.oldStoreName;
     if (filterValues.userName) params.userName = filterValues.userName;
     if (filterValues.dateTime) {
       const localDate = new Date(filterValues.dateTime);
