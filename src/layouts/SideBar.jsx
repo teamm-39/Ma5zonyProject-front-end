@@ -13,6 +13,12 @@ function SideBar() {
       <div className="sidebar">
         <Link className="navbar-brand" to="/">
           <div className="navbar-brand d-flex align-items-center p-0 m-0 pe-4 gap-2">
+            <div className="brand-name text-center  d-flex flex-column">
+              <h3 className="fw-bold p-0 m-0 ">مخزون</h3>
+              <span className="brand-span m-0 p-0">
+                ادارة المستودعات والمخازن
+              </span>
+            </div>
             <img
               src={logo}
               alt="logo"
@@ -20,12 +26,6 @@ function SideBar() {
               width={30}
               style={{ height: "50px" }}
             />
-            <div className="brand-name text-center  d-flex flex-column">
-              <h3 className="fw-bold p-0 m-0 ">مخزون</h3>
-              <span className="brand-span m-0 p-0">
-                ادارة المستودعات والمخازن
-              </span>
-            </div>
           </div>
         </Link>
         <ul className="menu m-0">
@@ -126,10 +126,10 @@ function SideBar() {
                   </li>
                   <li>
                     <Link
-                      to="/export"
-                      className={`link-accordion ${isActive("/export")} mb-1`}
+                      to="/logs/product"
+                      className={`link-accordion ${isActive("/logs/product")} mb-1`}
                     >
-                      عمليات التصدير
+                      تقارير المنتجات
                     </Link>
                   </li>
                 </ul>

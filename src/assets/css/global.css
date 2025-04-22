@@ -68,12 +68,10 @@
 }
 .app-card {
   background-color: var(--main-bg);
-  border-right: #e5e5e5 solid 1px;
   padding: 1rem;
   min-height: auto;
-  width: 82% !important;
-  position: absolute;
-  left: 0 !important;
+  width: 100% !important;
+  position: relative;
   /* height: 100vh !important; */
 }
 
@@ -121,7 +119,7 @@
 }
 .p-datatable-thead th {
   padding: 0.7rem 1rem;
-  font-size: 13px;
+  font-size: 11px;
   color: #5f5f5fbe;
   font-weight: normal;
 }
@@ -131,7 +129,7 @@
 }
 .p-datatable-tbody td {
   text-align: center;
-  font-size: 13px;
+  font-size: 11px;
   border-bottom: 1px solid var(--main-border);
   padding: 0.7rem 1rem;
   overflow: hidden;

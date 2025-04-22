@@ -48,7 +48,7 @@ export const storeLogTableToPdf = (data, filters) => {
       <span class="fw-bold">نوع التقرير: تقارير المخازن</span>
       </div>
       <div >
-  <span class="fw-bold">اجمالى التقارير:${data?.total || "0"}</span>
+  <span class="fw-bold">اجمالى العمليات:${data?.total || "0"}</span>
       </div>
     </div>
     <div class="text-center mt-2 fw-bold">

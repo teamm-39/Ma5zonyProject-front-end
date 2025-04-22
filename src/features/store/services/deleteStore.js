@@ -1,17 +1,13 @@
 import axios from "axios";
 
-export const deleteStore = async (id, toast) => {
+export const deleteStore = async (id) => {
   try {
     const res = await axios.delete(
       `${import.meta.env.VITE_API_URL}Store/delete/${id}`,{withCredentials: true}
     );
     return res.data;
-  } catch {
-    toast.current.show({
-      severity: "error",
-      summary: "فشل",
-      detail: "حدث خطأ ما",
-      life: 3000,
-    });
+  } catch (error) {
+    const errorMessage = error.response?.data?.meesage || "حدث خطأ غير متوقع";
+    throw new Error(errorMessage);
   }
 };

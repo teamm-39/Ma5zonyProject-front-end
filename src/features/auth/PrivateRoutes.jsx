@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { isLogedIn } from "./services/IsLogedin";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
-import AppLoadingSpinner from "../../components/AppLoadingSpinner";
 import { ToastContext } from "../../App";
 
 const PrivateRoute = () => {
@@ -13,6 +12,7 @@ const PrivateRoute = () => {
     queryKey: ["isLogedIn"],
     queryFn: isLogedIn,
     refetchOnWindowFocus: false,
+    retry: false,
   });
   useEffect(() => {
     if (!isFetching && isError) {
@@ -27,9 +27,6 @@ const PrivateRoute = () => {
       }
     }
   }, [navigate, error, isError, isFetching, toast]);
-  
-    if (isFetching) return <AppLoadingSpinner isLoading={isFetching} />;
-
 
   return data?.data === true ? <Outlet /> : null;
 };

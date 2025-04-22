@@ -1,14 +1,16 @@
 .sidebar {
-  width: 21.8%;
+  width: 23%;
   direction: ltr;
   text-align: end;
   min-height: 100vh;
+  border-left: #E5E5E5 solid 1px !important;
 }
 
 .sidebar .menu {
   list-style: none;
   padding: 30px 10px;
   margin: 0;
+  width: 100%;
 }
 
 .sidebar .brand-name h3 {
@@ -22,7 +24,9 @@
   border-bottom: #e5e5e5 solid 1px;
   height: 66px !important;
   background-color: #fafafa;
+  display: inline-block;
   justify-content: end;
+  width: 100%;
 }
 
 .sidebar .brand-span {

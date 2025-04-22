@@ -21,7 +21,7 @@ function StoresTable({filterValues}) {
   };
   const queryClient = useQueryClient();
   const toast=useContext(ToastContext)
-  const { mutate,isPending} = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: deleteStore,
     onSuccess: () => {
       toast.current.show({
@@ -31,8 +31,16 @@ function StoresTable({filterValues}) {
         life: 3000,
       });
       queryClient.invalidateQueries(["stores"])
+    },
+    onError: (error) => {
+      toast.current.show({
+        severity: "error",
+        summary: "فشل",
+        detail: error.meesage || "حدث خطأ غير متوقع",
+        life: 3000,
+      })
     }
-  })
+  });
   return (
     <>
       <AppTable
@@ -57,7 +65,7 @@ function StoresTable({filterValues}) {
               rowData={rowData}
               details={`/store/details/${rowData.storeId}`}
               edit={`/store/edit/${rowData.storeId}`}
-              onDelete={() => mutate(rowData.storeId,toast) }
+              onDelete={() => mutate(rowData.storeId) }
             />
           )}
         />
