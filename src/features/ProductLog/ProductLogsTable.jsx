@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getProductLogs } from "./services/getProductLogs";
 import UseCreatePdf from "../../components/UseCreatePdf";
 import { getProductLogsWithoutPagination } from "./services/getProductLogsWithoutPagintaion";
-import { productLogTableToPdf } from "./services/ProductLogTableToPdf";
+import { productLogTableToPdf } from "./services/productLogTableToPdf";
 import AppAditionalTable from "../../components/AppAdditionalTable";
 import { Column } from "primereact/column";
 function ProductLogsTable({ filterValues }) {
