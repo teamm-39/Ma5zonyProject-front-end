@@ -40,7 +40,7 @@ function ProductLogsTable({ filterValues }) {
     error: dataError,
     isError: dataIsError,
   } = useQuery({
-    queryKey: ["storeLogsWithoutPagination", filterValues],
+    queryKey: ["productLogsWithoutPagination", filterValues],
     queryFn: () => getProductLogsWithoutPagination(filterValues),
   });
   useEffect(() => {
@@ -76,7 +76,7 @@ function ProductLogsTable({ filterValues }) {
           </div>
           <div className="header-btn">
             <UseCreatePdf
-              pdfName={"storeLogs"}
+              pdfName={"productLogs"}
               table={pdfTable}
               isLoading={dataIsFetshing}
             />

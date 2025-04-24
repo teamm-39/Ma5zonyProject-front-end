@@ -2,9 +2,9 @@ export const productLogTableToPdf = (data, filters) => {
   const rows =
     data?.data
       .map(
-        (item,i) => `
+        (item, i) => `
       <tr>
-        <td class="p-1 border" style="font-size:10px;">${i+1}</td>
+        <td class="p-1 border" style="font-size:10px;">${i + 1}</td>
         <td class="p-1 border" style="font-size:10px;">${item.userName}</td>
         <td class="p-1 border" style="font-size:10px;">${
           item.lookupOperationTypeId === 3
@@ -16,11 +16,21 @@ export const productLogTableToPdf = (data, filters) => {
             : "-"
         }</td>
         <td class="p-1 border" style="font-size:10px;">${item.oldName}</td>
-        <td class="p-1 border" style="font-size:10px;">${item.oldCountry}</td>
-        <td class="p-1 border" style="font-size:10px;">${item.olgCity}</td>
+        <td class="p-1 border" style="font-size:10px;">${
+          item.oldPurchasePrice=== 0 ? "-" : item.oldPurchasePrice
+        }</td>
+        <td class="p-1 border" style="font-size:10px;">${
+          item.oldSellingPrice=== 0 ? "-" : item.oldSellingPrice
+        }</td>
+        <td class="p-1 border" style="font-size:10px;">${item.oldMinLimit===0?"-":item.oldMinLimit}</td>
         <td class="p-1 border" style="font-size:10px;">${item.newName}</td>
-        <td class="p-1 border" style="font-size:10px;">${item.newCountry}</td>
-        <td class="p-1 border" style="font-size:10px;">${item.newCity}</td>
+        <td class="p-1 border" style="font-size:10px;">${
+          item.newPurchasePrice=== 0 ? "-" : item.newPurchasePrice
+        }</td>
+        <td class="p-1 border" style="font-size:10px;">${
+          item.newSellingPrice=== 0 ? "-" : item.newSellingPrice
+        }</td>
+        <td class="p-1 border" style="font-size:10px;">${item.newMinLimit===0?"-":item.newMinLimit}</td>
         <td class="p-1 border" style="font-size:10px;">${new Date(
           item.dateTime
         ).toLocaleTimeString("ar-EG", {
@@ -45,7 +55,7 @@ export const productLogTableToPdf = (data, filters) => {
   <div class="text-center mt-3">
     <div class="mb-2 d-flex justify-content-around">
       <div>
-      <span class="fw-bold">نوع التقرير: تقارير المخازن</span>
+      <span class="fw-bold">نوع التقرير: تقارير المنتجات</span>
       </div>
       <div >
   <span class="fw-bold">اجمالى العمليات:${data?.total || "0"}</span>
@@ -59,12 +69,27 @@ export const productLogTableToPdf = (data, filters) => {
         اسم المستخدم: ${filters?.userName || "-"}
       </div>
       <div class="col-3">
-        اسم المخزن: ${filters?.storeName || "-"}
+        اسم المنتج القديم: ${filters?.oldProductName || "-"}
+      </div>
+            <div class="col-3">
+        اسم المنتج القديم: ${filters?.newProductName || "-"}
+      </div>
+                  <div class="col-3 mt-2">
+        سعر الشراء القديم: ${filters?.oldPurchasePrice || "-"}
+      </div>
+                        <div class="col-3 mt-2">
+        سعر الشراء الجديد: ${filters?.newPurchasePrice || "-"}
+      </div>
+                              <div class="col-3 mt-2">
+        سعر البيع القديم: ${filters?.oldSellingPrice || "-"}
+      </div>
+                                    <div class="col-3 mt-2">
+        سعر البيع الجديد: ${filters?.newSellingPrice || "-"}
       </div>
       <div class="col-3">
         من يوم: ${filters?.dateTime || "-"}
       </div>
-      <div class="col-3">
+      <div class="col-12 text-center mt-2">
         نوع العمليه: ${operationText}
       </div>
     </div>
@@ -75,12 +100,14 @@ export const productLogTableToPdf = (data, filters) => {
           <th class="p-1 border text-center" style="font-size:10px;">#</th>
           <th class="p-1 border text-center" style="font-size:10px;">اسم المستخدم</th>
           <th class="p-1 border text-center" style="font-size:10px;">نوع العمليه</th>
-          <th class="p-1 border text-center" style="font-size:10px;">اسم المخزن قبل التعديل</th>
-          <th class="p-1 border text-center" style="font-size:10px;">الدوله قبل التعديل</th>
-          <th class="p-1 border text-center" style="font-size:10px;">المدينه قبل التعديل</th>
-          <th class="p-1 border text-center" style="font-size:10px;">اسم المخزن بعد التعديل</th>
-          <th class="p-1 border text-center" style="font-size:10px;">الدوله بعد التعديل</th>
-          <th class="p-1 border text-center" style="font-size:10px;">المدينه بعد التعديل</th>
+          <th class="p-1 border text-center" style="font-size:10px;">اسم المنتج قبل التعديل</th>
+          <th class="p-1 border text-center" style="font-size:10px;">سعر الشراء قبل التعديل</th>
+          <th class="p-1 border text-center" style="font-size:10px;">سعر البيع قبل التعديل</th>
+          <th class="p-1 border text-center" style="font-size:10px;">الحد الادنى قبل التعديل</th>
+          <th class="p-1 border text-center" style="font-size:10px;">اسم المنتج بعد التعديل</th>
+          <th class="p-1 border text-center" style="font-size:10px;">سعر الشراء بعد التعديل</th>
+          <th class="p-1 border text-center" style="font-size:10px;">سعر البيع بعد التعديل</th>
+          <th class="p-1 border text-center" style="font-size:10px;">الحد الادنى بعد التعديل</th>
           <th class="p-1 border text-center" style="font-size:10px;">وقت العمليه</th>
           <th class="p-1 border text-center" style="font-size:10px;">تاريخ العمليه</th>
         </tr>
