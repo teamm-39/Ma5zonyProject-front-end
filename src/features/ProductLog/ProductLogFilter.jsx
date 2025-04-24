@@ -29,7 +29,7 @@ function ProductLogFilter({ onFilter }) {
     filterValues.newProductName != "" ||
     filterValues.oldProductName != "" ||
     filterValues.dateTime ||
-    filterValues.operationType != "" ||
+    filterValues.operationType ||
     filterValues.oldSellingPrice != "" ||
     filterValues.newSellingPrice != "" ||
     filterValues.oldPurchasePrice != "" ||
