@@ -129,7 +129,7 @@ StoreLogsTable.propTypes = {
   filterValues: PropTypes.shape({
     userName: PropTypes.string,
     operationType: PropTypes.string,
-    dateTime: PropTypes.string,
+    dateTime: PropTypes.instanceOf(Date),
     newStoreName: PropTypes.string,
     oldStoreName: PropTypes.string,
   }).isRequired,

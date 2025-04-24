@@ -6,7 +6,6 @@ export const getStoreLogs = async (pageNumber, pageSize,filterValues) => {
       pageSize,
       pageNumber,
     };
-    if (filterValues.name) params.name = filterValues.name;
     if (filterValues.operationType) params.operationType = filterValues.operationType;
     if (filterValues.newStoreName) params.newStoreName = filterValues.newStoreName;
     if (filterValues.oldStoreName) params.oldStoreName = filterValues.oldStoreName;
