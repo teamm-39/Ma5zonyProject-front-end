@@ -63,7 +63,7 @@ function ExportOperationsTable({ filterValues }) {
   return (
     <>
       <AppTable
-        title="عمليات التصدير"
+        title="عمليات البيع"
         isLoading={isFetching || isPending}
         onPageChange={handlePageChange}
         pageNumber={pageNumber}

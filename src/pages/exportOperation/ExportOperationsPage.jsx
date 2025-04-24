@@ -7,7 +7,7 @@ import ExportOperationsTable from "../../features/exportOperation/ExportOperatio
 function ExportOperationsPage() {
   const items = [
     { label: "لوحة التحكم", url: "/" },
-    { label: "عمليات التصدير" },
+    { label: "عمليات البيع" },
   ];
     const [filterValues, setFilterValues] = useState({
       userName: "",

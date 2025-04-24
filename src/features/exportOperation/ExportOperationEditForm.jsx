@@ -182,7 +182,7 @@ function ExportOperationEditForm() {
   });
   return (
     <>
-      <AppPagesCard title="تعديل عملية التصدير">
+      <AppPagesCard title="تعديل عملية البيع">
         <div className="row">
           <div className="col-12 col-md-4">
             <div className="input-container">

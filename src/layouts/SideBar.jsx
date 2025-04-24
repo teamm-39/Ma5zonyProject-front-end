@@ -88,7 +88,7 @@ function SideBar() {
                       to="/import"
                       className={`link-accordion ${isActive("/import")}`}
                     >
-                      عمليات الاستيراد
+                      عمليات الشراء
                     </Link>
                   </li>
                   <li>
@@ -96,7 +96,7 @@ function SideBar() {
                       to="/export"
                       className={`link-accordion ${isActive("/export")} mb-1`}
                     >
-                      عمليات التصدير
+                      عمليات البيع
                     </Link>
                   </li>
                 </ul>
@@ -124,12 +124,28 @@ function SideBar() {
                       تقارير المخازن
                     </Link>
                   </li>
-                  <li>
+                  <li className="mb-1">
                     <Link
                       to="/logs/product"
-                      className={`link-accordion ${isActive("/logs/product")} mb-1`}
+                      className={`link-accordion ${isActive("/logs/product")} `}
                     >
                       تقارير المنتجات
+                    </Link>
+                  </li>
+                  <li className="mb-1">
+                    <Link
+                      to="/logs/supplier"
+                      className={`link-accordion ${isActive("/logs/supplier")} `}
+                    >
+                      تقارير الموردين
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/logs/customer"
+                      className={`link-accordion ${isActive("/logs/customer")} `}
+                    >
+                      تقارير العملاء
                     </Link>
                   </li>
                 </ul>

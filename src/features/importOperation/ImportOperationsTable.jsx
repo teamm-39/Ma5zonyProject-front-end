@@ -64,7 +64,7 @@ function ImportOperationsTable({ filterValues }) {
   return (
     <>
       <AppTable
-        title="عمليات الاستيراد"
+        title="عمليات الشراء"
         isLoading={isFetching||isPending}
         onPageChange={handlePageChange}
         pageNumber={pageNumber}

@@ -5,8 +5,8 @@ import ImportOperationEditForm from "../../features/importOperation/ImportOperat
 function ImportOperationEdit() {
   const items = [
     { label: "لوحة التحكم", url: "/" },
-    { label: "عمليات الاستيراد", url: "/import" },
-    { label: "تعديل عملية الاستيراد" },
+    { label: "عمليات شراء", url: "/import" },
+    { label: "تعديل عملية الشراء" },
   ];
   return (
     <>

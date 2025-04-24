@@ -5,8 +5,8 @@ import ExportOperationDetailsForm from "../../features/exportOperation/ExportOpe
 function ExportOperationDetails() {
   const items = [
     { label: "لوحة التحكم", url: "/" },
-    { label: "عمليات التصدير", url: "/export" },
-    { label: "تفاصيل عملية التصدير" },
+    { label: "عمليات البيع", url: "/export" },
+    { label: "تفاصيل عملية البيع" },
   ];
   return (
     <>

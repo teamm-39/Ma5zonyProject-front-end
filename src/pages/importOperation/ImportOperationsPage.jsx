@@ -7,7 +7,7 @@ import ImportOperationsTable from "../../features/importOperation/ImportOperatio
 function ImportOperationsPage() {
   const items = [
     { label: "لوحة التحكم", url: "/" },
-    { label: "عمليات الاستيراد" },
+    { label: "عمليات الشراء" },
   ];
   const [filterValues, setFilterValues] = useState({
     userName: "",

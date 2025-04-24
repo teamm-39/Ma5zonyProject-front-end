@@ -191,7 +191,7 @@ function ImportOperationEditForm() {
   });
   return (
     <>
-      <AppPagesCard title="تعديل عملية الاستيراد">
+      <AppPagesCard title="تعديل عملية شراء">
         <div className="row">
           <div className="col-12 col-md-4">
             <div className="input-container">

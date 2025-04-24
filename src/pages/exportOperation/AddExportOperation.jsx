@@ -5,8 +5,8 @@ import ExportAddForm from "../../features/exportOperation/ExportAddForm";
 function AddExportOperation() {
   const items = [
     { label: "لوحة التحكم", url: "/" },
-    { label: "عمليات التصدير", url: "/export" },
-    { label: "اضافة عملية تصدير" },
+    { label: "عمليات البيع", url: "/export" },
+    { label: "اضافة عملية بيع" },
   ];
   return (
     <>

@@ -5,8 +5,8 @@ import ImportOperationDetailsForm from "../../features/importOperation/ImportOpe
 function ImportOperationDetails() {
   const items = [
     { label: "لوحة التحكم", url: "/" },
-    { label: "عمليات الاستيراد", url: "/import" },
-    { label: "تفاصيل عملية الاستيراد" },
+    { label: "عمليات الشراء", url: "/import" },
+    { label: "تفاصيل عملية شراء" },
   ];
   return (
     <>

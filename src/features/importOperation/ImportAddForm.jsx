@@ -137,7 +137,7 @@ function ImportAddForm() {
   });
   return (
     <>
-      <AppPagesCard title="اضافة عملية استيراد">
+      <AppPagesCard title="اضافة عملية شراء">
         <div className="row">
           <div className="col-12 col-md-4">
             <div className="input-container">
