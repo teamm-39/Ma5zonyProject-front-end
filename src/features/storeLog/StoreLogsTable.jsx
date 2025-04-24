@@ -119,7 +119,6 @@ function StoreLogsTable({ filterValues }) {
               return date.toLocaleDateString("ar-EG");
             }}
           />
-          <Column field="message" header="رساله" />
         </AppAditionalTable>
       </div>
     </>

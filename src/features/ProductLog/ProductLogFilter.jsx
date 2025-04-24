@@ -127,7 +127,7 @@ function ProductLogFilter({ onFilter }) {
               />
             </div>
             <div className="form-group col-12 col-md-4 mt-4">
-              <label htmlFor="newSellingPrice">سعر البيع القديم</label>
+              <label htmlFor="newSellingPrice">سعر البيع الجديد</label>
               <InputText
                 id="newSellingPrice"
                 min={1}

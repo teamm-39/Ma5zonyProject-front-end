@@ -1,8 +1,13 @@
-import { useContext, useState } from "react";
-import PropTypes from "prop-types"
+import { useContext, useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { ToastContext } from "../../App";
 import { useQuery } from "@tanstack/react-query";
 import { getProductLogs } from "./services/getProductLogs";
+import UseCreatePdf from "../../components/UseCreatePdf";
+import { getProductLogsWithoutPagination } from "./services/getProductLogsWithoutPagintaion";
+import { productLogTableToPdf } from "./services/ProductLogTableToPdf";
+import AppAditionalTable from "../../components/AppAdditionalTable";
+import { Column } from "primereact/column";
 function ProductLogsTable({ filterValues }) {
   const [pageNumber, setPageNumber] = useState(1);
   const [pageSize, setPageSize] = useState(5);
@@ -24,22 +29,152 @@ function ProductLogsTable({ filterValues }) {
       filterValues.oldPurchasePrice,
       filterValues.newPurchasePrice,
       pageNumber,
-      pageSize
+      pageSize,
     ],
-    queryFn: () => getProductLogs(pageNumber,pageSize,filterValues)
+    queryFn: () => getProductLogs(pageNumber, pageSize, filterValues),
   });
-
+  const [pdfTable, setPdfTable] = useState([]);
+  const {
+    data: dataWithoutPagination,
+    isFetching: dataIsFetshing,
+    error: dataError,
+    isError: dataIsError,
+  } = useQuery({
+    queryKey: ["storeLogsWithoutPagination", filterValues],
+    queryFn: () => getProductLogsWithoutPagination(filterValues),
+  });
+  useEffect(() => {
+    if (isError) {
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: error.message,
+        life: 3000,
+      });
+    }
+    if (dataIsError) {
+      toast.current.show({
+        severity: "error",
+        summary: "فشل",
+        detail: dataError.message || "حدث خطأ غير متوقع",
+        life: 3000,
+      });
+    }
+  }, [isError, error, toast, dataIsError, dataError?.message]);
+  useEffect(() => {
+    if (dataWithoutPagination) {
+      setPdfTable(productLogTableToPdf(dataWithoutPagination, filterValues));
+    }
+  }, [dataWithoutPagination, filterValues]);
   return (
     <>
-
+      <div className="logs-table mt-4">
+        <div className="taple-header d-flex justify-content-between align-items-center mt-4">
+          <div className="taple-header-info d-flex gap-1">
+            <span className="table-title">تقارير المنتجات</span>
+            <span className="table-total">{data?.total}</span>
+          </div>
+          <div className="header-btn">
+            <UseCreatePdf
+              pdfName={"storeLogs"}
+              table={pdfTable}
+              isLoading={dataIsFetshing}
+            />
+          </div>
+        </div>
+        <AppAditionalTable
+          data={data?.data || []}
+          isLoading={isFetching}
+          onPageChange={handlePageChange}
+          total={data?.total}
+          pageNumber={pageNumber}
+          pageSize={pageSize}
+          pagination={true}
+        >
+          <Column className="text-center" field="productLogId" header="#" />
+          <Column field="userName" header="اسم المستخدم" />
+          <Column
+            header="نوع العمليه"
+            body={(rowData) => {
+              if (rowData.lookupOperationTypeId == 3) {
+                return <span className="add-operation operation">اضافه</span>;
+              } else if (rowData.lookupOperationTypeId == 5) {
+                return <span className="delete-operation operation">حذف</span>;
+              } else if (rowData.lookupOperationTypeId == 4) {
+                return (
+                  <span className="update-operation operation">تعديل</span>
+                );
+              }
+            }}
+          />
+          <Column header="اسم المنتج قبل التعديل"  field="oldName" />
+          <Column
+            header="سعر الشراء قبل التعديل"
+            body={(rowData) =>
+              rowData.oldPurchasePrice === 0 ? "-" : rowData.oldPurchasePrice
+            }
+          />
+          <Column
+            header="سعر البيع قبل التعديل"
+            body={(rowData) =>
+              rowData.oldSellingPrice === 0 ? "-" : rowData.oldSellingPrice
+            }
+          />
+          <Column
+            header="الحد الادنى قبل التعديل"
+            body={(rowData) =>
+              rowData.oldMinLimit === 0 ? "-" : rowData.oldMinLimit
+            }
+          />
+          <Column header="اسم المنتج بعد التعديل" field="newName" />
+          <Column
+            header="سعر الشراء بعد التعديل"
+            body={(rowData) =>
+              rowData.newPurchasePrice === 0 ? "-" : rowData.newPurchasePrice
+            }
+          />
+          <Column
+            header="سعر البيع بعد التعديل"
+            body={(rowData) =>
+              rowData.newSellingPrice === 0 ? "-" : rowData.newSellingPrice
+            }
+          />
+                    <Column
+            header="الحد الادنى بعد التعديل"
+            body={(rowData) =>
+              rowData.newMinLimit === 0 ? "-" : rowData.newMinLimit
+            }
+          />
+                    <Column
+            header="وقت العملية"
+            body={(rowData) => {
+              const date = new Date(rowData.dateTime);
+              return date.toLocaleTimeString("ar-EG", {
+                hour: "2-digit",
+                minute: "2-digit",
+              });
+            }}
+          />
+          <Column
+            header="تاريخ العملية"
+            body={(rowData) => {
+              const date = new Date(rowData.dateTime);
+              return date.toLocaleDateString("ar-EG");
+            }}
+          />
+        </AppAditionalTable>
+      </div>
     </>
-   );
+  );
 }
 ProductLogsTable.propTypes = {
   filterValues: PropTypes.shape({
     userName: PropTypes.string,
     operationType: PropTypes.string,
-    dateTime: PropTypes.instanceOf(Date),
+    dateTime: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date),
+    ]),
     newProductName: PropTypes.string,
     oldProductName: PropTypes.string,
     oldSellingPrice: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),

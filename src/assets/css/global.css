@@ -118,7 +118,7 @@
   border: 0.5px solid rgba(112, 144, 176, 0.4);
 }
 .p-datatable-thead th {
-  padding: 0.7rem 1rem;
+  padding: 0.5rem 1rem;
   font-size: 11px;
   color: #5f5f5fbe;
   font-weight: normal;
@@ -131,7 +131,7 @@
   text-align: center;
   font-size: 11px;
   border-bottom: 1px solid var(--main-border);
-  padding: 0.7rem 1rem;
+  padding: 0.5rem .5rem;
   overflow: hidden;
   max-width: 200px;
 }
@@ -310,8 +310,9 @@
 .logs-table .operation{
   border-radius: 0.6rem;
   align-items: center;
-  padding: 0.2rem 0.5rem;
-  width: 5rem;
+  padding: 0.3rem 0.5rem;
+  width: 3rem;
+  display: inline-block;
 }
 .logs-table .add-operation{
   background-color: var(--green-100);
