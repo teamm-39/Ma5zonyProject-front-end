@@ -15,6 +15,9 @@
   --blue-500: #4f46e5;
   --disabled-bg: #f6f8f9;
 }
+body{
+  overflow-y: scroll;
+}
 .loading-spiner {
   position: absolute;
   top: 0;

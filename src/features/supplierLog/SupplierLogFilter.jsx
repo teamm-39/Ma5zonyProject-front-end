@@ -1,22 +1,22 @@
-import { Button } from "primereact/button";
+import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
+import AppAccordion from "../../components/AppAccordion";
 import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";
-import AppAccordion from "../../components/AppAccordion";
-import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { InputText } from "primereact/inputtext";
+import { Button } from "primereact/button";
 
-function ProductLogFilter({ onFilter }) {
+function SupplierLogFilter({ onFilter }) {
   const [filterValues, setFilterValues] = useState({
     userName: "",
     operationType: "",
-    dateTime: "",
-    newProductName: "",
-    oldProductName: "",
-    oldSellingPrice: "",
-    newSellingPrice: "",
-    oldPurchasePrice: "",
-    newPurchasePrice: "",
+    fromDateTime: "",
+    toDateTime: "",
+    oldName: "",
+    newName: "",
+    oldEmail: "",
+    newEmail: "",
+    oldPhoneNumber: "",
+    newPhoneNumber: "",
   });
   const handleInputChange = (e, field) => {
     setFilterValues((prev) => ({
@@ -26,14 +26,15 @@ function ProductLogFilter({ onFilter }) {
   };
   const validValues =
     filterValues.userName != "" ||
-    filterValues.newProductName != "" ||
-    filterValues.oldProductName != "" ||
-    filterValues.dateTime ||
-    filterValues.operationType != "" ||
-    filterValues.oldSellingPrice != "" ||
-    filterValues.newSellingPrice != "" ||
-    filterValues.oldPurchasePrice != "" ||
-    filterValues.newPurchasePrice != "";
+    filterValues.newName != "" ||
+    filterValues.oldName != "" ||
+    filterValues.fromDateTime ||
+    filterValues.toDateTime ||
+    filterValues.operationType ||
+    filterValues.oldEmail != "" ||
+    filterValues.newEmail != "" ||
+    filterValues.oldPhoneNumber != "" ||
+    filterValues.newPhoneNumber != "";
   useEffect(() => {
     if (!validValues) onFilter(filterValues);
   }, [filterValues, validValues, onFilter]);
@@ -53,104 +54,86 @@ function ProductLogFilter({ onFilter }) {
               />
             </div>
             <div className="form-group col-12 col-md-4">
-              <label htmlFor="oldProductName">اسم المنتج القديم</label>
+              <label htmlFor="oldName">اسم المورد القديم</label>
               <input
                 type="text"
-                id="oldProductName"
-                value={filterValues.oldProductName}
-                onChange={(e) => handleInputChange(e, "oldProductName")}
+                id="oldName"
+                value={filterValues.oldName}
+                onChange={(e) => handleInputChange(e, "oldName")}
                 className="form-control"
               />
             </div>
             <div className="form-group col-12 col-md-4">
-              <label htmlFor="newProductName">اسم المنتج الجديد</label>
+              <label htmlFor="newName">اسم المورد الجديد</label>
               <input
                 type="text"
-                id="newProductName"
-                value={filterValues.newProductName}
-                onChange={(e) => handleInputChange(e, "newProductName")}
+                id="newName"
+                value={filterValues.newName}
+                onChange={(e) => handleInputChange(e, "newName")}
                 className="form-control"
               />
             </div>
             <div className="form-group col-12 col-md-4 mt-4">
-              <label htmlFor="oldPurchasePrice">سعر الشراء القديم</label>
-              <InputText
-                id="oldPurchasePrice"
-                min={1}
-                value={filterValues.oldPurchasePrice}
-                onChange={(e) => {
-                  if (
-                    e.target.value === "0" ||
-                    e.target.value === "-" ||
-                    isNaN(e.target.value)
-                  )
-                    return;
-                  handleInputChange(e, "oldPurchasePrice");
-                }}
+              <label htmlFor="oldEmail">البريد الالكتروني القديم</label>
+              <input
+                type="text"
+                id="oldEmail"
+                value={filterValues.oldEmail}
+                onChange={(e) => handleInputChange(e, "oldEmail")}
                 className="form-control"
               />
             </div>
             <div className="form-group col-12 col-md-4 mt-4">
-              <label htmlFor="newPurchasePrice">سعر الشراء الجديد</label>
-              <InputText
-                id="newPurchasePrice"
-                min={1}
-                value={filterValues.newPurchasePrice}
-                onChange={(e) => {
-                  if (
-                    e.target.value === "0" ||
-                    e.target.value === "-" ||
-                    isNaN(e.target.value)
-                  )
-                    return;
-                  handleInputChange(e, "newPurchasePrice");
-                }}
+              <label htmlFor="newEmail">البريد الالكتروني الجديد</label>
+              <input
+                type="text"
+                id="newEmail"
+                value={filterValues.newEmail}
+                onChange={(e) => handleInputChange(e, "newEmail")}
                 className="form-control"
               />
             </div>
             <div className="form-group col-12 col-md-4 mt-4">
-              <label htmlFor="oldSellingPrice">سعر البيع القديم</label>
-              <InputText
-                id="oldSellingPrice"
-                min={1}
-                value={filterValues.oldSellingPrice}
-                onChange={(e) => {
-                  if (
-                    e.target.value === "0" ||
-                    e.target.value === "-" ||
-                    isNaN(e.target.value)
-                  )
-                    return;
-                  handleInputChange(e, "oldSellingPrice");
-                }}
+              <label htmlFor="oldPhoneNumber">رقم الهاتف القديم</label>
+              <input
+                type="text"
+                id="oldPhoneNumber"
+                value={filterValues.oldPhoneNumber}
+                onChange={(e) => handleInputChange(e, "oldPhoneNumber")}
                 className="form-control"
               />
             </div>
             <div className="form-group col-12 col-md-4 mt-4">
-              <label htmlFor="newSellingPrice">سعر البيع الجديد</label>
-              <InputText
-                id="newSellingPrice"
-                min={1}
-                value={filterValues.newSellingPrice}
-                onChange={(e) => {
-                  if (
-                    e.target.value === "0" ||
-                    e.target.value === "-" ||
-                    isNaN(e.target.value)
-                  )
-                    return;
-                  handleInputChange(e, "newSellingPrice");
-                }}
+              <label htmlFor="newPhoneNumber">رقم الهاتف الجديد</label>
+              <input
+                type="text"
+                id="newPhoneNumber"
+                value={filterValues.newPhoneNumber}
+                onChange={(e) => handleInputChange(e, "newPhoneNumber")}
                 className="form-control"
               />
             </div>
             <div className="form-group col-12 col-md-4 mt-4">
-              <label htmlFor="dateTime">من يوم</label>
+              <label htmlFor="fromDateTime">من يوم</label>
               <Calendar
                 id="dateTime"
                 maxDate={new Date()}
-                value={filterValues.dateTime}
-                onChange={(e) => handleInputChange(e, "dateTime")}
+                value={filterValues.fromDateTime}
+                onChange={(e) => handleInputChange(e, "fromDateTime")}
+                className="form-control "
+                inputClassName="calneder-input-style"
+                panelClassName="calender-style"
+                dateFormat="yy/mm/dd"
+                showButtonBar
+              />
+            </div>
+            <div className="form-group col-12 col-md-4 mt-4">
+              <label htmlFor="toDateTime">الى يوم</label>
+              <Calendar
+                id="dateTime"
+                maxDate={new Date()}
+                value={filterValues.toDateTime}
+                onChange={(e) => handleInputChange(e, "toDateTime")}
                 className="form-control "
                 inputClassName="calneder-input-style"
                 panelClassName="calender-style"
@@ -191,13 +174,14 @@ function ProductLogFilter({ onFilter }) {
                   setFilterValues({
                     userName: "",
                     operationType: "",
-                    dateTime: "",
-                    newProductName: "",
-                    oldProductName: "",
-                    oldSellingPrice: "",
-                    newSellingPrice: "",
-                    oldPurchasePrice: "",
-                    newPurchasePrice: "",
+                    fromDateTime: "",
+                    toDateTime: "",
+                    oldName: "",
+                    newName: "",
+                    oldEmail: "",
+                    newEmail: "",
+                    oldPhoneNumber: "",
+                    newPhoneNumber: "",
                   });
                 }}
               />
@@ -218,7 +202,7 @@ function ProductLogFilter({ onFilter }) {
     </>
   );
 }
-ProductLogFilter.propTypes = {
+SupplierLogFilter.propTypes = {
   onFilter: PropTypes.func.isRequired,
 };
-export default ProductLogFilter;
+export default SupplierLogFilter;

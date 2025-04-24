@@ -20,7 +20,8 @@ import CustomerRoutes from "./router/CustomerRoutes.jsx";
 import ExportOperationRoutes from "./router/ExportOperationRoutes.jsx";
 import StoreLogsPage from "./pages/storeLog/StoreLogsPage.jsx";
 import ProductLogsPage from "./pages/productLog/ProductLogsPage.jsx";
-import CustomerLogsPage from "./pages/CustomerLog/CustomerLogPage.jsx";
+import CustomerLogsPage from "./pages/customerLog/CustomerLogsPage.jsx";
+import SupplierLogsPage from "./pages/supplierLog/SupplierLogsPage.jsx";
 export const ToastContext = createContext(null);
 function App() {
   const toastRef = useRef(null);
@@ -45,6 +46,7 @@ function App() {
                 {ExportOperationRoutes()}
                 <Route path="/logs/store" element={<StoreLogsPage />} />
                 <Route path="/logs/product" element={<ProductLogsPage />} />
+                <Route path="/logs/supplier" element={<SupplierLogsPage />} />
                 <Route path="/logs/customer" element={<CustomerLogsPage />} />
               </Route>
             </Route>
