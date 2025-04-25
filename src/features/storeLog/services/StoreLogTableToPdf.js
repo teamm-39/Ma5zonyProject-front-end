@@ -1,4 +1,7 @@
 export const storeLogTableToPdf = (data, filters) => {
+  const date = new Date(filters?.dateTime || ""); // إذا مفيش تاريخ يعرض "-"
+  const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+  const formattedDate = filters?.dateTime ? date.toLocaleDateString('ar-EG', options) : "-";
   const rows =
     data?.data
       .map(
@@ -68,7 +71,7 @@ export const storeLogTableToPdf = (data, filters) => {
         اسم المخزن: ${filters?.storeName || "-"}
       </div>
       <div class="col-3">
-        من يوم: ${filters?.dateTime || "-"}
+        من يوم: ${formattedDate|| "-"}
       </div>
       <div class="col-3">
         نوع العمليه: ${operationText}

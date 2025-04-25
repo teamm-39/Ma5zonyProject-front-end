@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { ToastContext } from "../../App";
 import { useQuery } from "@tanstack/react-query";
@@ -6,6 +6,8 @@ import { getCustomerLogs } from "./services/getCustomerLogs";
 import UseCreatePdf from "../../components/UseCreatePdf";
 import AppAditionalTable from "../../components/AppAdditionalTable";
 import { Column } from "primereact/column";
+import { getCustomerLogsWithoutPagination } from "./services/getCustomerLogsWithoutPagination";
+import { customerLogTableToPdf } from "./services/csutomerLogTableToPdf";
 
 function CustomerLogsTable({ filterValues }) {
   const [pageNumber, setPageNumber] = useState(1);
@@ -34,7 +36,38 @@ function CustomerLogsTable({ filterValues }) {
     queryFn: () => getCustomerLogs(pageNumber, pageSize, filterValues),
   });
   const [pdfTable, setPdfTable] = useState([]);
-
+  const {
+    data: dataWithoutPagination,
+    isFetching: dataIsFetshing,
+    error: dataError,
+    isError: dataIsError,
+  } = useQuery({
+    queryKey: ["customerLogsWithoutPagination", filterValues],
+    queryFn: () => getCustomerLogsWithoutPagination( filterValues),
+  });
+    useEffect(() => {
+      if (isError) {
+        toast.current.show({
+          severity: "error",
+          summary: "Error",
+          detail: error.meesage || "حدث خطأ غير متوقع",
+          life: 3000,
+        });
+      }
+      if (dataIsError) {
+        toast.current.show({
+          severity: "error",
+          summary: "فشل",
+          detail: dataError.meesage || "حدث خطأ غير متوقع",
+          life: 3000,
+        });
+      }
+    }, [isError, error, toast, dataIsError, dataError]);
+    useEffect(() => {
+      if (dataWithoutPagination) {
+        setPdfTable(customerLogTableToPdf(dataWithoutPagination, filterValues));
+      }
+    }, [dataWithoutPagination, filterValues]);
   return (
     <>
       <div className="logs-table mt-4">
@@ -47,7 +80,7 @@ function CustomerLogsTable({ filterValues }) {
             <UseCreatePdf
               pdfName={"customerLogs"}
               table={pdfTable}
-              isLoading={isFetching}
+              isLoading={dataIsFetshing}
             />
           </div>
         </div>
