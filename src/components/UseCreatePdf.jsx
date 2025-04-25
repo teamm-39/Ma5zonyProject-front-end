@@ -29,8 +29,8 @@ function UseCreatePdf({ table, pdfName,isLoading }) {
       jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
       margin: [5, 5, 5, 5], // [top, left, bottom, right]
       pagebreak: {
-        mode: 'avoid-all',  // تجنب كسر الصفحة في أي مكان
-        avoid: 'tr'         // تجنب كسر الصفوف داخل الجدول
+        mode: 'auto',  // تجنب كسر الصفحة في أي مكان
+        avoid: ['tr']         // تجنب كسر الصفوف داخل الجدول
       }
     };
 

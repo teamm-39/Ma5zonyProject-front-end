@@ -96,12 +96,36 @@ function StoreLogsTable({ filterValues }) {
               }
             }}
           />
-          <Column header="اسم المخزن قبل التعديل" field="oldName" />
-          <Column header="الدوله قبل التعديل" field="oldCountry" />
-          <Column header="المدينه قبل التعديل" field="olgCity" />
-          <Column header="اسم المخزن بعد التعديل" field="newName" />
-          <Column header="الدوله بعد التعديل" field="newCountry" />
-          <Column header="المدينه بعد التعديل" field="newCity" />
+          <Column
+            header="اسم المخزن"
+            body={(rowData) => (
+              <>
+                <span>قبل: {rowData.oldName}</span>
+                <br />
+                <span>بعد: {rowData.newName}</span>
+              </>
+            )}
+          />
+          <Column
+            header="الدولة"
+            body={(rowData) => (
+              <>
+                <span>قبل: {rowData.oldCountry}</span>
+                <br />
+                <span>بعد: {rowData.newCountry}</span>
+              </>
+            )}
+          />
+          <Column
+            header="المدينة"
+            body={(rowData) => (
+              <>
+                <span>قبل: {rowData.olgCity}</span>
+                <br />
+                <span>بعد: {rowData.newCity}</span>
+              </>
+            )}
+          />
           <Column
             header="وقت العملية"
             body={(rowData) => {

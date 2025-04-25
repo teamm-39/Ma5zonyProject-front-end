@@ -2,6 +2,7 @@ import { useState } from "react";
 import AppBreadCrumb from "../../components/AppBreadCrumb";
 import AppCard from "../../components/AppCard";
 import CustomerLogFilter from "../../features/customerLog/CustomerLogFilter";
+import CustomerLogsTable from "../../features/customerLog/CustomerLogsTable";
 
 function CustomerLogsPage() {
   const items = [
@@ -25,6 +26,7 @@ function CustomerLogsPage() {
       <AppCard>
         <AppBreadCrumb items={items} />
         <CustomerLogFilter onFilter={setFilterValues} />
+        <CustomerLogsTable filterValues={filterValues} />
       </AppCard>
     </>
   );

@@ -8,6 +8,7 @@ import { getProductLogsWithoutPagination } from "./services/getProductLogsWithou
 import { productLogTableToPdf } from "./services/productLogTableToPdf";
 import AppAditionalTable from "../../components/AppAdditionalTable";
 import { Column } from "primereact/column";
+
 function ProductLogsTable({ filterValues }) {
   const [pageNumber, setPageNumber] = useState(1);
   const [pageSize, setPageSize] = useState(5);
@@ -33,6 +34,7 @@ function ProductLogsTable({ filterValues }) {
     ],
     queryFn: () => getProductLogs(pageNumber, pageSize, filterValues),
   });
+
   const [pdfTable, setPdfTable] = useState([]);
   const {
     data: dataWithoutPagination,
@@ -43,6 +45,7 @@ function ProductLogsTable({ filterValues }) {
     queryKey: ["productLogsWithoutPagination", filterValues],
     queryFn: () => getProductLogsWithoutPagination(filterValues),
   });
+
   useEffect(() => {
     if (isError) {
       toast.current.show({
@@ -61,11 +64,13 @@ function ProductLogsTable({ filterValues }) {
       });
     }
   }, [isError, error, toast, dataIsError, dataError?.message]);
+
   useEffect(() => {
     if (dataWithoutPagination) {
       setPdfTable(productLogTableToPdf(dataWithoutPagination, filterValues));
     }
   }, [dataWithoutPagination, filterValues]);
+
   return (
     <>
       <div className="logs-table mt-4">
@@ -107,45 +112,59 @@ function ProductLogsTable({ filterValues }) {
               }
             }}
           />
-          <Column header="اسم المنتج قبل التعديل"  field="oldName" />
           <Column
-            header="سعر الشراء قبل التعديل"
-            body={(rowData) =>
-              rowData.oldPurchasePrice === 0 ? "-" : rowData.oldPurchasePrice
-            }
-          />
-          <Column
-            header="سعر البيع قبل التعديل"
-            body={(rowData) =>
-              rowData.oldSellingPrice === 0 ? "-" : rowData.oldSellingPrice
-            }
+            header="اسم المنتج"
+            body={(rowData) => (
+              <>
+                <span>قبل: {rowData.oldName}</span>
+                <br />
+                <span>بعد: {rowData.newName}</span>
+              </>
+            )}
           />
           <Column
-            header="الحد الادنى قبل التعديل"
-            body={(rowData) =>
-              rowData.oldMinLimit === 0 ? "-" : rowData.oldMinLimit
-            }
+            header="سعر الشراء"
+            body={(rowData) => (
+              <>
+                <span>
+                  قبل: {rowData.oldPurchasePrice === 0 ? "-" : rowData.oldPurchasePrice}
+                </span>
+                <br />
+                <span>
+                  بعد: {rowData.newPurchasePrice === 0 ? "-" : rowData.newPurchasePrice}
+                </span>
+              </>
+            )}
           />
-          <Column header="اسم المنتج بعد التعديل" field="newName" />
           <Column
-            header="سعر الشراء بعد التعديل"
-            body={(rowData) =>
-              rowData.newPurchasePrice === 0 ? "-" : rowData.newPurchasePrice
-            }
+            header="سعر البيع"
+            body={(rowData) => (
+              <>
+                <span>
+                  قبل: {rowData.oldSellingPrice === 0 ? "-" : rowData.oldSellingPrice}
+                </span>
+                <br />
+                <span>
+                  بعد: {rowData.newSellingPrice === 0 ? "-" : rowData.newSellingPrice}
+                </span>
+              </>
+            )}
           />
           <Column
-            header="سعر البيع بعد التعديل"
-            body={(rowData) =>
-              rowData.newSellingPrice === 0 ? "-" : rowData.newSellingPrice
-            }
+            header="الحد الادنى"
+            body={(rowData) => (
+              <>
+                <span>
+                  قبل: {rowData.oldMinLimit === 0 ? "-" : rowData.oldMinLimit}
+                </span>
+                <br />
+                <span>
+                  بعد: {rowData.newMinLimit === 0 ? "-" : rowData.newMinLimit}
+                </span>
+              </>
+            )}
           />
-                    <Column
-            header="الحد الادنى بعد التعديل"
-            body={(rowData) =>
-              rowData.newMinLimit === 0 ? "-" : rowData.newMinLimit
-            }
-          />
-                    <Column
+          <Column
             header="وقت العملية"
             body={(rowData) => {
               const date = new Date(rowData.dateTime);
@@ -167,6 +186,7 @@ function ProductLogsTable({ filterValues }) {
     </>
   );
 }
+
 ProductLogsTable.propTypes = {
   filterValues: PropTypes.shape({
     userName: PropTypes.string,
@@ -179,8 +199,15 @@ ProductLogsTable.propTypes = {
     oldProductName: PropTypes.string,
     oldSellingPrice: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     newSellingPrice: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    oldPurchasePrice: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    newPurchasePrice: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    oldPurchasePrice: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]),
+    newPurchasePrice: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]),
   }),
 };
+
 export default ProductLogsTable;

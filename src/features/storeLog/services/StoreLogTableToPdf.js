@@ -2,11 +2,11 @@ export const storeLogTableToPdf = (data, filters) => {
   const rows =
     data?.data
       .map(
-        (item,i) => `
+        (item, i) => `
       <tr>
-        <td class="p-1 border" style="font-size:10px;">${i+1}</td>
-        <td class="p-1 border" style="font-size:10px;">${item.userName}</td>
-        <td class="p-1 border" style="font-size:10px;">${
+        <td class="p-1 border align-content-center" style="font-size:10px;">${i + 1}</td>
+        <td class="p-1 border align-content-center" style="font-size:10px;">${item.userName}</td>
+        <td class="p-1 border align-content-center" style="font-size:10px;">${
           item.lookupOperationTypeId === 3
             ? "اضافه"
             : item.lookupOperationTypeId === 4
@@ -15,19 +15,25 @@ export const storeLogTableToPdf = (data, filters) => {
             ? "حذف"
             : "-"
         }</td>
-        <td class="p-1 border" style="font-size:10px;">${item.oldName}</td>
-        <td class="p-1 border" style="font-size:10px;">${item.oldCountry}</td>
-        <td class="p-1 border" style="font-size:10px;">${item.olgCity}</td>
-        <td class="p-1 border" style="font-size:10px;">${item.newName}</td>
-        <td class="p-1 border" style="font-size:10px;">${item.newCountry}</td>
-        <td class="p-1 border" style="font-size:10px;">${item.newCity}</td>
-        <td class="p-1 border" style="font-size:10px;">${new Date(
+<td class="p-1 border" style="font-size:10px;">
+  <span>قبل: ${item.oldName}</span><br />
+  <span>بعد: ${item.newName}</span>
+</td>
+<td class="p-1 border" style="font-size:10px;">
+  <span>قبل: ${item.oldCountry}</span><br />
+  <span>بعد: ${item.newCountry}</span>
+</td>
+<td class="p-1 border" style="font-size:10px;">
+  <span>قبل: ${item.olgCity}</span><br />
+  <span>بعد: ${item.newCity}</span>
+</td>
+        <td class="p-1 border align-content-center" style="font-size:10px;">${new Date(
           item.dateTime
         ).toLocaleTimeString("ar-EG", {
           hour: "2-digit",
           minute: "2-digit",
         })}</td>
-        <td class="p-1 border" style="font-size:10px;">${new Date(
+        <td class="p-1 border align-content-center" style="font-size:10px;">${new Date(
           item.dateTime
         ).toLocaleDateString("ar-EG")}</td>
       </tr>
@@ -75,12 +81,9 @@ export const storeLogTableToPdf = (data, filters) => {
           <th class="p-1 border text-center" style="font-size:10px;">#</th>
           <th class="p-1 border text-center" style="font-size:10px;">اسم المستخدم</th>
           <th class="p-1 border text-center" style="font-size:10px;">نوع العمليه</th>
-          <th class="p-1 border text-center" style="font-size:10px;">اسم المخزن قبل التعديل</th>
-          <th class="p-1 border text-center" style="font-size:10px;">الدوله قبل التعديل</th>
-          <th class="p-1 border text-center" style="font-size:10px;">المدينه قبل التعديل</th>
-          <th class="p-1 border text-center" style="font-size:10px;">اسم المخزن بعد التعديل</th>
-          <th class="p-1 border text-center" style="font-size:10px;">الدوله بعد التعديل</th>
-          <th class="p-1 border text-center" style="font-size:10px;">المدينه بعد التعديل</th>
+          <th class="p-1 border text-center" style="font-size:10px;">اسم المخزن</th>
+          <th class="p-1 border text-center" style="font-size:10px;">الدوله</th>
+          <th class="p-1 border text-center" style="font-size:10px;">المدينه</th>
           <th class="p-1 border text-center" style="font-size:10px;">وقت العمليه</th>
           <th class="p-1 border text-center" style="font-size:10px;">تاريخ العمليه</th>
         </tr>

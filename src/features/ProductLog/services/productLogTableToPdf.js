@@ -4,9 +4,9 @@ export const productLogTableToPdf = (data, filters) => {
       .map(
         (item, i) => `
       <tr>
-        <td class="p-1 border" style="font-size:10px;">${i + 1}</td>
-        <td class="p-1 border" style="font-size:10px;">${item.userName}</td>
-        <td class="p-1 border" style="font-size:10px;">${
+        <td class="p-1 border align-content-center" style="font-size:10px;">${i + 1}</td>
+        <td class="p-1 border align-content-center" style="font-size:10px;">${item.userName}</td>
+        <td class="p-1 border align-content-center" style="font-size:10px;">${
           item.lookupOperationTypeId === 3
             ? "اضافه"
             : item.lookupOperationTypeId === 4
@@ -15,31 +15,36 @@ export const productLogTableToPdf = (data, filters) => {
             ? "حذف"
             : "-"
         }</td>
-        <td class="p-1 border" style="font-size:10px;">${item.oldName}</td>
-        <td class="p-1 border" style="font-size:10px;">${
-          item.oldPurchasePrice=== 0 ? "-" : item.oldPurchasePrice
-        }</td>
-        <td class="p-1 border" style="font-size:10px;">${
-          item.oldSellingPrice=== 0 ? "-" : item.oldSellingPrice
-        }</td>
-        <td class="p-1 border" style="font-size:10px;">${item.oldMinLimit===0?"-":item.oldMinLimit}</td>
-        <td class="p-1 border" style="font-size:10px;">${item.newName}</td>
-        <td class="p-1 border" style="font-size:10px;">${
-          item.newPurchasePrice=== 0 ? "-" : item.newPurchasePrice
-        }</td>
-        <td class="p-1 border" style="font-size:10px;">${
-          item.newSellingPrice=== 0 ? "-" : item.newSellingPrice
-        }</td>
-        <td class="p-1 border" style="font-size:10px;">${item.newMinLimit===0?"-":item.newMinLimit}</td>
-        <td class="p-1 border" style="font-size:10px;">${new Date(
-          item.dateTime
-        ).toLocaleTimeString("ar-EG", {
-          hour: "2-digit",
-          minute: "2-digit",
-        })}</td>
-        <td class="p-1 border" style="font-size:10px;">${new Date(
-          item.dateTime
-        ).toLocaleDateString("ar-EG")}</td>
+<td class="p-1 border" style="font-size:10px;">
+  <span>قبل: ${item.oldName}</span><br />
+  <span>بعد: ${item.newName}</span>
+</td>
+<td class="p-1 border" style="font-size:10px;">
+  <span>قبل: ${
+    item.oldPurchasePrice === 0 ? "-" : item.oldPurchasePrice
+  }</span><br />
+  <span>بعد: ${item.newPurchasePrice === 0 ? "-" : item.newPurchasePrice}</span>
+</td>
+<td class="p-1 border" style="font-size:10px;">
+  <span>قبل: ${
+    item.oldSellingPrice === 0 ? "-" : item.oldSellingPrice
+  }</span><br />
+  <span>بعد: ${item.newSellingPrice === 0 ? "-" : item.newSellingPrice}</span>
+</td>
+<td class="p-1 border" style="font-size:10px;">
+  <span>قبل: ${item.oldMinLimit === 0 ? "-" : item.oldMinLimit}</span><br />
+  <span>بعد: ${item.newMinLimit === 0 ? "-" : item.newMinLimit}</span>
+</td>
+<td class="p-1 border align-content-center" style="font-size:10px;">
+  ${new Date(item.dateTime).toLocaleTimeString("ar-EG", {
+    hour: "2-digit",
+    minute: "2-digit",
+  })}
+</td>
+<td class="p-1 border align-content-center" style="font-size:10px;">
+  ${new Date(item.dateTime).toLocaleDateString("ar-EG")}
+</td>
+
       </tr>
     `
       )
@@ -64,7 +69,7 @@ export const productLogTableToPdf = (data, filters) => {
     <div class="text-center mt-2 fw-bold">
       البحث والتصفيه
     </div>
-    <div class="row justify-content-center mt-2">
+    <div class="row justify-content-center  mt-2">
       <div class="col-3">
         اسم المستخدم: ${filters?.userName || "-"}
       </div>
@@ -100,14 +105,10 @@ export const productLogTableToPdf = (data, filters) => {
           <th class="p-1 border text-center" style="font-size:10px;">#</th>
           <th class="p-1 border text-center" style="font-size:10px;">اسم المستخدم</th>
           <th class="p-1 border text-center" style="font-size:10px;">نوع العمليه</th>
-          <th class="p-1 border text-center" style="font-size:10px;">اسم المنتج قبل التعديل</th>
-          <th class="p-1 border text-center" style="font-size:10px;">سعر الشراء قبل التعديل</th>
-          <th class="p-1 border text-center" style="font-size:10px;">سعر البيع قبل التعديل</th>
-          <th class="p-1 border text-center" style="font-size:10px;">الحد الادنى قبل التعديل</th>
-          <th class="p-1 border text-center" style="font-size:10px;">اسم المنتج بعد التعديل</th>
-          <th class="p-1 border text-center" style="font-size:10px;">سعر الشراء بعد التعديل</th>
-          <th class="p-1 border text-center" style="font-size:10px;">سعر البيع بعد التعديل</th>
-          <th class="p-1 border text-center" style="font-size:10px;">الحد الادنى بعد التعديل</th>
+          <th class="p-1 border text-center" style="font-size:10px;">اسم المنتج</th>
+          <th class="p-1 border text-center" style="font-size:10px;">سعر الشراء</th>
+          <th class="p-1 border text-center" style="font-size:10px;">سعر البيع</th>
+          <th class="p-1 border text-center" style="font-size:10px;">الحد الادنى</th>
           <th class="p-1 border text-center" style="font-size:10px;">وقت العمليه</th>
           <th class="p-1 border text-center" style="font-size:10px;">تاريخ العمليه</th>
         </tr>
