@@ -2,6 +2,7 @@ import { useState } from "react";
 import AppCard from "../../components/AppCard";
 import AppBreadCrumb from "../../components/AppBreadCrumb";
 import SupplierLogFilter from "../../features/supplierLog/SupplierLogFilter";
+import SupplierLogsTable from "../../features/supplierLog/SupplierLogsTable";
 
 function SupplierLogsPage() {
   const items = [
@@ -25,6 +26,7 @@ function SupplierLogsPage() {
       <AppCard>
         <AppBreadCrumb items={items} />
         <SupplierLogFilter onFilter={setFilterValues} />
+        <SupplierLogsTable filterValues={filterValues} />
       </AppCard>
     </>
    );
