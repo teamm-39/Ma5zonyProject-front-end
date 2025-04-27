@@ -2,6 +2,7 @@ import { useState } from "react";
 import AppBreadCrumb from "../../components/AppBreadCrumb";
 import AppCard from "../../components/AppCard";
 import OwnerLogsFilter from "../../features/ownerLog/OwnerLogFilter";
+import OwnerLogsTable from "../../features/ownerLog/OwnerLogsTable";
 
 function OwnerLogsPage() {
   const items = [
@@ -29,6 +30,7 @@ function OwnerLogsPage() {
       <AppCard>
         <AppBreadCrumb items={items} />
         <OwnerLogsFilter onFilter={setFilterValues} />
+        <OwnerLogsTable filterValues={filterValues} />
       </AppCard>
     </>
   );

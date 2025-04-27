@@ -1,15 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
 import { useContext, useEffect, useState } from "react";
 import { ToastContext } from "../../App";
-import { getSupplierLogs } from "./services/getSupplierLos";
 import PropTypes from "prop-types";
-import { getSupplierLogsWithoutPagination } from "./services/getSuppliersWithoutPagination";
-import { supplierLogTableToPdf } from "./services/supplierLogTableToPdf";
-import { Column } from "primereact/column";
-import AppAditionalTable from "../../components/AppAdditionalTable";
+import { getOwnerLogs } from "./services/getOwnerLogs";
+import { useQuery } from "@tanstack/react-query";
+import { getOwnerLogsWithoutPagination } from "./services/getOwnerLogsWithoutPagination";
 import UseCreatePdf from "../../components/UseCreatePdf";
+import AppAditionalTable from "../../components/AppAdditionalTable";
+import { Column } from "primereact/column";
 
-function SupplierLogsTable({ filterValues }) {
+function OwnerLogsTable({ filterValues }) {
   const [pageNumber, setPageNumber] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const handlePageChange = (event) => {
@@ -19,21 +18,25 @@ function SupplierLogsTable({ filterValues }) {
   const toast = useContext(ToastContext);
   const { data, isFetching, error, isError } = useQuery({
     queryKey: [
-      "supplierLogs",
+      "ownerLogs",
       filterValues.userName,
       filterValues.newName,
       filterValues.oldName,
       filterValues.fromDateTime,
       filterValues.toDateTime,
       filterValues.operationType,
-      filterValues.oldEmail,
-      filterValues.newEmail,
       filterValues.oldPhoneNumber,
       filterValues.newPhoneNumber,
+      filterValues.oldAddress,
+      filterValues.newAddress,
+      filterValues.oldUserName,
+      filterValues.newUserName,
+      filterValues.oldAge,
+      filterValues.newAge,
       pageNumber,
       pageSize,
     ],
-    queryFn: () => getSupplierLogs(pageNumber, pageSize, filterValues),
+    queryFn: () => getOwnerLogs(pageNumber, pageSize, filterValues),
   });
   const [pdfTable, setPdfTable] = useState([]);
   const {
@@ -42,43 +45,38 @@ function SupplierLogsTable({ filterValues }) {
     error: dataError,
     isError: dataIsError,
   } = useQuery({
-    queryKey: ["supplierLogsWithoutPagination", filterValues],
-    queryFn: () => getSupplierLogsWithoutPagination( filterValues),
+    queryKey: ["ownerLogsWithoutPagination", filterValues],
+    queryFn: () => getOwnerLogsWithoutPagination(filterValues),
   });
-    useEffect(() => {
-      if (isError) {
-        toast.current.show({
-          severity: "error",
-          summary: "Error",
-          detail: error.meesage || "حدث خطأ غير متوقع",
-          life: 3000,
-        });
-      }
-      if (dataIsError) {
-        toast.current.show({
-          severity: "error",
-          summary: "فشل",
-          detail: dataError.meesage || "حدث خطأ غير متوقع",
-          life: 3000,
-        });
-      }
-    }, [isError, dataIsError, error, dataError, toast]);
-    useEffect(() => {
-      if (dataWithoutPagination) {
-        setPdfTable(supplierLogTableToPdf(dataWithoutPagination, filterValues));
-      }
-    }, [dataWithoutPagination, filterValues]);
+  useEffect(() => {
+    if (isError) {
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: error.meesage || "حدث خطأ غير متوقع",
+        life: 3000,
+      });
+    }
+    if (dataIsError) {
+      toast.current.show({
+        severity: "error",
+        summary: "فشل",
+        detail: dataError.meesage || "حدث خطأ غير متوقع",
+        life: 3000,
+      });
+    }
+  }, [isError, dataIsError, error, dataError, toast]);
   return (
     <>
-<div className="logs-table mt-4">
+      <div className="logs-table mt-4">
         <div className="taple-header d-flex justify-content-between align-items-center mt-4">
           <div className="taple-header-info d-flex gap-1">
-            <span className="table-title">تقارير الموردين</span>
+            <span className="table-title">تقارير الملاك</span>
             <span className="table-total">{dataWithoutPagination?.total}</span>
           </div>
           <div className="header-btn">
             <UseCreatePdf
-              pdfName={"supplierLogs"}
+              pdfName={"ownerLogs"}
               table={pdfTable}
               isLoading={dataIsFetshing}
             />
@@ -95,7 +93,7 @@ function SupplierLogsTable({ filterValues }) {
         >
           <Column
             className="text-center"
-            field="customerSupplierLogId"
+            field="applicationUserLogId"
             header="#"
           />
           <Column field="userName" header="اسم المستخدم" />
@@ -114,7 +112,8 @@ function SupplierLogsTable({ filterValues }) {
             }}
           />
           <Column
-            header="اسم العميل"
+            header="اسم المالك"
+            style={{minWidth:"120px"}}
             body={(rowData) => {
               return (
                 <>
@@ -126,37 +125,25 @@ function SupplierLogsTable({ filterValues }) {
             }}
           />
           <Column
-            header="عمر المورد"
+            header="اسم المستخدم للمالك"
+            body={(rowData) => {
+              return (
+                <>
+                  <span>قبل:{rowData.oldUserName}</span>
+                  <br />
+                  <span>بعد:{rowData.newUserName}</span>
+                </>
+              );
+            }}
+          />
+          <Column
+            header="عمر المالك"
             body={(rowData) => {
               return (
                 <>
                   <span>قبل:{rowData.oldAge == 0 ? "-" : rowData.oldAge}</span>
                   <br />
                   <span>بعد:{rowData.newAge == 0 ? "-" : rowData.newAge}</span>
-                </>
-              );
-            }}
-          />
-          <Column
-            header="البريد الالكترونى"
-            body={(rowData) => {
-              return (
-                <>
-                  <span>قبل:{rowData.oldEmail}</span>
-                  <br />
-                  <span>بعد:{rowData.newEmail}</span>
-                </>
-              );
-            }}
-          />
-          <Column
-            header="مكان المورد"
-            body={(rowData) => {
-              return (
-                <>
-                  <span>قبل:{rowData.oldAddress}</span>
-                  <br />
-                  <span>بعد:{rowData.newAddress}</span>
                 </>
               );
             }}
@@ -174,32 +161,30 @@ function SupplierLogsTable({ filterValues }) {
             }}
           />
           <Column
-            header="موثوق به"
+            header="مكان الاقامه"
             body={(rowData) => {
               return (
                 <>
-                  <span>
-                    قبل:
-                    {rowData.oldIsReliable === true ? (
-                      "نعم"
-                    ) : rowData.oldIsReliable === false ? (
-                      "لا"
-                    ) : null}
-                  </span>
+                  <span>قبل:{rowData.oldAddress}</span>
                   <br />
-                  <span>
-                    بعد:
-                    {rowData.newIsReliable === true ? (
-                      "نعم"
-                    ) : rowData.newIsReliable === false ? (
-                      "لا"
-                    ) : null}
-                  </span>
+                  <span>بعد:{rowData.newAddress}</span>
                 </>
               );
             }}
           />
-          <Column
+                    <Column
+            header="البريد الالكترونى"
+            body={(rowData) => {
+              return (
+                <>
+                  <span>قبل:{rowData.oldEmail}</span>
+                  <br />
+                  <span>بعد:{rowData.newEmail}</span>
+                </>
+              );
+            }}
+          />
+                    <Column
             header="وقت العملية"
             body={(rowData) => {
               const date = new Date(rowData.dateTime);
@@ -219,13 +204,12 @@ function SupplierLogsTable({ filterValues }) {
         </AppAditionalTable>
       </div>
     </>
-   );
+  );
 }
-SupplierLogsTable.propTypes = {
+OwnerLogsTable.propTypes = {
   filterValues: PropTypes.shape({
     userName: PropTypes.string,
-    newName: PropTypes.string,
-    oldName: PropTypes.string,
+    operationType: PropTypes.string,
     fromDateTime: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.instanceOf(Date),
@@ -234,11 +218,16 @@ SupplierLogsTable.propTypes = {
       PropTypes.string,
       PropTypes.instanceOf(Date),
     ]),
-    operationType: PropTypes.string,
-    oldEmail: PropTypes.string,
-    newEmail: PropTypes.string,
+    oldUserName: PropTypes.string,
+    newUserName: PropTypes.string,
+    newName: PropTypes.string,
+    oldName: PropTypes.string,
+    oldAge: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    newAge: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     oldPhoneNumber: PropTypes.string,
     newPhoneNumber: PropTypes.string,
-  }).isRequired,
+    oldAddress: PropTypes.string,
+    newAddress: PropTypes.string,
+  }),
 };
-export default SupplierLogsTable;
+export default OwnerLogsTable;

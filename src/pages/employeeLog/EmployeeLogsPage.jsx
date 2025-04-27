@@ -2,7 +2,7 @@ import { useState } from "react";
 import AppCard from "../../components/AppCard";
 import AppBreadCrumb from "../../components/AppBreadCrumb";
 import EmployeeLogFilter from "../../features/employeeLog/EmployeeLogFilter";
-
+import EmployeeLogsTable from "../../features/employeeLog/EmployeeLogsTable";
 function EmployeeLogsPage() {
   const items = [
     { label: "لوحة التحكم", url: "/" },
@@ -29,6 +29,7 @@ function EmployeeLogsPage() {
       <AppCard>
         <AppBreadCrumb items={items} />
         <EmployeeLogFilter onFilter={setFilterValues} />
+        <EmployeeLogsTable filterValues={filterValues} />
         </AppCard>
     </>
    );
