@@ -7,6 +7,7 @@ import AppAditionalTable from "../../components/AppAdditionalTable";
 import { Column } from "primereact/column";
 import { getEmployeeLogs } from "./services/getEmployeeLogs";
 import { getEmployeeLogsWithoutPagination } from "./services/getEmployeeLogsWithoutPagination";
+import { employeeLogTableToPdf } from "./services/employeeLogTableToPdf";
 
 function EmployeeLogsTable({ filterValues }) {
   const [pageNumber, setPageNumber] = useState(1);
@@ -66,6 +67,11 @@ function EmployeeLogsTable({ filterValues }) {
       });
     }
   }, [isError, dataIsError, error, dataError, toast]);
+        useEffect(() => {
+          if (dataWithoutPagination) {
+            setPdfTable(employeeLogTableToPdf(dataWithoutPagination, filterValues));
+          }
+        }, [dataWithoutPagination, filterValues]);
   return (
     <>
       <div className="logs-table mt-4">

@@ -7,6 +7,7 @@ import { getOwnerLogsWithoutPagination } from "./services/getOwnerLogsWithoutPag
 import UseCreatePdf from "../../components/UseCreatePdf";
 import AppAditionalTable from "../../components/AppAdditionalTable";
 import { Column } from "primereact/column";
+import { ownerLogTableToPdf } from "./services/ownerLogTableToPdf";
 
 function OwnerLogsTable({ filterValues }) {
   const [pageNumber, setPageNumber] = useState(1);
@@ -66,6 +67,11 @@ function OwnerLogsTable({ filterValues }) {
       });
     }
   }, [isError, dataIsError, error, dataError, toast]);
+      useEffect(() => {
+        if (dataWithoutPagination) {
+          setPdfTable(ownerLogTableToPdf(dataWithoutPagination, filterValues));
+        }
+      }, [dataWithoutPagination, filterValues]);
   return (
     <>
       <div className="logs-table mt-4">

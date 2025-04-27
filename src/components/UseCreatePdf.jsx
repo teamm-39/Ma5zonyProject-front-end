@@ -27,7 +27,7 @@ function UseCreatePdf({ table, pdfName,isLoading }) {
       filename: `${pdfName}.pdf`,
       html2canvas: { scale: 2 }, // جودة الصورة
       jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-      margin: [5, 5, 5, 5], // [top, left, bottom, right]
+      margin: [5, 3, 5, 3], // [top, left, bottom, right]
       pagebreak: {
         mode: 'auto',  // تجنب كسر الصفحة في أي مكان
         avoid: ['tr']         // تجنب كسر الصفوف داخل الجدول
