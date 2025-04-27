@@ -82,7 +82,7 @@ function EmployeeLogsTable({ filterValues }) {
           </div>
           <div className="header-btn">
             <UseCreatePdf
-              pdfName={"ownerLogs"}
+              pdfName={"employeeLogs"}
               table={pdfTable}
               isLoading={dataIsFetshing}
             />

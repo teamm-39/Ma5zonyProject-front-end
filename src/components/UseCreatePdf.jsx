@@ -25,12 +25,12 @@ function UseCreatePdf({ table, pdfName,isLoading }) {
     // إعدادات الـ html2pdf مع تطبيق pagebreak بشكل صحيح
     const options = {
       filename: `${pdfName}.pdf`,
-      html2canvas: { scale: 2 }, // جودة الصورة
+      html2canvas: { scale: 1.5  }, // جودة الصورة
       jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
       margin: [5, 3, 5, 3], // [top, left, bottom, right]
       pagebreak: {
         mode: 'auto',  // تجنب كسر الصفحة في أي مكان
-        avoid: ['tr']         // تجنب كسر الصفوف داخل الجدول
+        avoid: ['tr','td']         // تجنب كسر الصفوف داخل الجدول
       }
     };
 
