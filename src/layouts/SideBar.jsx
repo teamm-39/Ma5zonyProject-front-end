@@ -140,12 +140,28 @@ function SideBar() {
                       تقارير الموردين
                     </Link>
                   </li>
-                  <li>
+                  <li className="mb-1">
                     <Link
                       to="/logs/customer"
                       className={`link-accordion ${isActive("/logs/customer")} `}
                     >
                       تقارير العملاء
+                    </Link>
+                  </li>
+                  <li className="mb-1">
+                    <Link
+                      to="/logs/owner"
+                      className={`link-accordion ${isActive("/logs/owner")} `}
+                    >
+                      تقارير الملاك
+                    </Link>
+                  </li>
+                  <li >
+                    <Link
+                      to="/logs/employee"
+                      className={`link-accordion ${isActive("/logs/employee")} `}
+                    >
+                      تقارير الموظفين
                     </Link>
                   </li>
                 </ul>
