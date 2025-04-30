@@ -12,7 +12,7 @@ function SideBar() {
     <>
       <div className="sidebar">
         <Link className="navbar-brand" to="/">
-          <div className="navbar-brand d-flex align-items-center p-0 m-0 pe-4 gap-2">
+          <div className="navbar-brand d-flex align-items-center p-0 m-0 pe-3 gap-2">
             <div className="brand-name text-center  d-flex flex-column">
               <h3 className="fw-bold p-0 m-0 ">مخزون</h3>
               <span className="brand-span m-0 p-0">
@@ -22,7 +22,6 @@ function SideBar() {
             <img
               src={logo}
               alt="logo"
-              className="me-2"
               width={30}
               style={{ height: "50px" }}
             />

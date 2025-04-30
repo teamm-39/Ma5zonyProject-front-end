@@ -1,61 +1,26 @@
-
-.homepage-container {
-    text-align: center;
-    font-family: Arial, sans-serif;
-    background-color: var(--main-bg);
-    padding: 20px;
-    min-height: 100vh;
-}
-
-
-/* العنوان الرئيسي */
-
-.header .title {
-    font-size: 2.5rem;
-    color: #004aad;
-    margin: 0;
-}
-
-.header .subtitle {
-    font-size: 1.2rem;
-    color: #555;
-    margin: 5px 0 20px;
-}
-
-
-/* حاوية البطاقات */
-
-.cards-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    padding: 20px;
-}
-
-
-/* تنسيق البطاقة */
-
-.card {
+.chart-card {
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    text-align: center;
     transition: transform 0.3s ease;
+    width: 50%;
 }
-
-.card:hover {
-    transform: translateY(-5px);
+.dropdown-for-chart {
+    padding-inline-start: 5px;
+    width: 80px;
 }
-
-.card .icon {
-    font-size: 2.5rem;
-    color: #004aad;
-    margin-bottom: 10px;
+.dropdown-for-chart svg{
+    margin-inline-end: 5px !important;
 }
-
-.card h3 {
-    font-size: 1.2rem;
-    color: #333;
-    margin: 0;
+.dropdown-for-chart .p-dropdown-label{
+    padding: 3px;
+    text-align: center;
+    margin-inline-start:9px ;
 }
+.chart-dropdown-panel ul{
+margin:0;
+}
+.chart-dropdown-panel ul li{
+    margin-bottom:2px;
+    font-size: 10px;
+    }
