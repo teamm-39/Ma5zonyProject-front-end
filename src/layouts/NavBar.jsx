@@ -1,11 +1,39 @@
 import { useSelector } from "react-redux";
 import "../assets/css/navbar.css";
 import blankProfile from "../assets/imgs/blank-profile.png";
-
+import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import logOut from "../services/logOut";
+import { useContext } from "react";
+import { ToastContext } from "../App";
 function NavBar() {
   const user = useSelector((state) => state.user);
+  const toast = useContext(ToastContext);
+  const navigate = useNavigate();
+  const { mutate } = useMutation({
+    mutationKey: ["log-out"],
+    mutationFn: () => logOut(),
+    onSuccess: () => {
+      toast.current.show({
+        severity: "success",
+        summary: "نجاح",
+        detail: "تم تسجيل الخروج بنجاح",
+        life: 3000,
+      });
+      navigate("/login");
+    },
+    onError: (error) => {
+      toast.current.show({
+        severity: "error",
+        summary: "فشل",
+        detail: error.message || "حدث خطأ غير متوقع",
+        life: 3000,
+      });
+    },
+  });
   return (
-    <div className="nav-container">
+    <>
+        <div className="nav-container">
       <nav className="navbar navbar-expand-lg" style={{ height: "66px" }}>
         <div className="d-flex justify-content-end w-100">
           <div className="navbar-nav border-end pe-3 border-2 ps-4">
@@ -30,8 +58,8 @@ function NavBar() {
                 </div>
               </div>
               <ul className="dropdown-menu">
-                <li>
-                  <div className="d-flex gap-3 align-items-center">
+                <li className="d-flex align-items-center gap-2 justify-content-between" style={{padding:"0 0.5rem 0.5rem 0.5rem"}}>
+                  <div className="user-info d-flex gap-2 align-items-center">
                     <img
                       src={
                         user.imgUrl
@@ -46,19 +74,33 @@ function NavBar() {
                       <span className="user-name">{user?.name}</span>
                       <span className="user-email">{user?.email}</span>
                     </div>
-                    <div>
+                  </div>
+                    <div >
                       <span className="user-role-name">
                         {user.roleName == "admin" ? "مالك" : "موظف"}
                       </span>
                     </div>
-                  </div>
+                </li>
+                <li className="my-1 border-top">
+                  <Link to={"/profile"} className="dropdown-item mt-1">
+                    <i className="fa-solid fa-user"></i>
+                    الملف الشخصى
+                  </Link>
+                </li>
+                <li className="border-top">
+                  <Link onClick={()=>mutate()} className="dropdown-item mt-1 user-log-out">
+                    <i className="fa-solid fa-right-from-bracket"></i>
+                    تسجيل الخروج
+                  </Link>
                 </li>
               </ul>
             </div>
           </div>
         </div>
       </nav>
-    </div>
+      </div>
+
+    </>
   );
 }
 
