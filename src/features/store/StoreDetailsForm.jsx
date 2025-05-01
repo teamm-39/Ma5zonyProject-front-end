@@ -104,7 +104,7 @@ function StoreAddForm() {
         <StoreDetailsTable
           data={products?.data || []}
           isLoading={productsIsLoading}
-          pageNumber={pageNumber - 1}
+          pageNumber={pageNumber}
           pageSize={pageSize}
           onPageChange={handlePageChange}
           total={products?.total || 0}

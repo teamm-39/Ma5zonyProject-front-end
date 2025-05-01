@@ -9,13 +9,16 @@
     padding-inline-start: 5px;
     width: 80px;
 }
+.chart-card .select{
+    text-align: center;
+}
 .dropdown-for-chart svg{
     margin-inline-end: 5px !important;
 }
 .dropdown-for-chart .p-dropdown-label{
     padding: 3px;
     text-align: center;
-    margin-inline-start:9px ;
+    margin-inline-start:20px ;
 }
 .chart-dropdown-panel ul{
 margin:0;
