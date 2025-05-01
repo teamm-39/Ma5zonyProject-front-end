@@ -2,9 +2,11 @@ import { Link, useLocation } from "react-router-dom";
 import "../assets/css/sidebar.css";
 import logo from "../assets/imgs/baner/logo.svg";
 import { Accordion, AccordionTab } from "primereact/accordion";
+import { useSelector } from "react-redux";
 
 function SideBar() {
   const location = useLocation();
+  const user = useSelector((state) => state.user);
   const isActive = (path) => {
     return location.pathname.startsWith(path) ? "active" : "";
   };
@@ -19,12 +21,7 @@ function SideBar() {
                 ادارة المستودعات والمخازن
               </span>
             </div>
-            <img
-              src={logo}
-              alt="logo"
-              width={30}
-              style={{ height: "50px" }}
-            />
+            <img src={logo} alt="logo" width={30} style={{ height: "50px" }} />
           </div>
         </Link>
         <ul className="menu m-0">
@@ -36,42 +33,55 @@ function SideBar() {
               <i className="bi bi-house-door ms-2"></i>
             </Link>
           </li>
-          <li className={`accordion-sidebar`}>
-            <Accordion
-              activeIndex={isActive("/owner") == "active" || isActive("/employee") ? 0 : undefined}
-            >
-              <AccordionTab
-                header={
-                  <div>
-                    إدارة المستخدمين
-                    <i className="bi bi-people ms-2"></i>
-                  </div>
+          {user.roleName == "admin" && (
+            <li className={`accordion-sidebar`}>
+              <Accordion
+                activeIndex={
+                  isActive("/owner") == "active" || isActive("/employee")
+                    ? 0
+                    : undefined
                 }
               >
-                <ul className={`accordion-menu p-0 mb-2`}>
-                  <li className="mb-1">
-                    <Link
-                      to="/owner"
-                      className={`link-accordion ${isActive("/owner")}`}
-                    >
-                      إدارة الملاك
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/employee"
-                      className={`link-accordion ${isActive("/employee")} mb-1`}
-                    >
-                      إدارة الموظفين
-                    </Link>
-                  </li>
-                </ul>
-              </AccordionTab>
-            </Accordion>
-          </li>
+                <AccordionTab
+                  header={
+                    <div>
+                      إدارة المستخدمين
+                      <i className="bi bi-people ms-2"></i>
+                    </div>
+                  }
+                >
+                  <ul className={`accordion-menu p-0 mb-2`}>
+                    <li className="mb-1">
+                      <Link
+                        to="/owner"
+                        className={`link-accordion ${isActive("/owner")}`}
+                      >
+                        إدارة الملاك
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/employee"
+                        className={`link-accordion ${isActive(
+                          "/employee"
+                        )} mb-1`}
+                      >
+                        إدارة الموظفين
+                      </Link>
+                    </li>
+                  </ul>
+                </AccordionTab>
+              </Accordion>
+            </li>
+          )}
+
           <li className={`accordion-sidebar`}>
             <Accordion
-              activeIndex={isActive("/import") == "active" || isActive("/export") ? 0 : undefined}
+              activeIndex={
+                isActive("/import") == "active" || isActive("/export")
+                  ? 0
+                  : undefined
+              }
             >
               <AccordionTab
                 header={
@@ -134,7 +144,9 @@ function SideBar() {
                   <li className="mb-1">
                     <Link
                       to="/logs/supplier"
-                      className={`link-accordion ${isActive("/logs/supplier")} `}
+                      className={`link-accordion ${isActive(
+                        "/logs/supplier"
+                      )} `}
                     >
                       تقارير الموردين
                     </Link>
@@ -142,7 +154,9 @@ function SideBar() {
                   <li className="mb-1">
                     <Link
                       to="/logs/customer"
-                      className={`link-accordion ${isActive("/logs/customer")} `}
+                      className={`link-accordion ${isActive(
+                        "/logs/customer"
+                      )} `}
                     >
                       تقارير العملاء
                     </Link>
@@ -155,10 +169,12 @@ function SideBar() {
                       تقارير الملاك
                     </Link>
                   </li>
-                  <li >
+                  <li>
                     <Link
                       to="/logs/employee"
-                      className={`link-accordion ${isActive("/logs/employee")} `}
+                      className={`link-accordion ${isActive(
+                        "/logs/employee"
+                      )} `}
                     >
                       تقارير الموظفين
                     </Link>
@@ -194,7 +210,6 @@ function SideBar() {
               <i className="bi bi-person-lines-fill ms-2"></i>
             </Link>
           </li>
-
         </ul>
       </div>
     </>

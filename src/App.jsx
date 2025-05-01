@@ -25,8 +25,12 @@ import SupplierLogsPage from "./pages/supplierLog/SupplierLogsPage.jsx";
 import OwnerLogsPage from "./pages/ownerLog/OwnerLogsPage.jsx";
 import EmployeeLogsPage from "./pages/employeeLog/EmployeeLogsPage.jsx";
 import UserProfile from "./pages/userProfile/UserProfile.jsx";
+import { useSelector } from "react-redux";
+
 export const ToastContext = createContext(null);
+
 function App() {
+  const user = useSelector((state) => state.user);
   const toastRef = useRef(null);
   return (
     <>
@@ -35,13 +39,16 @@ function App() {
           <Toast ref={toastRef} />
           <Routes>
             <Route path="/Login" element={<LoginPage />} />
-
             <Route element={<PrivateRoute />}>
               <Route path="/" element={<Layout />}>
                 <Route index element={<HomePage />} />
                 {StoreRoutes()}
-                {OwnerRoutes()}
-                {EmployeeRoutes()}
+                {user.roleName == "admin" && (
+                  <>
+                    {OwnerRoutes()}
+                    {EmployeeRoutes()}
+                  </>
+                )}
                 {ProductRoutes()}
                 {SupplierRoutes()}
                 {CustomerRoutes()}
