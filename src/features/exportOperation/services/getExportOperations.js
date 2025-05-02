@@ -8,10 +8,15 @@ export const getExportOperations = async (pageSize , pageNumber,filterValues) =>
     };
     if (filterValues.userName) params.userName = filterValues.userName;
     if (filterValues.customerName) params.customerName = filterValues.customerName;
-    if (filterValues.date) {
-      const localDate = new Date(filterValues.date);
-      localDate.setMinutes(localDate.getMinutes() - localDate.getTimezoneOffset());
-      params.dateTime = localDate.toISOString().split("T")[0];
+    if (filterValues.fromDateTime) {
+      const localDate = new Date(filterValues.fromDateTime);
+      localDate.setMinutes(localDate.getMinutes() - localDate.getTimezoneOffset()); // تعويض فرق التوقيت
+      params.fromDateTime = localDate.toISOString().split("T")[0];
+    }
+    if (filterValues.toDateTime) {
+      const localDate = new Date(filterValues.toDateTime);
+      localDate.setMinutes(localDate.getMinutes() - localDate.getTimezoneOffset()); // تعويض فرق التوقيت
+      params.toDateTime = localDate.toISOString().split("T")[0];
     }
 
     const res = await axios.get(`${import.meta.env.VITE_API_URL}ExportOperation`, {params, withCredentials: true});

@@ -12,7 +12,8 @@ function ProductLogsPage() {
     const [filterValues, setFilterValues] = useState({
       userName: "",
       operationType: "",
-      dateTime: "",
+      fromDateTime: "",
+      toDateTime: "",
       newProductName: "",
       oldProductName: "",
       oldSellingPrice: "",

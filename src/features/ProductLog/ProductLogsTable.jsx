@@ -22,7 +22,8 @@ function ProductLogsTable({ filterValues }) {
       "ProductLogs",
       filterValues.userName,
       filterValues.operationType,
-      filterValues.dateTime,
+      filterValues.fromDateTime,
+      filterValues.toDateTime,
       filterValues.newProductName,
       filterValues.oldProductName,
       filterValues.oldSellingPrice,
@@ -191,7 +192,11 @@ ProductLogsTable.propTypes = {
   filterValues: PropTypes.shape({
     userName: PropTypes.string,
     operationType: PropTypes.string,
-    dateTime: PropTypes.oneOfType([
+    fromDateTime: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date),
+    ]),
+    toDateTime: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.instanceOf(Date),
     ]),

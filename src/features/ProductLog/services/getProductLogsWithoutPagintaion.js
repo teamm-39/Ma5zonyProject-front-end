@@ -4,10 +4,15 @@ export const getProductLogsWithoutPagination = async (filterValues) => {
   try {
     const params = {
     }
-    if (filterValues.dateTime) {
-      const localDate = new Date(filterValues.dateTime);
+    if (filterValues.fromDateTime) {
+      const localDate = new Date(filterValues.fromDateTime);
       localDate.setMinutes(localDate.getMinutes() - localDate.getTimezoneOffset()); // تعويض فرق التوقيت
-      params.dateTime = localDate.toISOString().split("T")[0];
+      params.fromDateTime = localDate.toISOString().split("T")[0];
+    }
+    if (filterValues.toDateTime) {
+      const localDate = new Date(filterValues.toDateTime);
+      localDate.setMinutes(localDate.getMinutes() - localDate.getTimezoneOffset()); // تعويض فرق التوقيت
+      params.toDateTime = localDate.toISOString().split("T")[0];
     }
     if (filterValues.operationType) params.operationType = filterValues.operationType;
     if (filterValues.userName) params.userName = filterValues.userName;

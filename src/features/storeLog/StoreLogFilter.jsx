@@ -9,7 +9,8 @@ function StoreLogFilter({ onFilter }) {
   const [filterValues, setFilterValues] = useState({
     userName: "",
     operationType: null,
-    dateTime: null,
+    fromDateTime: "",
+    toDateTime: "",
     newStoreName: "",
     oldStoreName: "",
   });
@@ -23,7 +24,8 @@ function StoreLogFilter({ onFilter }) {
     filterValues.userName != "" ||
     filterValues.newStoreName != "" ||
     filterValues.oldStoreName != "" ||
-    filterValues.dateTime != null ||
+    filterValues.fromDateTime ||
+    filterValues.toDateTime ||
     filterValues.operationType != null;
   useEffect(() => {
     if (!validValues)
@@ -65,12 +67,26 @@ function StoreLogFilter({ onFilter }) {
               />
             </div>
             <div className="form-group col-12 col-md-4 mt-4">
-              <label htmlFor="dateTime">من يوم</label>
+              <label htmlFor="fromDateTime">من يوم</label>
               <Calendar
                 id="dateTime"
                 maxDate={new Date()}
-                value={filterValues.dateTime}
-                onChange={(e) => handleInputChange(e, "dateTime")}
+                value={filterValues.fromDateTime}
+                onChange={(e) => handleInputChange(e, "fromDateTime")}
+                className="form-control "
+                inputClassName="calneder-input-style"
+                panelClassName="calender-style"
+                dateFormat="yy/mm/dd"
+                showButtonBar
+              />
+            </div>
+            <div className="form-group col-12 col-md-4 mt-4">
+              <label htmlFor="toDateTime">الى يوم</label>
+              <Calendar
+                id="dateTime"
+                maxDate={new Date()}
+                value={filterValues.toDateTime}
+                onChange={(e) => handleInputChange(e, "toDateTime")}
                 className="form-control "
                 inputClassName="calneder-input-style"
                 panelClassName="calender-style"
@@ -110,7 +126,8 @@ function StoreLogFilter({ onFilter }) {
                 onClick={() => {
                   setFilterValues({
                     userName: "",
-                    dateTime: null,
+                    fromDateTime: "",
+                    toDateTime: "",
                     operationType: null,
                     newStoreName: "",
                     oldStoreName: "",

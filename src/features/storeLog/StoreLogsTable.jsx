@@ -24,17 +24,23 @@ function StoreLogsTable({ filterValues }) {
       pageSize,
       filterValues.userName,
       filterValues.operationType,
-      filterValues.dateTime,
+      filterValues.fromDateTime,
+      filterValues.toDateTime,
       filterValues.oldStoreName,
       filterValues.newStoreName,
     ],
     queryFn: () => getStoreLogs(pageNumber, pageSize, filterValues),
   });
   const [pdfTable, setPdfTable] = useState([]);
-  const { data:dataWithoutPagination,isFetching:dataIsFetshing,error:dataError,isError:dataIsError } = useQuery({
+  const {
+    data: dataWithoutPagination,
+    isFetching: dataIsFetshing,
+    error: dataError,
+    isError: dataIsError,
+  } = useQuery({
     queryKey: ["storeLogsWithoutPagination", filterValues],
     queryFn: () => getStoreLogsWithoutPagination(filterValues),
-  })
+  });
   useEffect(() => {
     if (isError) {
       toast.current.show({
@@ -68,7 +74,11 @@ function StoreLogsTable({ filterValues }) {
             <span className="table-total">{data?.total}</span>
           </div>
           <div className="header-btn">
-            <UseCreatePdf pdfName={"storeLogs"} table={pdfTable} isLoading={dataIsFetshing} />
+            <UseCreatePdf
+              pdfName={"storeLogs"}
+              table={pdfTable}
+              isLoading={dataIsFetshing}
+            />
           </div>
         </div>
         <AppAditionalTable
@@ -152,7 +162,14 @@ StoreLogsTable.propTypes = {
   filterValues: PropTypes.shape({
     userName: PropTypes.string,
     operationType: PropTypes.string,
-    dateTime: PropTypes.instanceOf(Date),
+    fromDateTime: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date),
+    ]),
+    toDateTime: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date),
+    ]),
     newStoreName: PropTypes.string,
     oldStoreName: PropTypes.string,
   }).isRequired,

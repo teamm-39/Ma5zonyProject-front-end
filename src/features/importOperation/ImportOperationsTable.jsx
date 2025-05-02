@@ -25,7 +25,8 @@ function ImportOperationsTable({ filterValues }) {
       pageSize,
       filterValues.userName,
       filterValues.supplierName,
-      filterValues.date,
+      filterValues.fromDateTime,
+      filterValues.toDateTime,
     ],
     queryFn: () => getImportOperations(pageSize, pageNumber, filterValues),
   });
@@ -40,7 +41,7 @@ function ImportOperationsTable({ filterValues }) {
     }
   }, [error, toast, isError]);
   const queryClient = useQueryClient();
-  const { mutate,isPending } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationKey: ["deleteImportOperation"],
     mutationFn: deleteImportOperation,
     onSuccess: () => {
@@ -65,7 +66,7 @@ function ImportOperationsTable({ filterValues }) {
     <>
       <AppTable
         title="عمليات الشراء"
-        isLoading={isFetching||isPending}
+        isLoading={isFetching || isPending}
         onPageChange={handlePageChange}
         pageNumber={pageNumber}
         pageSize={pageSize}
@@ -114,7 +115,14 @@ ImportOperationsTable.propTypes = {
   filterValues: PropTypes.shape({
     userName: PropTypes.string,
     supplierName: PropTypes.string,
-    date: PropTypes.instanceOf(Date),
+    fromDateTime: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date),
+    ]),
+    toDateTime: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date),
+    ]),
   }).isRequired,
 };
 export default ImportOperationsTable;

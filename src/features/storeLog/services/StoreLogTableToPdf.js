@@ -1,7 +1,9 @@
 export const storeLogTableToPdf = (data, filters) => {
-  const date = new Date(filters?.dateTime || ""); // إذا مفيش تاريخ يعرض "-"
+  const date = new Date(filters?.fromDateTime || ""); // إذا مفيش تاريخ يعرض "-"
   const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
-  const formattedDate = filters?.dateTime ? date.toLocaleDateString('ar-EG', options) : "-";
+  const fromDateTime = filters?.fromDateTime ? date.toLocaleDateString('ar-EG', options) : "-";
+  const date2 = new Date(filters?.toDateTime || ""); // إذا مفيش تاريخ يعرض "-"
+  const toDateTime = filters?.toDateTime ? date2.toLocaleDateString('ar-EG', options) : "-";
   const rows =
     data?.data
       .map(
@@ -71,9 +73,12 @@ export const storeLogTableToPdf = (data, filters) => {
         اسم المخزن: ${filters?.storeName || "-"}
       </div>
       <div class="col-3">
-        من يوم: ${formattedDate|| "-"}
+        من يوم: ${fromDateTime|| "-"}
       </div>
-      <div class="col-3">
+                  <div class="col-3">
+        الى يوم: ${toDateTime || "-"}
+      </div>
+      <div class="col-3 mt-3">
         نوع العمليه: ${operationText}
       </div>
     </div>

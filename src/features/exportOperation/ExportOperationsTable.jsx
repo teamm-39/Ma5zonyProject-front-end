@@ -24,7 +24,8 @@ function ExportOperationsTable({ filterValues }) {
       pageSize,
       filterValues.userName,
       filterValues.customerName,
-      filterValues.date,
+      filterValues.fromDateTime,
+      filterValues.toDateTime,
     ],
     queryFn: () => getExportOperations(pageSize, pageNumber, filterValues),
   });
@@ -39,7 +40,7 @@ function ExportOperationsTable({ filterValues }) {
     }
   }, [error, toast, isError]);
   const queryClient = useQueryClient();
-  const { mutate,isPending } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationKey: ["deleteImportOperation"],
     mutationFn: deleteExportOperation,
     onSuccess: () => {
@@ -113,7 +114,14 @@ ExportOperationsTable.propTypes = {
   filterValues: PropTypes.shape({
     userName: PropTypes.string,
     customerName: PropTypes.string,
-    date: PropTypes.instanceOf(Date),
+    fromDateTime: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date),
+    ]),
+    toDateTime: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Date),
+    ]),
   }).isRequired,
 };
 export default ExportOperationsTable;

@@ -11,7 +11,8 @@ function StoreLogsPage() {
     const [filterValues, setFilterValues] = useState({
       userName: "",
       operationType: null,
-      dateTime: null,
+      fromDateTime: "",
+      toDateTime: "",
       newStoreName: "",
       oldStoreName: "",
     });

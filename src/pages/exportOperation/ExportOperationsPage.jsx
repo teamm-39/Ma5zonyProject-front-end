@@ -12,7 +12,8 @@ function ExportOperationsPage() {
     const [filterValues, setFilterValues] = useState({
       userName: "",
       customerName: "",
-      date: null,
+      fromDateTime: "",
+      toDateTime: "",
     });
   return (
     <>

@@ -12,7 +12,8 @@ function ImportOperationsPage() {
   const [filterValues, setFilterValues] = useState({
     userName: "",
     supplierName: "",
-    date: null,
+    fromDateTime: "",
+    toDateTime: "",
   });
   return (
     <>

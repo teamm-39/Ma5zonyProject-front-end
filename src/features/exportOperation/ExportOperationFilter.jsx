@@ -8,7 +8,8 @@ function ExportOperationFilter({ onFilter }) {
   const [filterValues, setFilterValues] = useState({
     userName: "",
     customerName: "",
-    date: null,
+    fromDateTime: "",
+    toDateTime: "",
   });
   const handleInputChange = (e, field) => {
     let value = e.target.value;
@@ -19,7 +20,8 @@ function ExportOperationFilter({ onFilter }) {
   };
   const validValues =
     filterValues.userName != "" ||
-    filterValues.date != null ||
+    filterValues.fromDateTime ||
+    filterValues.toDateTime ||
     filterValues.customerName != "";
   useEffect(() => {
     if (!validValues) {
@@ -52,12 +54,26 @@ function ExportOperationFilter({ onFilter }) {
               />
             </div>
             <div className="form-group col-12 col-md-4">
-              <label htmlFor="date">من يوم</label>
+              <label htmlFor="fromDateTime">من يوم</label>
               <Calendar
-                id="date"
+                id="dateTime"
                 maxDate={new Date()}
-                value={filterValues.date}
-                onChange={(e) => handleInputChange(e, "date")}
+                value={filterValues.fromDateTime}
+                onChange={(e) => handleInputChange(e, "fromDateTime")}
+                className="form-control "
+                inputClassName="calneder-input-style"
+                panelClassName="calender-style"
+                dateFormat="yy/mm/dd"
+                showButtonBar
+              />
+            </div>
+            <div className="form-group col-12 col-md-4 mt-4">
+              <label htmlFor="toDateTime">الى يوم</label>
+              <Calendar
+                id="dateTime"
+                maxDate={new Date()}
+                value={filterValues.toDateTime}
+                onChange={(e) => handleInputChange(e, "toDateTime")}
                 className="form-control "
                 inputClassName="calneder-input-style"
                 panelClassName="calender-style"

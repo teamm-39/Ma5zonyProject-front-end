@@ -1,7 +1,9 @@
 export const productLogTableToPdf = (data, filters) => {
-  const date = new Date(filters?.dateTime || ""); // إذا مفيش تاريخ يعرض "-"
-const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
-const formattedDate = filters?.dateTime ? date.toLocaleDateString('ar-EG', options) : "-";
+  const date = new Date(filters?.fromDateTime || ""); // إذا مفيش تاريخ يعرض "-"
+  const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+  const fromDateTime = filters?.fromDateTime ? date.toLocaleDateString('ar-EG', options) : "-";
+  const date2 = new Date(filters?.toDateTime || ""); // إذا مفيش تاريخ يعرض "-"
+  const toDateTime = filters?.toDateTime ? date2.toLocaleDateString('ar-EG', options) : "-";
   const rows =
     data?.data
       .map(
@@ -95,9 +97,12 @@ const formattedDate = filters?.dateTime ? date.toLocaleDateString('ar-EG', optio
         سعر البيع الجديد: ${filters?.newSellingPrice || "-"}
       </div>
       <div class="col-3 mt-2">
-        من يوم: ${formattedDate || "-"}
+        من يوم: ${fromDateTime || "-"}
       </div>
-      <div class="col-12 text-center mt-2">
+            <div class="col-3 mt-2">
+        الى يوم: ${toDateTime || "-"}
+      </div>
+      <div class="col-3 text-center mt-2">
         نوع العمليه: ${operationText}
       </div>
     </div>
