@@ -8,6 +8,8 @@ const initialState = {
   "imgUrl": "",
   "address": "",
   "roleName": ""
+  , "password": "",
+  "confirmPassword": ""
 };
 const userSlice = createSlice({
   name: "userProfile",
@@ -22,6 +24,8 @@ const userSlice = createSlice({
       state.imgUrl = action.payload.imgUrl;
       state.address = action.payload.address;
       state.roleName = action.payload.roleName;
+      state.password = action.payload.password;
+      state.confirmPassword = action.payload.confirmPassword;
     },
     deleteUser() {
      return initialState;
