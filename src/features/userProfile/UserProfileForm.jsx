@@ -151,7 +151,7 @@ function UserProfileForm() {
   };
   return (
     <>
-      <AppPagesCard title="تعديل المالك">
+      <AppPagesCard title="تعديل الملف الشخصى">
         <div className="row">
           <div className="col-md-6 col-12 oreder-0 order-md-1 align-content-center">
             <div className="input-container">
@@ -206,7 +206,7 @@ function UserProfileForm() {
           </div>
           <div className="col-md-6 col-12 order-md-0 order-1">
             <div className="input-container mb-4">
-              <label htmlFor="name">اسم المالك</label>
+              <label htmlFor="name">اسم المستخدم</label>
               <span className="star">*</span>
               <InputText
                 id="name"
@@ -272,7 +272,7 @@ function UserProfileForm() {
           </div>
           <div className="col-md-6 col-12  mt-4 order-2">
             <div className="input-container">
-              <label htmlFor="age">عمر المالك</label>
+              <label htmlFor="age">عمر السمتخدم</label>
               <span className="star">*</span>
               <InputNumber
                 id="age"
