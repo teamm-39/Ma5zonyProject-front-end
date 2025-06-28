@@ -10,13 +10,13 @@ function SuppliersPage() {
     { label: "ادارة الموردين" },
   ];
   const [filterValues, setFilterValues] = useState({
-    name: "",
-    age: "",
-    address: "",
-    numOfDeal: "",
-    isReliable: "",
-    phoneNum: "",
-    email: "",
+      name: "",
+      age: "",
+      address: "",
+      numOfDeal: "",
+      isReliable: "",
+      phoneNum: "",
+      email: "",
   });
 
   return (

@@ -12,7 +12,7 @@
   width: 40px;
   height: 40px;
   object-fit: cover;
-  object-position: center center;
+  object-position: top center;
 }
 .profile-content span {
   font-size: 10px !important;
